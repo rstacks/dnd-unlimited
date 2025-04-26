@@ -7,6 +7,8 @@ DROP TABLE IF EXISTS saving_throws;
 DROP TABLE IF EXISTS skills;
 DROP TABLE IF EXISTS class_saving_throw_proficiencies;
 DROP TABLE IF EXISTS class_skill_proficiencies;
+DROP TABLE IF EXISTS character_spells;
+DROP TABLE IF EXISTS character_weapons;
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY,
@@ -71,3 +73,31 @@ CREATE TABLE class_skill_proficiencies (
   skill_id INTEGER REFERENCES skills,
   PRIMARY KEY (class_id, skill_id)
 );
+CREATE TABLE character_spells (
+  character_id INTEGER REFERENCES characters,
+  spell_id INTEGER REFERENCES spells,
+  PRIMARY KEY (character_id, spell_id)
+);
+CREATE TABLE character_weapons (
+  character_id INTEGER REFERENCES characters,
+  weapon_id INTEGER REFERENCES spells,
+  PRIMARY KEY (character_id, weapon_id)
+);
+
+BEGIN;
+
+INSERT INTO spells (spell_name, spell_desc) VALUES
+  (
+    'Fire Bolt',
+    'On hit, target takes 1d6 damage. Target must succeed
+    on a CON saving throw at the start of the round for flames to
+    douse; otherwise, they continue taking 1d6 damage.'
+  ),
+  (
+    'Command',
+    ''
+  ),
+  (),
+  ();
+
+COMMIT;

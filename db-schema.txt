@@ -80,3 +80,19 @@ PK: {
   FK: class_id
   FK: skill_id
 }
+
+###############
+CHARACTER_SPELL
+###############
+PK: {
+  FK: character_id
+  FK: spell_id
+}
+
+################
+CHARACTER_WEAPON
+################
+PK: {
+  FK: character_id
+  FK: weapon_id
+}
