@@ -3,23 +3,34 @@ USER
 ####
 PK: id
 phone
-type (GM, player)
-name
+user_type (GM, player)
+user_name
 
 #####
 SPELL
 #####
 PK: id
-name
-desc
+spell_name
+spell_desc
 
 ######
 WEAPON
 ######
 PK: id
-name
-type (melee, ranged)
-desc
+weapon_name
+weapon_type (melee, ranged)
+weapon_desc
+
+#####
+CLASS
+#####
+PK: id
+class_name
+class_desc
+speed
+proficiency_bonus
+hit_dice
+armor_class_type (4 + dex, 6)
 
 #########
 CHARACTER
@@ -27,13 +38,13 @@ CHARACTER
 PK: id
 FK: user_id
 FK: class_id
-name
-level
+character_name
+lvl
 xp
 str
 dex
 con
-int
+intl
 wis
 cha
 armor_class
@@ -41,28 +52,17 @@ hp
 max_hp
 notes
 
-#####
-CLASS
-#####
-PK: id
-name
-desc
-speed
-proficiency_bonus
-hit_dice
-AC_type (4 + dex, 6)
-
 ############
 SAVING_THROW
 ############
 PK: id
-name
+st_name
 
 #####
 SKILL
 #####
 PK: id
-name
+skill_name
 ability_name
 
 ##############################
