@@ -90,14 +90,24 @@ INSERT INTO spells (spell_name, spell_desc) VALUES
   (
     'Fire Bolt',
     'On hit, target takes 1d6 damage. Target must succeed
-    on a CON saving throw at the start of the round for flames to
+    with a CON saving throw at the start of the round for flames to
     douse; otherwise, they continue taking 1d6 damage.'
   ),
   (
     'Command',
-    ''
+    'Target must succeed with a WIS saving throw; otherwise, they
+    will carry out any one-word command that does not directly harm them.'
   ),
-  (),
-  ();
+  (
+    'Cure Wounds',
+    'Target gains HP equivalent to 1d6 + your spell attack modifier.'
+  ),
+  (
+    'Bless',
+    'User and all allies can add 1d4 to damage rolls or saving throws while
+    user is concentrating. If user takes damage, make a CON saving throw vs.
+    half of incoming damage; upon failure, concentration breaks and spell
+    effects end.'
+  );
 
 COMMIT;
