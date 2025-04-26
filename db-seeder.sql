@@ -109,5 +109,122 @@ INSERT INTO spells (spell_name, spell_desc) VALUES
     half of incoming damage; upon failure, concentration breaks and spell
     effects end.'
   );
+INSERT INTO classes (
+  class_name,
+  class_desc,
+  speed,
+  proficiency_bonus,
+  hit_dice,
+  armor_class_type
+  ) VALUES
+  (
+    'Fighter',
+    'The strongest pure combat class.',
+    30,
+    2,
+    '2d10',
+    '6'
+  ),
+  (
+    'Rogue',
+    'Specializes in deception, persuasion, and stealth.',
+    30,
+    2,
+    '2d8',
+    '4 + dex'
+  ),
+  (
+    'Paladin',
+    'Highly durable support class, though also strong in combat.',
+    30,
+    2,
+    '2d10',
+    '6'
+  ),
+  (
+    'Bard',
+    'Powerful background support class.',
+    30,
+    2,
+    '2d8',
+    '4 + dex'
+  );
+INSERT INTO saving_throws (st_name) VALUES
+  ('str'),
+  ('dex'),
+  ('con'),
+  ('intl'),
+  ('wis'),
+  ('cha');
+INSERT INTO skills (skill_name, ability_name) VALUES
+  (
+    'Animal Handling',
+    'wis'
+  ),
+  (
+    'Athletics',
+    'str'
+  ),
+  (
+    'Deception',
+    'cha'
+  ),
+  (
+    'Insight',
+    'wis'
+  ),
+  (
+    'Intimidation',
+    'cha'
+  ),
+  (
+    'Investigation',
+    'intl'
+  ),
+  (
+    'Medicine',
+    'wis'
+  ),
+  (
+    'Perception',
+    'wis'
+  ),
+  (
+    'Persuasion',
+    'cha'
+  ),
+  (
+    'Sleight of Hand',
+    'dex'
+  ),
+  (
+    'Stealth',
+    'dex'
+  ),
+  (
+    'Survival',
+    'wis'
+  );
+INSERT INTO class_saving_throw_proficiencies VALUES
+  (1, 1),
+  (1, 3),
+  (2, 2),
+  (2, 4),
+  (3, 5),
+  (3, 6),
+  (4, 2),
+  (4, 6);
+INSERT INTO class_skill_proficiencies VALUES
+  (1, 2),
+  (1, 5),
+  (2, 3),
+  (2, 9),
+  (2, 10),
+  (2, 11),
+  (3, 4),
+  (3, 7),
+  (4, 7),
+  (4, 8),
+  (4, 12);
 
 COMMIT;
