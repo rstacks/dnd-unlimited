@@ -1,0 +1,82 @@
+####
+USER
+####
+PK: id
+phone
+type (GM, player)
+name
+
+#####
+SPELL
+#####
+PK: id
+name
+desc
+
+######
+WEAPON
+######
+PK: id
+name
+type (melee, ranged)
+desc
+
+#########
+CHARACTER
+#########
+PK: id
+FK: user_id
+FK: class_id
+name
+level
+xp
+str
+dex
+con
+int
+wis
+cha
+armor_class
+hp
+max_hp
+notes
+
+#####
+CLASS
+#####
+PK: id
+name
+desc
+speed
+proficiency_bonus
+hit_dice
+AC_type (4 + dex, 6)
+
+############
+SAVING_THROW
+############
+PK: id
+name
+
+#####
+SKILL
+#####
+PK: id
+name
+ability_name
+
+##############################
+CLASS_SAVING_THROW_PROFICIENCY
+##############################
+PK: {
+  FK: class_id
+  FK: saving_throw_id
+}
+
+#######################
+CLASS_SKILL_PROFICIENCY
+#######################
+PK: {
+  FK: class_id
+  FK: skill_id
+}
