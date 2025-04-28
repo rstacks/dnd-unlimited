@@ -3,3 +3,9 @@ dnd-db.db
 
 # Python virtual environment
 .venv
+# Byte-compiled files
+__pycache__/
+
+
+# Shell scripts
+*.sh
