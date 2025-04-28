@@ -3,3 +3,6 @@ dnd-db.db
 
 # Python virtual environment
 .venv
+
+# Shell scripts
+*.sh
