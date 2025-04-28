@@ -1,11 +1,19 @@
+# All API endpoints are defined here.
+
 from flask import Flask
+import db_functions
 
 app = Flask(__name__)
 
-@app.get("/")
-def hello_world():
-  return "<h1>Howdy, world!</h1>"
+@app.get("/ping")
+def pong():
+  return "Pong!"
 
-@app.get("/test-var/<int:num>")
-def show_num(num):
-  return f"your number: {num}"
+@app.get("/skills")
+def get_skills():
+  skills = db_functions.get_skills()
+  return skills
+
+# @app.get("/test-var/<int:num>")
+# def show_num(num):
+#   return f"your number: {num}"
