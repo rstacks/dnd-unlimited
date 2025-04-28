@@ -1,9 +1,8 @@
 # Database
 dnd-db.db
 
-# Python virtual environment and others
+# Python virtual environment
 .venv
-__pycache__/
 
 # Shell scripts
 *.sh
