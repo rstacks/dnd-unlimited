@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS spells;
 DROP TABLE IF EXISTS weapons;
+DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS classes;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS saving_throws;
@@ -9,6 +10,7 @@ DROP TABLE IF EXISTS class_saving_throw_proficiencies;
 DROP TABLE IF EXISTS class_skill_proficiencies;
 DROP TABLE IF EXISTS character_spells;
 DROP TABLE IF EXISTS character_weapons;
+DROP TABLE IF EXISTS character_items;
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY,
@@ -27,14 +29,16 @@ CREATE TABLE weapons (
   weapon_type TEXT,
   weapon_desc TEXT
 );
+CREATE TABLE items (
+  id INTEGER PRIMARY KEY,
+  item_name TEXT,
+  item_desc TEXT
+);
 CREATE TABLE classes (
   id INTEGER PRIMARY KEY,
   class_name TEXT,
   class_desc TEXT,
-  speed INTEGER,
-  proficiency_bonus INTEGER,
-  hit_dice TEXT,
-  armor_class_type TEXT
+  hit_dice TEXT
 );
 CREATE TABLE characters (
   id INTEGER PRIMARY KEY,
@@ -52,7 +56,9 @@ CREATE TABLE characters (
   armor_class INTEGER,
   hp INTEGER,
   max_hp INTEGER,
-  notes TEXT
+  notes TEXT,
+  status_effects TEXT,
+  img_path TEXT
 );
 CREATE TABLE saving_throws (
   id INTEGER PRIMARY KEY,
@@ -82,6 +88,12 @@ CREATE TABLE character_weapons (
   character_id INTEGER REFERENCES characters,
   weapon_id INTEGER REFERENCES spells,
   PRIMARY KEY (character_id, weapon_id)
+);
+CREATE TABLE character_items (
+  character_id INTEGER REFERENCES characters,
+  item_id INTEGER REFERENCES items,
+  PRIMARY KEY (character_id, item_id),
+  amount INTEGER
 );
 
 BEGIN;
