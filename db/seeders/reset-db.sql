@@ -8,7 +8,6 @@ DROP TABLE IF EXISTS saving_throws;
 DROP TABLE IF EXISTS skills;
 DROP TABLE IF EXISTS class_saving_throw_proficiencies;
 DROP TABLE IF EXISTS class_skill_proficiencies;
-DROP TABLE IF EXISTS character_spells;
 DROP TABLE IF EXISTS character_weapons;
 DROP TABLE IF EXISTS character_items;
 
@@ -40,7 +39,8 @@ CREATE TABLE spells (
   id INTEGER PRIMARY KEY,
   class_id INTEGER REFERENCES classes,
   spell_name TEXT,
-  spell_desc TEXT
+  spell_desc TEXT,
+  spell_type TEXT
 );
 CREATE TABLE characters (
   id INTEGER PRIMARY KEY,
@@ -80,11 +80,6 @@ CREATE TABLE class_skill_proficiencies (
   class_id INTEGER REFERENCES classes,
   skill_id INTEGER REFERENCES skills,
   PRIMARY KEY (class_id, skill_id)
-);
-CREATE TABLE character_spells (
-  character_id INTEGER REFERENCES characters,
-  spell_id INTEGER REFERENCES spells,
-  PRIMARY KEY (character_id, spell_id)
 );
 CREATE TABLE character_weapons (
   character_id INTEGER REFERENCES characters,
