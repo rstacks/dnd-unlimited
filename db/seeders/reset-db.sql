@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS weapons;
 DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS classes;
 DROP TABLE IF EXISTS spells;
+DROP TABLE IF EXISTS feats;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS saving_throws;
 DROP TABLE IF EXISTS skills;
@@ -41,6 +42,12 @@ CREATE TABLE spells (
   spell_name TEXT,
   spell_desc TEXT,
   spell_type TEXT
+);
+CREATE TABLE feats (
+  id INTEGER PRIMARY KEY,
+  class_id INTEGER REFERENCES classes,
+  feat_name TEXT,
+  feat_desc TEXT
 );
 CREATE TABLE characters (
   id INTEGER PRIMARY KEY,
