@@ -79,7 +79,7 @@ spell_records = [
 con = sqlite3.connect(DB_CONNECTION_STR)
 cur = con.cursor()
 
-
+cur.executemany("INSERT INTO spells (class_id, spell_type, spell_name, spell_desc) VALUES (?, ?, ?, ?)", spell_records)
 con.commit()
 
 con.close()
