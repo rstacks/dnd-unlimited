@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS spells;
 DROP TABLE IF EXISTS weapons;
 DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS classes;
+DROP TABLE IF EXISTS spells;
 DROP TABLE IF EXISTS characters;
 DROP TABLE IF EXISTS saving_throws;
 DROP TABLE IF EXISTS skills;
@@ -17,11 +17,6 @@ CREATE TABLE users (
   phone TEXT,
   user_type TEXT,
   user_name TEXT
-);
-CREATE TABLE spells (
-  id INTEGER PRIMARY KEY,
-  spell_name TEXT,
-  spell_desc TEXT
 );
 CREATE TABLE weapons (
   id INTEGER PRIMARY KEY,
@@ -39,6 +34,12 @@ CREATE TABLE classes (
   class_name TEXT,
   class_desc TEXT,
   hit_dice TEXT
+);
+CREATE TABLE spells (
+  id INTEGER PRIMARY KEY,
+  class_id INTEGER REFERENCES classes,
+  spell_name TEXT,
+  spell_desc TEXT
 );
 CREATE TABLE characters (
   id INTEGER PRIMARY KEY,
