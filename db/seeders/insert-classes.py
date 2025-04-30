@@ -80,7 +80,7 @@ class_records = [
   (class_ids["Ranger"], "Ranger", "A wandering warrior imbued with primal magic.", "d10", "Spellcasting"),
   (class_ids["Rogue"], "Rogue", "A dexterous expert in stealth and subterfuge.", "d8", "Sneak Attack"),
   (class_ids["Sorcerer"], "Sorcerer", "A dazzling mage filled with innate magic.", "d6", "Spellcasting"),
-  (class_ids["Warlock"], "Warlock", "An occultist empowered by otherworldly pacts.", "d8", "Gaze of Two Minds"),
+  (class_ids["Warlock"], "Warlock", "An occultist empowered by otherworldly pacts.", "d8", "Spellcasting"),
   (class_ids["Wizard"], "Wizard", "A scholarly magic-user of arcane power.", "d6", "Spellcasting")
 ]
 

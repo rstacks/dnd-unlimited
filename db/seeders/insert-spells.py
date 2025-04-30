@@ -21,6 +21,7 @@ spellcaster_class_ids = {
   "Paladin": 7,
   "Ranger": 8,
   "Sorcerer": 10,
+  "Warlock": 11,
   "Wizard": 12
 }
 
