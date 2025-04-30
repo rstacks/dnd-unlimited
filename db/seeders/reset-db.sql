@@ -60,7 +60,11 @@ CREATE TABLE characters (
   max_hp INTEGER,
   notes TEXT,
   status_effects TEXT,
-  img_path TEXT
+  img_path TEXT,
+  lvl_1_spell_slots INTEGER,
+  lvl_2_spell_slots INTEGER,
+  lvl_3_spell_slots INTEGER,
+  lvl_4_spell_slots INTEGER
 );
 CREATE TABLE saving_throws (
   id INTEGER PRIMARY KEY,
