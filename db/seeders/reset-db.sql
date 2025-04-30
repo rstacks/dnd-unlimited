@@ -33,7 +33,8 @@ CREATE TABLE classes (
   id INTEGER PRIMARY KEY,
   class_name TEXT,
   class_desc TEXT,
-  hit_dice TEXT
+  hit_dice TEXT,
+  feat TEXT
 );
 CREATE TABLE spells (
   id INTEGER PRIMARY KEY,
