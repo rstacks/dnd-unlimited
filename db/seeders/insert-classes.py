@@ -1,3 +1,4 @@
+# https://www.dndbeyond.com/classes
 # Script for inserting classes into the database.
 # Relevant table schema below.
 
