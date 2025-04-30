@@ -87,7 +87,8 @@ CREATE TABLE character_spells (
 CREATE TABLE character_weapons (
   character_id INTEGER REFERENCES characters,
   weapon_id INTEGER REFERENCES spells,
-  PRIMARY KEY (character_id, weapon_id)
+  PRIMARY KEY (character_id, weapon_id),
+  damage_die TEXT
 );
 CREATE TABLE character_items (
   character_id INTEGER REFERENCES characters,
