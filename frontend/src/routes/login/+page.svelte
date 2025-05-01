@@ -6,10 +6,35 @@
 
 </script>
 
-<article>
+<article class="card boxed centered">
+  <h2>Log In</h2>
   <form method="POST" action="?/login">
-    <label><input type="number" placeholder="Phone Number"></label>
-    <input type="submit" value="Log In">
-    <input formaction="?/register" class="pseudo" type="submit" value="No account yet? Register">
+    <label><input type="text" placeholder="Phone Number" class="phone-input"></label>
+    <input type="submit" class="register" value="Log In">
+    <input formaction="?/register" class="pseudo register" type="submit" value="No account yet? Register">
   </form>
 </article>
+
+<style>
+  .boxed {
+    max-width: 25em;
+    width: 75%;
+  }
+
+  .centered {
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+  }
+
+  .register {
+    display: block;
+    margin: auto;
+    margin-bottom: 0.5em;
+  }
+
+  .phone-input {
+    width: 75%;
+    margin-bottom: 1em;
+  }
+</style>
