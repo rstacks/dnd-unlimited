@@ -8,8 +8,10 @@ export const load = (async () => {
 export const actions = {
   login: async ({ cookies, request }) => {
     // TODO: perform login
+    console.log("Attempt login");
   },
   register: async ({ cookies, request }) => {
     // TODO: perform register
+    console.log("Attempt register");
   }
 } satisfies Actions;
