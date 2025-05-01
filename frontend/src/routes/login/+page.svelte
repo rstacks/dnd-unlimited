@@ -3,8 +3,10 @@
 </svelte:head>
 
 <script lang="ts">
-
+  import Title from "$lib/Title.svelte";
 </script>
+
+<Title />
 
 <article class="card boxed centered">
   <h2>Log In</h2>
