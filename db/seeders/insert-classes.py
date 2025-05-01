@@ -1,3 +1,6 @@
+# NOTICE: OUTDATED
+# The database schema has changed since this script's creation.
+
 # https://www.dndbeyond.com/classes
 # Script for inserting classes into the database.
 # Relevant table schema below.
