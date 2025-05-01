@@ -70,7 +70,14 @@ CREATE TABLE characters (
   lvl_1_spell_slots INTEGER,
   lvl_2_spell_slots INTEGER,
   lvl_3_spell_slots INTEGER,
-  lvl_4_spell_slots INTEGER
+  lvl_4_spell_slots INTEGER,
+  proficiency_bonus INTEGER,
+  speed INTEGER,
+  rages INTEGER,
+  rage_damage INTEGER,
+  second_wind INTEGER,
+  martial_arts TEXT,
+  sneak_attack TEXT
 );
 CREATE TABLE saving_throws (
   id INTEGER PRIMARY KEY,
