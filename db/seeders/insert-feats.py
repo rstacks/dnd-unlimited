@@ -25,7 +25,10 @@ nonspellcaster_class_ids = {
 
 # Tuple schema: class_id, feat_name, feat_desc
 feat_records = [
-
+  (nonspellcaster_class_ids["Barbarian"], ""),
+  (),
+  (),
+  ()
 ]
 
 con = sqlite3.connect(DB_CONNECTION_STR)

@@ -34,7 +34,7 @@ CREATE TABLE classes (
   class_name TEXT,
   class_desc TEXT,
   hit_dice TEXT,
-  feat TEXT
+  feat_id INTEGER REFERENCES feats
 );
 CREATE TABLE spells (
   id INTEGER PRIMARY KEY,
@@ -45,7 +45,6 @@ CREATE TABLE spells (
 );
 CREATE TABLE feats (
   id INTEGER PRIMARY KEY,
-  class_id INTEGER REFERENCES classes,
   feat_name TEXT,
   feat_desc TEXT
 );
