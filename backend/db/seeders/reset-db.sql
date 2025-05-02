@@ -14,9 +14,10 @@ DROP TABLE IF EXISTS character_items;
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY,
-  phone TEXT,
+  phone_hash TEXT,
   user_type TEXT,
-  user_name TEXT
+  user_name TEXT,
+  session_uuid TEXT
 );
 CREATE TABLE weapons (
   id INTEGER PRIMARY KEY,
