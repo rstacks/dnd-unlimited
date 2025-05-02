@@ -42,5 +42,8 @@ export const actions = {
     console.log("Attempt register");
 
     // Redirect to a registration page. Steps will be similar to login.
+    // This probably doesn't need to be a form action. Make the registration
+    // button an anchor tag outside of the form element, and send 'em to 
+    // a new page
   }
 } satisfies Actions;

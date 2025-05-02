@@ -3,7 +3,7 @@
 </svelte:head>
 
 <script lang="ts">
-  import Title from "$lib/Title.svelte";
+  import Title from "$lib/components/Title.svelte";
   // TODO: make it so you can only enter numbers into phone number form
 </script>
 
