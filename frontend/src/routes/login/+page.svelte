@@ -4,7 +4,6 @@
 
 <script lang="ts">
   import Title from "$lib/components/Title.svelte";
-  // TODO: make it so you can only enter numbers into phone number form
 </script>
 
 <Title />
@@ -12,7 +11,7 @@
 <article class="card">
   <h2>Log In</h2>
   <form method="POST" action="?/login">
-    <label><input type="text" name="phone" placeholder="Phone Number" class="phone-input"></label>
+    <label><input type="tel" inputmode="numeric" name="phone" placeholder="Phone Number" class="phone-input"></label>
     <input type="submit" class="register" value="Log In">
     <input formaction="?/register" class="pseudo register" type="submit" value="No account yet? Register">
   </form>
