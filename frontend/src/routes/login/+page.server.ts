@@ -47,3 +47,5 @@ export const actions = {
     // a new page
   }
 } satisfies Actions;
+
+// put auth helpers here

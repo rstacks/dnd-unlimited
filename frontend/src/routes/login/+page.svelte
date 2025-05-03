@@ -9,7 +9,7 @@
 
 <Title />
 
-<article class="card boxed centered">
+<article class="card">
   <h2>Log In</h2>
   <form method="POST" action="?/login">
     <label><input type="text" name="phone" placeholder="Phone Number" class="phone-input"></label>
@@ -19,12 +19,9 @@
 </article>
 
 <style>
-  .boxed {
+  article {
     max-width: 25em;
     width: 75%;
-  }
-
-  .centered {
     justify-content: center;
     margin: auto;
     text-align: center;
