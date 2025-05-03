@@ -9,8 +9,13 @@ const SALT_ROUNDS = 10;
  * check for sessionId. If it exists in the db, redirect eventually.
  * For now do something to indicate this
  */
-export const load = (async () => {
-  return {};
+export const load = (async ({ cookies }) => {
+  const badPhone = cookies.get("badPhone");
+  const badName = cookies.get("badName");
+  return {
+    badPhone: badPhone,
+    badName: badName
+  };
 }) satisfies PageServerLoad;
 
 export const actions = {
@@ -19,6 +24,7 @@ export const actions = {
     const phonePlaintext = data.get("phone");
     if (!phonePlaintext) {
       console.log("You have to enter something you fucking idiot");
+      cookies.set("badPhone", "true", { path: "/" });
       return;
     }
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
@@ -29,6 +35,7 @@ export const actions = {
     console.log(phoneHash);
 
     // Steps:
+    // RESET badInput cookies
     // 1. Retrieve phone number
     //    a. If they didn't enter anything (empty string or null), update form with error message
     // 2. Hash it
