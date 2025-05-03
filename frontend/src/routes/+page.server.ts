@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { BACKEND_URL } from "$env/static/private";
 import bcrypt from "bcrypt";
 import { error, redirect, type Cookies } from "@sveltejs/kit";
-import { getUserIdByPhone, getUserIdBySession } from "$lib/util";
+import { getUserIdByPhone, getUserIdBySession } from "$lib/util/user";
 
 const SALT_ROUNDS = 10;
 
