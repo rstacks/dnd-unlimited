@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Login | DnD Unlimited</title>
+  <title>Register | DnD Unlimited</title>
 </svelte:head>
 
 <script lang="ts">
@@ -9,15 +9,19 @@
 <Title />
 
 <article class="card">
-  <h2>Log In</h2>
+  <h2>Register</h2>
   <form method="POST">
     <label>
       <input type="tel" inputmode="numeric" name="phone" placeholder="Phone Number"
         class="phone-input" autocomplete="off">
     </label>
-    <input type="submit" class="login" value="Log In">
+    <label>
+      <input type="text" name="name" placeholder="Name"
+        class="phone-input" autocomplete="off">
+    </label>
+    <input type="submit" class="login" value="Register">
   </form>
-  <a class="pseudo button register" href="/register">No account yet? Register</a>
+  <a class="pseudo button register" href="/login">Returning user? Login</a>
 </article>
 
 <style>
