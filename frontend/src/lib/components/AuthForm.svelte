@@ -1,8 +1,8 @@
 <script lang="ts">
   interface Props {
-    formtypeProp: "login" | "register";
-    loginAction: string;
-    registerAction: string;
+    formtypeProp?: "login" | "register";
+    loginAction?: string;
+    registerAction?: string;
   }
 
   let {
