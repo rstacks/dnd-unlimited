@@ -17,8 +17,8 @@
     }
   }
 
-  let showInvalidPhoneStyle: boolean = $state(true);
-  let showInvalidNameStyle: boolean = $state(true);
+  let showInvalidPhoneStyle = $state(true);
+  let showInvalidNameStyle = $state(true);
 </script>
 
 <Title />
@@ -103,8 +103,4 @@
     font-size: 0.75em;
     margin-bottom: 1em;
   }
-
-  /* .phone-input:invalid {
-    background-color: rgb(253, 183, 183);
-  } */
 </style>

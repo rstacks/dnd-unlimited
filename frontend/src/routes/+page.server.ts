@@ -4,6 +4,11 @@ import bcrypt from "bcrypt";
 
 const SALT_ROUNDS = 10;
 
+interface FormResponses {
+  phone?: string;
+  name?: string;
+}
+
 /**
  * TODO: 
  * check for sessionId. If it exists in the db, redirect eventually.
@@ -20,14 +25,23 @@ export const load = (async ({ cookies }) => {
 
 export const actions = {
   login: async ({ cookies, request }) => {
-    const data = await request.formData();
-    const phonePlaintext = data.get("phone");
-    if (!phonePlaintext) {
-      console.log("You have to enter something you fucking idiot");
+    const formResponses = await getPhoneAndName(request);
+    const phonePlaintext = formResponses.phone;
+
+    if (!phonePlaintext || !isValidPhone(phonePlaintext)) {
       cookies.set("badPhone", "true", { path: "/" });
       return;
     }
+
+    cookies.set("badPhone", "false", { path: "/" });
+    cookies.set("badName", "false", { path: "/" });
+
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
+
+
+
+
+    
     
     const sessionId = uuidv4();
     cookies.set("sessionId", sessionId, { path: "/" });
@@ -35,9 +49,6 @@ export const actions = {
     console.log(phoneHash);
 
     // Steps:
-    // RESET badInput cookies
-    // 1. Retrieve phone number
-    //    a. If they didn't enter anything (empty string or null), update form with error message
     // 2. Hash it
     //    a. Check the database for a match. If match, make note of the user_id
     //       Else, update form with error message
@@ -45,8 +56,23 @@ export const actions = {
     // 4. Set the session id cookie, then send the session id to the db
   },
   register: async ({ cookies, request }) => {
-    // TODO: perform register
-    console.log("Attempt register");
+    const formResponses = await getPhoneAndName(request);
+    const phonePlaintext = formResponses.phone;
+    const username = formResponses.name;
+
+    if (!phonePlaintext || !isValidPhone(phonePlaintext)) {
+      cookies.set("badPhone", "true", { path: "/" });
+      return;
+    }
+    if (!username || isValidName(username)) {
+      cookies.set("badName", "true", { path: "/" });
+      return;
+    }
+
+    cookies.set("badPhone", "false", { path: "/" });
+    cookies.set("badName", "false", { path: "/" });
+
+    const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
 
     // Redirect to a registration page. Steps will be similar to login.
     // This probably doesn't need to be a form action. Make the registration
@@ -55,4 +81,26 @@ export const actions = {
   }
 } satisfies Actions;
 
-// put auth helpers here
+async function getPhoneAndName(request: Request): Promise<FormResponses> {
+  const data = await request.formData();
+  const phone = data.get("phone")?.toString();
+  const name = data.get("user-name")?.toString();
+  return {
+    phone: phone,
+    name: name
+  };
+}
+
+function isValidPhone(phone: string): boolean {
+  if (phone && phone.trim().length > 0 && phone.match(/[0-9]{10}/)) {
+    return true;
+  }
+  return false;
+}
+
+function isValidName(name: string): boolean {
+  if (name && name.trim().length > 0) {
+    return true;
+  }
+  return false;
+}
