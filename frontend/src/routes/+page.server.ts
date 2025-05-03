@@ -2,12 +2,22 @@ import type { PageServerLoad, Actions } from "./$types";
 import { v4 as uuidv4 } from "uuid";
 import { BACKEND_URL } from "$env/static/private";
 import bcrypt from "bcrypt";
+import { error, type Cookies } from "@sveltejs/kit";
 
 const SALT_ROUNDS = 10;
 
 interface FormResponses {
   phone?: string;
   name?: string;
+}
+
+interface UserInfo {
+  id: number;
+  phone_hash: string;
+}
+
+interface UsersJSON {
+  users: UserInfo[];
 }
 
 /**
@@ -19,16 +29,20 @@ export const load = (async ({ cookies }) => {
   const badPhone = cookies.get("badPhone");
   const badName = cookies.get("badName");
   const onRegisterForm = cookies.get("onRegisterForm");
+  const accountNotFound = cookies.get("accountNotFound");
+  const accountAlreadyExists = cookies.get("accountAlreadyExists");
   return {
     badPhone: badPhone,
     badName: badName,
-    onRegisterForm: onRegisterForm
+    onRegisterForm: onRegisterForm,
+    accountNotFound: accountNotFound,
+    accountAlreadyExists: accountAlreadyExists
   };
 }) satisfies PageServerLoad;
 
 export const actions = {
   login: async ({ cookies, request }) => {
-    cookies.set("onRegisterForm", "false", { path: "/" });
+    initializeCookies(cookies, "login");
 
     const formResponses = await getPhoneAndName(request);
     const phonePlaintext = formResponses.phone;
@@ -38,11 +52,11 @@ export const actions = {
       return;
     }
 
-    cookies.set("badPhone", "false", { path: "/" });
-    cookies.set("badName", "false", { path: "/" });
-
-    const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
-    console.log(phoneHash);
+    const userId = await getUserId(phonePlaintext);
+    if (userId === -1) {
+      cookies.set("accountNotFound", "true", { path: "/" });
+      return;
+    }
 
     // const resp = await fetch(BACKEND_URL + "/ping");
     // if (resp.ok) {
@@ -66,7 +80,7 @@ export const actions = {
     // 4. Set the session id cookie, then send the session id to the db
   },
   register: async ({ cookies, request }) => {
-    cookies.set("onRegisterForm", "true", { path: "/" });
+    initializeCookies(cookies, "register");
 
     const formResponses = await getPhoneAndName(request);
     const phonePlaintext = formResponses.phone;
@@ -81,10 +95,15 @@ export const actions = {
       return;
     }
 
-    cookies.set("badPhone", "false", { path: "/" });
-    cookies.set("badName", "false", { path: "/" });
+    const userId = await getUserId(phonePlaintext);
+    if (userId !== -1) {
+      cookies.set("accountAlreadyExists", "true", { path: "/" });
+      return;
+    }
 
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
+    const sessionId = uuidv4();
+    cookies.set("sessionId", sessionId, { path: "/" });
 
     // Redirect to a registration page. Steps will be similar to login.
     // This probably doesn't need to be a form action. Make the registration
@@ -92,6 +111,18 @@ export const actions = {
     // a new page
   }
 } satisfies Actions;
+
+function initializeCookies(cookies: Cookies, formtype: "login" | "register"): void {
+  if (formtype === "login") {
+    cookies.set("onRegisterForm", "false", { path: "/" });
+  } else {
+    cookies.set("onRegisterForm", "true", { path: "/" });
+  }
+  cookies.set("accountNotFound", "false", { path: "/" });
+  cookies.set("accountAlreadyExists", "false", { path: "/" });
+  cookies.set("badPhone", "false", { path: "/" });
+  cookies.set("badName", "false", { path: "/" });
+}
 
 async function getPhoneAndName(request: Request): Promise<FormResponses> {
   const data = await request.formData();
@@ -118,4 +149,22 @@ function isValidName(name: string): boolean {
     return true;
   }
   return false;
+}
+
+async function getUserId(phonePlaintext: string): Promise<number> {
+  const resp = await fetch(BACKEND_URL + "/users");
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
+  const usersJson: UsersJSON = await resp.json();
+  const allUsers = usersJson.users;
+
+  for (const user of allUsers) {
+    const nextPhoneHash = user.phone_hash;
+    const userExists = await bcrypt.compare(phonePlaintext, nextPhoneHash);
+    if (userExists) {
+      return user.id;
+    }
+  }
+  return -1;
 }

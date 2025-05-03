@@ -41,6 +41,10 @@
     </label>
     {#if data.badPhone && data.badPhone === "true" && showInvalidPhoneStyle}
       <span>Please enter a valid phone number.</span>
+    {:else if data.accountNotFound && data.accountNotFound === "true" && showInvalidPhoneStyle}
+      <span>Account not found. Have you registered?</span>
+    {:else if data.accountAlreadyExists && data.accountAlreadyExists === "true" && showInvalidPhoneStyle}
+      <span>Phone number already in use. Log in instead?</span>
     {/if}
 
     {#if formtype === "register"}
