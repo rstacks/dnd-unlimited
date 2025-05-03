@@ -18,6 +18,23 @@
     }
   }
 
+  let badPhone = $state(false); 
+  if (data.badPhone && data.badPhone === "true") {
+    badPhone = true;
+  }
+  let badName = $state(false);
+  if (data.badName && data.badName === "true") {
+    badName = true;
+  }
+  let accountNotFound = $state(false);
+  if (data.accountNotFound && data.accountNotFound === "true") {
+    accountNotFound = true;
+  }
+  let accountAlreadyExists = $state(false);
+  if (data.accountAlreadyExists && data.accountAlreadyExists === "true") {
+    accountAlreadyExists = true;
+  }
+
   let showInvalidPhoneStyle = $state(true);
   let showInvalidNameStyle = $state(true);
 </script>
@@ -35,15 +52,15 @@
     <label>
       <input type="tel" inputmode="numeric" name="phone" placeholder="Phone Number"
         class="phone-input" autocomplete="off"
-        style:margin-bottom="{(data.badPhone && data.badPhone === "true" && showInvalidPhoneStyle) ? "0em" : "1em"}"
-        style:background-color="{(data.badPhone && data.badPhone === "true" && showInvalidPhoneStyle) ? "rgb(253, 183, 183)" : "white"}"
+        style:margin-bottom="{((badPhone || accountNotFound || accountAlreadyExists) && showInvalidPhoneStyle) ? "0em" : "1em"}"
+        style:background-color="{(badPhone && showInvalidPhoneStyle) ? "rgb(253, 183, 183)" : "white"}"
         oninput="{() => showInvalidPhoneStyle = false}">
     </label>
-    {#if data.badPhone && data.badPhone === "true" && showInvalidPhoneStyle}
+    {#if badPhone && showInvalidPhoneStyle}
       <span>Please enter a valid phone number.</span>
-    {:else if data.accountNotFound && data.accountNotFound === "true" && showInvalidPhoneStyle}
+    {:else if accountNotFound && showInvalidPhoneStyle}
       <span>Account not found. Have you registered?</span>
-    {:else if data.accountAlreadyExists && data.accountAlreadyExists === "true" && showInvalidPhoneStyle}
+    {:else if accountAlreadyExists && showInvalidPhoneStyle}
       <span>Phone number already in use. Log in instead?</span>
     {/if}
 
@@ -51,11 +68,11 @@
       <label>
         <input type="text" name="user-name" placeholder="Name"
           class="phone-input" autocomplete="off"
-          style:margin-bottom="{(data.badName && data.badName === "true" && showInvalidNameStyle) ? "0em" : "1em"}"
-          style:background-color="{(data.badName && data.badName === "true" && showInvalidNameStyle) ? "rgb(253, 183, 183)" : "white"}"
+          style:margin-bottom="{(badName && showInvalidNameStyle) ? "0em" : "1em"}"
+          style:background-color="{(badName && showInvalidNameStyle) ? "rgb(253, 183, 183)" : "white"}"
           oninput="{() => showInvalidNameStyle = false}">
       </label>
-      {#if data.badName && data.badName === "true" && showInvalidNameStyle}
+      {#if badName && showInvalidNameStyle}
         <span>Please enter your name.</span>
       {/if}
     {/if}
