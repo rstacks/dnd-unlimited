@@ -15,9 +15,9 @@ def pong():
 def get_users():
   return db_functions.get_users()
 
+@app.post("/login")
 
-
-
+@app.post("/register")
 
 
 
