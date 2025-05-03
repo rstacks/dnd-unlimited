@@ -38,15 +38,19 @@ export const actions = {
 
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
 
-
+    const resp = await fetch("http://localhost:5000/ping");
+    if (resp.ok) {
+      const msg = await resp.text();
+      console.log("API response: " + msg);
+    }
 
 
     
     
-    const sessionId = uuidv4();
-    cookies.set("sessionId", sessionId, { path: "/" });
+    // const sessionId = uuidv4();
+    // cookies.set("sessionId", sessionId, { path: "/" });
 
-    console.log(phoneHash);
+    // console.log(phoneHash);
 
     // Steps:
     // 2. Hash it

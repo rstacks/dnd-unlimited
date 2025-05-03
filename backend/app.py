@@ -1,9 +1,11 @@
 # All API endpoints are defined here.
 
 from flask import Flask
+from flask_cors import CORS
 import db_functions
 
 app = Flask(__name__)
+CORS(app, origins=["https://localhost:5173"]) # Update on deployment
 
 @app.get("/ping")
 def pong():
