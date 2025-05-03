@@ -9,6 +9,7 @@
   let { data }: PageProps = $props();
   
   let formtype: "login" | "register" = $state("login");
+  formtype = (data.onRegisterForm && data.onRegisterForm === "true") ? "register" : "login";
   function switchFormtype(currentFormtype: "login" | "register"): void {
     if (currentFormtype === "login") {
       formtype = "register";

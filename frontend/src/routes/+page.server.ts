@@ -18,14 +18,18 @@ interface FormResponses {
 export const load = (async ({ cookies }) => {
   const badPhone = cookies.get("badPhone");
   const badName = cookies.get("badName");
+  const onRegisterForm = cookies.get("onRegisterForm");
   return {
     badPhone: badPhone,
-    badName: badName
+    badName: badName,
+    onRegisterForm: onRegisterForm
   };
 }) satisfies PageServerLoad;
 
 export const actions = {
   login: async ({ cookies, request }) => {
+    cookies.set("onRegisterForm", "false", { path: "/" });
+
     const formResponses = await getPhoneAndName(request);
     const phonePlaintext = formResponses.phone;
 
@@ -62,6 +66,8 @@ export const actions = {
     // 4. Set the session id cookie, then send the session id to the db
   },
   register: async ({ cookies, request }) => {
+    cookies.set("onRegisterForm", "true", { path: "/" });
+
     const formResponses = await getPhoneAndName(request);
     const phonePlaintext = formResponses.phone;
     const username = formResponses.name;
@@ -70,7 +76,7 @@ export const actions = {
       cookies.set("badPhone", "true", { path: "/" });
       return;
     }
-    if (!username || isValidName(username)) {
+    if (!username || !isValidName(username)) {
       cookies.set("badName", "true", { path: "/" });
       return;
     }
