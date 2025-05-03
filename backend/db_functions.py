@@ -22,6 +22,25 @@ def get_users():
 
   return { "users": formatted_records }
 
+def get_user_by_id(id: int):
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute("SELECT phone_hash, user_type, user_name, session_uuid FROM users WHERE id = ?", (id,))
+  user_data: list[str] = cur.fetchone()
+
+  con.close()
+
+  if not user_data:
+    raise ValueError("User not found")
+
+  return {
+    "phone_hash": user_data[0],
+    "user_type": user_data[1],
+    "user_name": user_data[2],
+    "session_uuid": user_data[3]
+  }
+
 def register_user(phone_hash: str, user_name: str, session_id: str):
   values = (phone_hash, user_name, session_id)
 

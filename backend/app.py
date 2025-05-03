@@ -1,6 +1,6 @@
 # All API endpoints are defined here.
 
-from flask import Flask, request
+from flask import Flask, request, abort
 from flask_cors import CORS
 import db_functions
 
@@ -14,6 +14,16 @@ def pong():
 @app.get("/users")
 def get_users():
   return db_functions.get_users()
+
+@app.get("/users/<int:id>")
+def get_user_by_id(id: int):
+  user_data = {}
+  try:
+    user_data = db_functions.get_user_by_id(id)
+  except ValueError as e:
+    abort(404, e)
+
+  return user_data
 
 @app.post("/login")
 def login():
