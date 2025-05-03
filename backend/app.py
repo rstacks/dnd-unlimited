@@ -9,6 +9,21 @@ app = Flask(__name__)
 def pong():
   return "Pong!"
 
+@app.get("/users/")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @app.get("/skills")
 def get_skills():
   skills = db_functions.get_skills()

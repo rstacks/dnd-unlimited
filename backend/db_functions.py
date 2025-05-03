@@ -8,6 +8,20 @@ def _get_db_connection() -> sqlite3.Connection:
   con = sqlite3.connect(DB_CONNECTION_STR)
   return con
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def get_skills():
   con = _get_db_connection()
 
