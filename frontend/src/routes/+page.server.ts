@@ -58,26 +58,10 @@ export const actions = {
       return;
     }
 
-    // const resp = await fetch(BACKEND_URL + "/ping");
-    // if (resp.ok) {
-    //   const msg = await resp.text();
-    //   console.log("API response: " + msg);
-    // }
+    const sessionId = uuidv4();
+    cookies.set("sessionId", sessionId, { path: "/" });
 
-
-    
-    
-    // const sessionId = uuidv4();
-    // cookies.set("sessionId", sessionId, { path: "/" });
-
-    // console.log(phoneHash);
-
-    // Steps:
-    // 2. Hash it
-    //    a. Check the database for a match. If match, make note of the user_id
-    //       Else, update form with error message
-    // 3. Generate session id
-    // 4. Set the session id cookie, then send the session id to the db
+    // 4. Set the session id cookie, then send the session id and hash to the db
   },
   register: async ({ cookies, request }) => {
     initializeCookies(cookies, "register");
@@ -105,10 +89,7 @@ export const actions = {
     const sessionId = uuidv4();
     cookies.set("sessionId", sessionId, { path: "/" });
 
-    // Redirect to a registration page. Steps will be similar to login.
-    // This probably doesn't need to be a form action. Make the registration
-    // button an anchor tag outside of the form element, and send 'em to 
-    // a new page
+
   }
 } satisfies Actions;
 
