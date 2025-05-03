@@ -1,6 +1,6 @@
 # All API endpoints are defined here.
 
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 import db_functions
 
@@ -16,8 +16,20 @@ def get_users():
   return db_functions.get_users()
 
 @app.post("/login")
+def login():
+  req_json: dict = request.get_json()
+  user_id = req_json["userId"]
+  session_id = req_json["sessionId"]
+  return db_functions.login_user(user_id, session_id)
 
 @app.post("/register")
+def register():
+  req_json: dict = request.get_json()
+  phone_hash = req_json["phoneHash"]
+  user_name = req_json["userName"]
+  session_id = req_json["sessionId"]
+  return db_functions.register_user(phone_hash, user_name, session_id)
+
 
 
 

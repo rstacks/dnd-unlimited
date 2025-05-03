@@ -88,7 +88,7 @@ export const actions = {
     const sessionId = uuidv4();
     cookies.set("sessionId", sessionId, { path: "/" });
 
-
+    
   }
 } satisfies Actions;
 
