@@ -51,11 +51,8 @@ export const actions = {
 
     const sessionId = uuidv4();
     
-    
-    
+    await loginInDb(userId, sessionId);
     cookies.set("sessionId", sessionId, { path: "/" });
-
-    // 4. Set the session id cookie, then send the session id and hash to the db
   },
   register: async ({ cookies, request }) => {
     cookies.set("onRegisterForm", "true", { path: "/" });
@@ -129,6 +126,21 @@ function isValidName(name: string): boolean {
     return true;
   }
   return false;
+}
+
+async function loginInDb(userId: number, sessionId: string): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/login", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      userId: userId,
+      sessionId: sessionId
+    })
+  });
+
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
 }
 
 async function registerInDb(phoneHash: string, username: string, sessionId: string): Promise<void> {
