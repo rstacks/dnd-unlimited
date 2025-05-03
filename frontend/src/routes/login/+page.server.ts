@@ -14,7 +14,7 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-  login: async ({ cookies, request }) => {
+  default: async ({ cookies, request }) => {
     const data = await request.formData();
     const phonePlaintext = data.get("phone");
     if (!phonePlaintext) {
@@ -37,15 +37,15 @@ export const actions = {
     // 3. Generate session id
     // 4. Set the session id cookie, then send the session id to the db
   },
-  register: async ({ cookies, request }) => {
-    // TODO: perform register
-    console.log("Attempt register");
+  // register: async ({ cookies, request }) => {
+  //   // TODO: perform register
+  //   console.log("Attempt register");
 
-    // Redirect to a registration page. Steps will be similar to login.
-    // This probably doesn't need to be a form action. Make the registration
-    // button an anchor tag outside of the form element, and send 'em to 
-    // a new page
-  }
+  //   // Redirect to a registration page. Steps will be similar to login.
+  //   // This probably doesn't need to be a form action. Make the registration
+  //   // button an anchor tag outside of the form element, and send 'em to 
+  //   // a new page
+  // }
 } satisfies Actions;
 
 // put auth helpers here
