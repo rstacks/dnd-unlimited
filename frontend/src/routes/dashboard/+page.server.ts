@@ -1,5 +1,5 @@
 import type { PageServerLoad } from "./$types";
-import { getUserIdBySession } from "$lib/util/user";
+import { getUserIdBySession, getUserById } from "$lib/util/user";
 import { redirect } from "@sveltejs/kit";
 
 export const load = (async ({ cookies }) => {
@@ -12,7 +12,6 @@ export const load = (async ({ cookies }) => {
     redirect(303, "/");
   }
   
-  return {
-
-  };
+  const userData = await getUserById(userId);
+  return { name: userData.user_name };
 }) satisfies PageServerLoad;
