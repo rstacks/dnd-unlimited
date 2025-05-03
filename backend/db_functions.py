@@ -11,13 +11,13 @@ def _get_db_connection() -> sqlite3.Connection:
 def get_users():
   con = _get_db_connection()
   cur = con.cursor()
-  cur.execute("SELECT id, phone_hash FROM users")
+  cur.execute("SELECT id, phone_hash, session_uuid FROM users")
   raw_result: list[list] = cur.fetchall()
   con.close()
   
   formatted_records = []
   for user_data in raw_result:
-    user_dict = {"id": user_data[0], "phone_hash": user_data[1]}
+    user_dict = {"id": user_data[0], "phone_hash": user_data[1], "session_uuid": user_data[2]}
     formatted_records.append(user_dict)
 
   return { "users": formatted_records }

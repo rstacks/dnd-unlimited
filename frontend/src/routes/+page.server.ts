@@ -2,22 +2,14 @@ import type { PageServerLoad, Actions } from "./$types";
 import { v4 as uuidv4 } from "uuid";
 import { BACKEND_URL } from "$env/static/private";
 import bcrypt from "bcrypt";
-import { error, type Cookies } from "@sveltejs/kit";
+import { error, redirect, type Cookies } from "@sveltejs/kit";
+import { getUserIdByPhone, getUserIdBySession } from "$lib/util";
 
 const SALT_ROUNDS = 10;
 
 interface FormResponses {
   phone?: string;
   name?: string;
-}
-
-interface UserInfo {
-  id: number;
-  phone_hash: string;
-}
-
-interface UsersJSON {
-  users: UserInfo[];
 }
 
 interface FormCookies {
@@ -28,12 +20,12 @@ interface FormCookies {
   accountAlreadyExists?: string;
 }
 
-/**
- * TODO: 
- * check for sessionId. If it exists in the db, redirect eventually.
- * For now do something to indicate this
- */
 export const load = (async ({ cookies }) => {
+  const sessionId = cookies.get("sessionId");
+  if (sessionId && (-1 !== await getUserIdBySession(sessionId))) {
+    redirect(303, "/dashboard");
+  }
+
   const formCookies = getFormCookies(cookies);
   resetFormCookies(cookies);
   return formCookies;
@@ -51,13 +43,16 @@ export const actions = {
       return;
     }
 
-    const userId = await getUserId(phonePlaintext);
+    const userId = await getUserIdByPhone(phonePlaintext);
     if (userId === -1) {
       cookies.set("accountNotFound", "true", { path: "/" });
       return;
     }
 
     const sessionId = uuidv4();
+    
+    
+    
     cookies.set("sessionId", sessionId, { path: "/" });
 
     // 4. Set the session id cookie, then send the session id and hash to the db
@@ -78,7 +73,7 @@ export const actions = {
       return;
     }
 
-    const userId = await getUserId(phonePlaintext);
+    const userId = await getUserIdByPhone(phonePlaintext);
     if (userId !== -1) {
       cookies.set("accountAlreadyExists", "true", { path: "/" });
       return;
@@ -86,9 +81,9 @@ export const actions = {
 
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
     const sessionId = uuidv4();
-    cookies.set("sessionId", sessionId, { path: "/" });
-
     
+    await registerInDb(phoneHash, username, sessionId);
+    cookies.set("sessionId", sessionId, { path: "/" });
   }
 } satisfies Actions;
 
@@ -136,20 +131,18 @@ function isValidName(name: string): boolean {
   return false;
 }
 
-async function getUserId(phonePlaintext: string): Promise<number> {
-  const resp = await fetch(BACKEND_URL + "/users");
+async function registerInDb(phoneHash: string, username: string, sessionId: string): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/register", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      phoneHash: phoneHash,
+      userName: username,
+      sessionId: sessionId
+    })
+  });
+
   if (!resp.ok) {
     error(503, { message: "Server offline" });
   }
-  const usersJson: UsersJSON = await resp.json();
-  const allUsers = usersJson.users;
-
-  for (const user of allUsers) {
-    const nextPhoneHash = user.phone_hash;
-    const userExists = await bcrypt.compare(phonePlaintext, nextPhoneHash);
-    if (userExists) {
-      return user.id;
-    }
-  }
-  return -1;
 }
