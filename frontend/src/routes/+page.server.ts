@@ -20,29 +20,28 @@ interface UsersJSON {
   users: UserInfo[];
 }
 
+interface FormCookies {
+  badPhone?: string;
+  badName?: string;
+  onRegisterForm?: string;
+  accountNotFound?: string;
+  accountAlreadyExists?: string;
+}
+
 /**
  * TODO: 
  * check for sessionId. If it exists in the db, redirect eventually.
  * For now do something to indicate this
  */
 export const load = (async ({ cookies }) => {
-  const badPhone = cookies.get("badPhone");
-  const badName = cookies.get("badName");
-  const onRegisterForm = cookies.get("onRegisterForm");
-  const accountNotFound = cookies.get("accountNotFound");
-  const accountAlreadyExists = cookies.get("accountAlreadyExists");
-  return {
-    badPhone: badPhone,
-    badName: badName,
-    onRegisterForm: onRegisterForm,
-    accountNotFound: accountNotFound,
-    accountAlreadyExists: accountAlreadyExists
-  };
+  const formCookies = getFormCookies(cookies);
+  resetFormCookies(cookies);
+  return formCookies;
 }) satisfies PageServerLoad;
 
 export const actions = {
   login: async ({ cookies, request }) => {
-    initializeCookies(cookies, "login");
+    cookies.set("onRegisterForm", "false", { path: "/" });
 
     const formResponses = await getPhoneAndName(request);
     const phonePlaintext = formResponses.phone;
@@ -64,7 +63,7 @@ export const actions = {
     // 4. Set the session id cookie, then send the session id and hash to the db
   },
   register: async ({ cookies, request }) => {
-    initializeCookies(cookies, "register");
+    cookies.set("onRegisterForm", "true", { path: "/" });
 
     const formResponses = await getPhoneAndName(request);
     const phonePlaintext = formResponses.phone;
@@ -93,16 +92,21 @@ export const actions = {
   }
 } satisfies Actions;
 
-function initializeCookies(cookies: Cookies, formtype: "login" | "register"): void {
-  if (formtype === "login") {
-    cookies.set("onRegisterForm", "false", { path: "/" });
-  } else {
-    cookies.set("onRegisterForm", "true", { path: "/" });
-  }
+function resetFormCookies(cookies: Cookies): void {
   cookies.set("accountNotFound", "false", { path: "/" });
   cookies.set("accountAlreadyExists", "false", { path: "/" });
   cookies.set("badPhone", "false", { path: "/" });
   cookies.set("badName", "false", { path: "/" });
+}
+
+function getFormCookies(cookies: Cookies): FormCookies {
+  return {
+    badPhone: cookies.get("badPhone"),
+    badName: cookies.get("badName"),
+    onRegisterForm: cookies.get("onRegisterForm"),
+    accountNotFound: cookies.get("accountNotFound"),
+    accountAlreadyExists: cookies.get("accountAlreadyExists")
+  };
 }
 
 async function getPhoneAndName(request: Request): Promise<FormResponses> {

@@ -17,8 +17,8 @@ def get_users():
   con.close()
   
   formatted_records = []
-  for user_list in raw_result:
-    user_dict = {"id": user_list[0], "phone_hash": user_list[1]}
+  for user_data in raw_result:
+    user_dict = {"id": user_data[0], "phone_hash": user_data[1]}
     formatted_records.append(user_dict)
 
   return { "users": formatted_records }
