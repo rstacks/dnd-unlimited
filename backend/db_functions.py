@@ -8,8 +8,20 @@ def _get_db_connection() -> sqlite3.Connection:
   con = sqlite3.connect(DB_CONNECTION_STR)
   return con
 
+def get_users():
+  con = _get_db_connection()
 
+  cur = con.cursor()
+  cur.execute("SELECT id, phone_hash FROM users")
+  raw_result: list[list] = cur.fetchall()
+  con.close()
+  
+  formatted_records = []
+  for user_list in raw_result:
+    user_dict = {"id": user_list[0], "phone_hash": user_list[1]}
+    formatted_records.append(user_dict)
 
+  return { "users": formatted_records }
 
 
 

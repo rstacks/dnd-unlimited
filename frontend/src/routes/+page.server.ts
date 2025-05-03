@@ -38,12 +38,13 @@ export const actions = {
     cookies.set("badName", "false", { path: "/" });
 
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
+    console.log(phoneHash);
 
-    const resp = await fetch(BACKEND_URL + "/ping");
-    if (resp.ok) {
-      const msg = await resp.text();
-      console.log("API response: " + msg);
-    }
+    // const resp = await fetch(BACKEND_URL + "/ping");
+    // if (resp.ok) {
+    //   const msg = await resp.text();
+    //   console.log("API response: " + msg);
+    // }
 
 
     

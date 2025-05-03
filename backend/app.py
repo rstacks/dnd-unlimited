@@ -11,9 +11,9 @@ CORS(app, origins=["https://localhost:5173"]) # Update on deployment
 def pong():
   return "Pong!"
 
-@app.get("/users/")
-
-
+@app.get("/users")
+def get_users():
+  return db_functions.get_users()
 
 
 
