@@ -1,5 +1,6 @@
 import type { PageServerLoad, Actions } from "./$types";
 import { v4 as uuidv4 } from "uuid";
+import { BACKEND_URL } from "$env/static/private";
 import bcrypt from "bcrypt";
 
 const SALT_ROUNDS = 10;
@@ -38,7 +39,7 @@ export const actions = {
 
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
 
-    const resp = await fetch("http://localhost:5000/ping");
+    const resp = await fetch(BACKEND_URL + "/ping");
     if (resp.ok) {
       const msg = await resp.text();
       console.log("API response: " + msg);
@@ -96,10 +97,13 @@ async function getPhoneAndName(request: Request): Promise<FormResponses> {
 }
 
 function isValidPhone(phone: string): boolean {
-  if (phone && phone.trim().length > 0 && phone.match(/[0-9]{10}/)) {
-    return true;
+  if (!phone || phone.trim().length <= 0) {
+    return false;
   }
-  return false;
+  if (phone.match(/[0-9]{10}/)?.at(0) !== phone.trim()) {
+    return false;
+  }
+  return true;
 }
 
 function isValidName(name: string): boolean {
