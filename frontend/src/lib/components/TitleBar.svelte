@@ -1,12 +1,16 @@
+<script lang="ts">
+  let { account_modal_class }: { account_modal_class: string } = $props();
+</script>
+
 <header class="flex five">
   <div class="logo off-fifth three-fifth">
     <img src="favicon.svg" alt="DnD Unlimited Logo">
     <h1>DnD Unlimited</h1>
   </div>
   <div class="view-account">
-    <button class="pseudo">
+    <label for="{account_modal_class}" class="button pseudo">
       <img src="account-icon-black.svg" alt="View Account Button">
-    </button>
+    </label>
   </div>
 </header>
 
@@ -29,14 +33,14 @@
     align-items: center;
   }
 
-  .view-account button {
+  .view-account label {
     margin: 0;
     margin-right: 0.5em;
     padding: 0.4em;
     height: fit-content;
   }
 
-  .view-account button img {
+  .view-account label img {
     width: 1.5em;
     padding-top: 0.35em;
   }

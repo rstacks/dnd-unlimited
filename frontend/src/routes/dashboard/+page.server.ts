@@ -1,4 +1,4 @@
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad, Actions } from "./$types";
 import { getUserIdBySession, getUserById } from "$lib/util/user";
 import { redirect } from "@sveltejs/kit";
 
@@ -15,3 +15,12 @@ export const load = (async ({ cookies }) => {
   const userData = await getUserById(userId);
   return { name: userData.user_name };
 }) satisfies PageServerLoad;
+
+export const actions = {
+  logout: async ({ cookies, request }) => {
+
+  },
+  updateName: async ({ request }) => {
+
+  }
+} satisfies Actions;
