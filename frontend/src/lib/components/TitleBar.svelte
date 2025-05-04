@@ -12,7 +12,6 @@
 
 <style>
   header {
-    padding-top: 0.2em;
     background-color: white;
     border-style: solid;
     border-color: rgb(118, 155, 255);
@@ -38,6 +37,7 @@
 
   .view-account button img {
     width: 1.5em;
+    padding-top: 0.35em;
   }
 
   .logo {
@@ -45,6 +45,7 @@
     align-items: center;
     justify-content: center;
     font-size: 0.6em;
+    padding: 0.5em;
   }
 
   .logo img {
