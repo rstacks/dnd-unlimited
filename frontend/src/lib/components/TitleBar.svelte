@@ -23,6 +23,7 @@
     border-left: none;
     border-right: none;
     border-top: none;
+    z-index: 1;
   }
 
   .view-account {

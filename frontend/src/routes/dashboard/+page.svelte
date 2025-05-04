@@ -4,12 +4,15 @@
 
 <script lang="ts">
   import TitleBar from "$lib/components/TitleBar.svelte";
+  import CharacterCreation from "$lib/components/CharacterCreation.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
 </script>
 
 <TitleBar account_modal_class="my-modal" />
+
+<CharacterCreation />
 
 <div class="spacer"></div>
 
