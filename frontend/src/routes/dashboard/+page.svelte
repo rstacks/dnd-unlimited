@@ -4,15 +4,12 @@
 
 <script lang="ts">
   import TitleBar from "$lib/components/TitleBar.svelte";
-  import CharacterCreation from "$lib/components/CharacterCreation.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
 </script>
 
 <TitleBar account_modal_class="my-modal" />
-
-<CharacterCreation />
 
 <div class="spacer"></div>
 
@@ -24,10 +21,10 @@
 
 <p class="no-characters">You don't have any characters. Why not create one?</p>
 
-<button class="add">
+<a class="add button" href="/character-creation">
   <img src="add-icon.svg" alt="Add Character Button">
   <span>New Character</span>
-</button>
+</a>
 
 <div class="modal">
   <input type="checkbox" id="my-modal">
@@ -111,6 +108,7 @@
 
   .add {
     display: flex;
+    width: fit-content;
     padding: 0.25em;
     border-radius: 1em;
     margin: auto;
