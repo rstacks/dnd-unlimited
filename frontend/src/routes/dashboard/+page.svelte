@@ -11,7 +11,13 @@
 
 <TitleBar account_modal_class="my-modal" />
 
-<h2>Welcome, {data.name}!</h2>
+<div class="spacer"></div>
+
+<article class="card welcome">
+  <header>
+    <h2>Welcome, {data.name}!</h2>
+  </header>
+</article>
 
 <div class="modal">
   <input type="checkbox" id="my-modal">
@@ -40,8 +46,22 @@
 </div>
 
 <style>
-  h2 {
-    padding-top: 3em;
+  .spacer {
+    height: 5em;
+  }
+
+  .welcome {
+    width: fit-content;
+    margin: auto;
+  }
+
+  .welcome header {
+    display: flex;
+    text-align: center;
+  }
+
+  .welcome h2 {
+    margin: 0;
   }
 
   .name-input {
