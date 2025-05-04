@@ -28,11 +28,11 @@
           autocomplete="off" value="{data.name}" class="name-input">
       </section>
       <footer class="flex">
-        <div class="logout-button">
-          <input type="submit" value="Log Out" class="error" formaction="?/logout">
-        </div>
         <div class="save-button">
           <input type="submit" value="Save">
+        </div>
+        <div class="logout-button">
+          <input type="submit" value="Log Out" class="error" formaction="?/logout">
         </div>
       </footer>
     </form>
@@ -56,15 +56,15 @@
     padding: 0;
   }
 
-  .logout-button {
+  .save-button {
     margin-left: 1em;
     padding: 0;
   }
 
-  .save-button {
+  .logout-button {
     display: flex;
     justify-content: end;
-    margin-right: 0.5em;
+    margin-right: 0.4em;
     padding: 0;
   }
 </style>
