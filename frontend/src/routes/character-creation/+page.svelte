@@ -28,7 +28,7 @@
     /
     <input id="tab-3" type="radio" name="char-creation-tabs" />
     <label for="tab-3" class="button pseudo toggle">Ability Scores</label>
-    <div class="row">
+    <div class="row form-tabs">
       <div class="basic-info">
         <div class="basic-info-field">
           <label for="char-name">Character Name:</label>
@@ -50,8 +50,50 @@
         zone 2
       </div>
 
-      <div>
-        zone 3
+      <div class="ability-scores">
+        <div class="flex two">
+          <div class="score-label">
+            <label for="str">Strength:</label>
+          </div>
+          <div class="score-input">
+            <input name="str" type="number" placeholder="STR" />
+          </div>
+  
+          <div class="score-label">
+            <label for="dex">Dexterity:</label>
+          </div>
+          <div class="score-input">
+            <input name="dex" type="number" placeholder="DEX" />
+          </div>
+  
+          <div class="score-label">
+            <label for="con">Constitution:</label>
+          </div>
+          <div class="score-input">
+            <input name="con" type="number" placeholder="CON" />
+          </div>
+  
+          <div class="score-label">
+            <label for="int">Intelligence:</label>
+          </div>
+          <div class="score-input">
+            <input name="int" type="number" placeholder="INT" />
+          </div>
+  
+          <div class="score-label">
+            <label for="wis">Wisdom:</label>
+          </div>
+          <div class="score-input">
+            <input name="wis" type="number" placeholder="WIS" />
+          </div>
+  
+          <div class="score-label">
+            <label for="cha">Charisma:</label>
+          </div>
+          <div class="score-input">
+            <input name="cha" type="number" placeholder="CHA" />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -110,6 +152,10 @@
     margin: auto;
   }
 
+  .form-tabs label {
+    cursor: default;
+  }
+
   .basic-info input {
     width: 15em;
   }
@@ -120,7 +166,22 @@
 
   .basic-info-field label {
     display: block;
-    cursor: default;
+  }
+
+  .ability-scores input {
+    width: 7.5em;
+  }
+
+  .score-label {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin-top: 1em;
+  }
+
+  .score-input {
+    text-align: left;
+    margin-top: 1em;
   }
 </style>
   
