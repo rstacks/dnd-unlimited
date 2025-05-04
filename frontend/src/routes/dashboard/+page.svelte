@@ -12,3 +12,9 @@
 <TitleBar />
 
 <h2>Welcome, {data.name}!</h2>
+
+<style>
+  h2 {
+    padding-top: 3em;
+  }
+</style>

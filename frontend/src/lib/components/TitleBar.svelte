@@ -12,6 +12,7 @@
 
 <style>
   header {
+    position: fixed;
     background-color: white;
     border-style: solid;
     border-color: rgb(118, 155, 255);
