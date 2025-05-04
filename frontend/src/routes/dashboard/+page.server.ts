@@ -1,6 +1,7 @@
 import type { PageServerLoad, Actions } from "./$types";
 import { getUserIdBySession, getUserById } from "$lib/util/user";
-import { redirect } from "@sveltejs/kit";
+import { BACKEND_URL, API_KEY } from "$env/static/private"; 
+import { redirect, error } from "@sveltejs/kit";
 
 export const load = (async ({ cookies }) => {
   const sessionId = cookies.get("sessionId");
@@ -20,13 +21,19 @@ export const actions = {
   logout: async ({ cookies, request }) => {
 
   },
-  updateName: async ({ request }) => {
+  updateName: async ({ cookies, request }) => {
     const name = await getName(request);
     if (!name || !isValidName(name)) {
       return;
     }
 
-    
+    const sessionId = cookies.get("sessionId");
+    if (!sessionId) {
+      return;
+    }
+    const userId = await getUserIdBySession(sessionId);
+
+    await setNameInDb(userId, name);
   }
 } satisfies Actions;
 
@@ -41,4 +48,21 @@ function isValidName(name: string): boolean {
     return true;
   }
   return false;
+}
+
+async function setNameInDb(userId: number, name: string): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/users/" + userId, {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      userName: name
+    })
+  });
+
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
 }

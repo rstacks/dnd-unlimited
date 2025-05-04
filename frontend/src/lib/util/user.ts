@@ -1,4 +1,4 @@
-import { BACKEND_URL } from "$env/static/private";
+import { BACKEND_URL, API_KEY } from "$env/static/private";
 import { error } from "@sveltejs/kit";
 import bcrypt from "bcrypt";
 
@@ -20,7 +20,9 @@ interface UsersJSON {
 }
 
 export async function fetchUsers(): Promise<UserAuthInfo[]> {
-  const resp = await fetch(BACKEND_URL + "/users");
+  const resp = await fetch(BACKEND_URL + "/users", {
+    headers: { "Authorization": "Bearer " + API_KEY }
+  });
   if (!resp.ok) {
     error(503, { message: "Server offline" });
   }
@@ -54,7 +56,9 @@ export async function getUserIdBySession(sessionId: string): Promise<number> {
 }
 
 export async function getUserById(userId: number): Promise<UserData> {
-  const resp = await fetch(BACKEND_URL + "/users/" + userId);
+  const resp = await fetch(BACKEND_URL + "/users/" + userId, {
+    headers: { "Authorization": "Bearer " + API_KEY }
+  });
   if (resp.status === 404) {
     error(404, { message: "User not found" });
   } else if (!resp.ok) {

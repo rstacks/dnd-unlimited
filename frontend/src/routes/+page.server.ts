@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from "./$types";
 import { v4 as uuidv4 } from "uuid";
-import { BACKEND_URL } from "$env/static/private";
+import { BACKEND_URL, API_KEY } from "$env/static/private";
 import bcrypt from "bcrypt";
 import { error, redirect, type Cookies } from "@sveltejs/kit";
 import { getUserIdByPhone, getUserIdBySession } from "$lib/util/user";
@@ -133,7 +133,10 @@ function isValidName(name: string): boolean {
 async function loginInDb(userId: number, sessionId: string): Promise<void> {
   const resp = await fetch(BACKEND_URL + "/login", {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "content-type": "application/json"
+    },
     body: JSON.stringify({
       userId: userId,
       sessionId: sessionId
@@ -148,7 +151,10 @@ async function loginInDb(userId: number, sessionId: string): Promise<void> {
 async function registerInDb(phoneHash: string, username: string, sessionId: string): Promise<void> {
   const resp = await fetch(BACKEND_URL + "/register", {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "content-type": "application/json"
+    },
     body: JSON.stringify({
       phoneHash: phoneHash,
       userName: username,
