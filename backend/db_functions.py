@@ -68,6 +68,18 @@ def login_user(user_id: int, session_id: str):
 
   return { "updated_user_id": user_id }
 
+def set_user_name(user_id: int, name: str):
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute("UPDATE users SET user_name = ? WHERE id = ?", (name, user_id))
+  con.commit()
+
+  con.close()
+
+  return { "updated_user_id": user_id }
+
+
 
 
 
