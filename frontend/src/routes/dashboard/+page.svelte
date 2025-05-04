@@ -19,6 +19,13 @@
   </header>
 </article>
 
+<p class="no-characters">You don't have any characters. Why not create one?</p>
+
+<button class="add">
+  <img src="add-icon.svg" alt="Add Character Button">
+  <span>New Character</span>
+</button>
+
 <div class="modal">
   <input type="checkbox" id="my-modal">
   <label for="my-modal" class="overlay"></label>
@@ -53,6 +60,8 @@
   .welcome {
     width: fit-content;
     margin: auto;
+    font-size: 0.75em;
+    margin-bottom: 3em;
   }
 
   .welcome header {
@@ -86,5 +95,26 @@
     justify-content: end;
     margin-right: 0.4em;
     padding: 0;
+  }
+
+  .no-characters {
+    text-align: center;
+    width: 25em;
+    margin: auto;
+    font-size: 0.75em;
+    color: rgb(99, 102, 109);
+    margin-bottom: 1em;
+  }
+
+  .add {
+    display: flex;
+    padding: 0.25em;
+    border-radius: 1em;
+    margin: auto;
+  }
+
+  .add span {
+    margin-left: 0.25em;
+    margin-right: 0.5em;
   }
 </style>
