@@ -19,7 +19,29 @@
     </label>
     <h3>Character Creation</h3>
   </header>
-  <p>test</p>
+  <div class="tabs three char-creation-form">
+    <input id="tab-1" type="radio" name="char-creation-tabs" checked />
+    <label for="tab-1" class="button pseudo toggle">Basic Info</label>
+    /
+    <input id="tab-2" type="radio" name="char-creation-tabs" />
+    <label for="tab-2" class="button pseudo toggle">Class</label>
+    /
+    <input id="tab-3" type="radio" name="char-creation-tabs" />
+    <label for="tab-3" class="button pseudo toggle">Ability Scores</label>
+    <div class="row">
+      <div>
+        zone 1
+      </div>
+
+      <div>
+        zone 2
+      </div>
+
+      <div>
+        zone 3
+      </div>
+    </div>
+  </div>
 </article>
 
 <div class="modal">
@@ -68,6 +90,10 @@
   .exit-button {
     margin: auto;
     margin-bottom: 1em;
+  }
+
+  .char-creation-form {
+    text-align: center;
   }
 </style>
   
