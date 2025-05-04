@@ -44,8 +44,9 @@ export async function getUserIdByPhone(phonePlaintext: string): Promise<number> 
 export async function getUserIdBySession(sessionId: string): Promise<number> {
   const allUsers = await fetchUsers();
   for (const user of allUsers) {
-    const nextSessionId = user.session_uuid;
-    if (sessionId === nextSessionId) {
+    const nextSessionIdHash = user.session_uuid;
+    const userExists = await bcrypt.compare(sessionId, nextSessionIdHash);
+    if (userExists) {
       return user.id;
     }
   }

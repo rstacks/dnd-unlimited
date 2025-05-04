@@ -21,7 +21,7 @@
       <h3>Account</h3>
       <label for="my-modal" class="close">&times;</label>
     </header>
-    <form method="POST" action="?/logout">
+    <form method="POST" action="?/updateName">
       <section class="content">
         <label for="user-name" class="name-label">Name:</label>
         <input type="text" name="user-name" placeholder="Name"
@@ -29,7 +29,7 @@
       </section>
       <footer class="flex">
         <div class="logout-button">
-          <input type="submit" value="Log Out" class="error">
+          <input type="submit" value="Log Out" class="error" formaction="?/logout">
         </div>
         <div class="save-button">
           <input type="submit" value="Save">

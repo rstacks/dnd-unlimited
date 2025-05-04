@@ -49,10 +49,11 @@ export const actions = {
       return;
     }
 
-    const sessionId = uuidv4();
+    const sessionIdPlaintext = uuidv4();
+    const sessionIdHash = await bcrypt.hash(sessionIdPlaintext, SALT_ROUNDS);
     
-    await loginInDb(userId, sessionId);
-    cookies.set("sessionId", sessionId, { path: "/" });
+    await loginInDb(userId, sessionIdHash);
+    cookies.set("sessionId", sessionIdPlaintext, { path: "/" });
   },
   register: async ({ cookies, request }) => {
     cookies.set("onRegisterForm", "true", { path: "/" });
@@ -77,10 +78,11 @@ export const actions = {
     }
 
     const phoneHash = await bcrypt.hash(phonePlaintext.toString(), SALT_ROUNDS);
-    const sessionId = uuidv4();
+    const sessionIdPlaintext = uuidv4();
+    const sessionIdHash = await bcrypt.hash(sessionIdPlaintext, SALT_ROUNDS);
     
-    await registerInDb(phoneHash, username, sessionId);
-    cookies.set("sessionId", sessionId, { path: "/" });
+    await registerInDb(phoneHash, username, sessionIdHash);
+    cookies.set("sessionId", sessionIdPlaintext, { path: "/" });
   }
 } satisfies Actions;
 
