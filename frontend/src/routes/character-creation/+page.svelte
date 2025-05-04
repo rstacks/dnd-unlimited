@@ -29,8 +29,21 @@
     <input id="tab-3" type="radio" name="char-creation-tabs" />
     <label for="tab-3" class="button pseudo toggle">Ability Scores</label>
     <div class="row">
-      <div>
-        zone 1
+      <div class="basic-info">
+        <div class="basic-info-field">
+          <label for="char-name">Character Name:</label>
+          <input name="char-name" type="text" placeholder="Character Name" />
+        </div>
+        
+        <div class="basic-info-field">
+          <label for="melee-wep">Melee Weapon:</label>
+          <input name="melee-wep" type="text" placeholder="Melee Weapon Name" />
+        </div>
+        
+        <div class="basic-info-field">
+          <label for="ranged-wep">Ranged Weapon:</label>
+          <input name="ranged-wep" type="text" placeholder="Ranged Weapon Name" />
+        </div>
       </div>
 
       <div>
@@ -94,6 +107,20 @@
 
   .char-creation-form {
     text-align: center;
+    margin: auto;
+  }
+
+  .basic-info input {
+    width: 15em;
+  }
+
+  .basic-info-field {
+    margin-top: 1em;
+  }
+
+  .basic-info-field label {
+    display: block;
+    cursor: default;
   }
 </style>
   
