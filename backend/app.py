@@ -50,6 +50,15 @@ def login():
   session_id = req_json["sessionId"]
   return db_functions.login_user(user_id, session_id)
 
+@app.post("/logout")
+def logout():
+  if not is_authorized_request(request):
+    abort(401)
+  
+  req_json: dict = request.get_json()
+  user_id = req_json["userId"]
+  return db_functions.logout_user(user_id)
+
 @app.post("/register")
 def register():
   if not is_authorized_request(request):

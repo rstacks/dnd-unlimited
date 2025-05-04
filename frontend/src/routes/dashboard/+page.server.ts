@@ -18,8 +18,15 @@ export const load = (async ({ cookies }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-  logout: async ({ cookies, request }) => {
+  logout: async ({ cookies }) => {
+    const sessionId = cookies.get("sessionId");
+    if (!sessionId) {
+      return;
+    }
+    const userId = await getUserIdBySession(sessionId);
 
+    await logoutInDb(userId);
+    cookies.delete("sessionId", { path: "/" });
   },
   updateName: async ({ cookies, request }) => {
     const name = await getName(request);
@@ -59,6 +66,23 @@ async function setNameInDb(userId: number, name: string): Promise<void> {
     },
     body: JSON.stringify({
       userName: name
+    })
+  });
+
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
+}
+
+async function logoutInDb(userId: number): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/logout", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      "userId": userId
     })
   });
 
