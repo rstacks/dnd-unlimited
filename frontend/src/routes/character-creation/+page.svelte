@@ -225,7 +225,8 @@
 
   .class-selector {
     display: flex;
+    align-items: center;
+    width: fit-content;
+    margin: auto;
   }
 </style>
-  
-  
