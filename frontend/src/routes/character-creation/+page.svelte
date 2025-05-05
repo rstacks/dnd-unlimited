@@ -51,7 +51,7 @@
       </div>
 
       <div class="ability-scores">
-        <div class="flex two">
+        <div class="flex two input-grid">
           <div class="score-label">
             <label for="str">Strength:</label>
           </div>
@@ -177,11 +177,13 @@
     justify-content: end;
     align-items: center;
     margin-top: 1em;
+    padding-right: 1em;
   }
 
   .score-input {
     text-align: left;
     margin-top: 1em;
+    padding-left: 0;
   }
 </style>
   
