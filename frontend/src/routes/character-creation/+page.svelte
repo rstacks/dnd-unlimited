@@ -74,6 +74,9 @@
       </div>
 
       <div class="ability-scores">
+        <label for="ability-score-info" class="ability-score-info-button pseudo button">
+          How do I assign ability scores?
+        </label>
         <div class="flex two input-grid">
           <div class="score-label">
             <label for="str">Strength:</label>
@@ -134,9 +137,31 @@
       Are you sure you want to leave?
       <strong>All of your progress will be lost!</strong>
     </section>
-    <footer>
+    <footer class="leave-modal-foot">
       <a class="button dangerous exit-button" href="/dashboard">Leave Character Creation</a>
     </footer>
+  </article>
+</div>
+
+<div class="modal">
+  <input type="checkbox" id="ability-score-info">
+  <label for="ability-score-info" class="overlay"></label>
+  <article>
+    <header>
+      <h3>Assigning Ability Scores</h3>
+      <label for="ability-score-info" class="close">&times;</label>
+    </header>
+    <section class="content">
+      Follow the steps below to assign
+      your ability scores. Your DM can also help you with this!
+      <ol>
+        <li>Roll four d6.</li>
+        <li>Drop the lowest roll.</li>
+        <li>Record the sum of the remaining three dice.</li>
+        <li>Repeat steps 1 through 3 until you have six sums.</li>
+        <li>Assign each sum to one of your ability scores.</li>
+      </ol>
+    </section>
   </article>
 </div>
 
@@ -168,7 +193,7 @@
     margin-right: 1em;
   }
 
-  footer {
+  .leave-modal-foot {
     width: fit-content;
     margin: auto;
   }
@@ -228,5 +253,15 @@
     align-items: center;
     width: fit-content;
     margin: auto;
+  }
+
+  .ability-score-info-button {
+    color: rgb(124, 124, 124);
+    text-decoration: dotted;
+    text-decoration-line: underline;
+  }
+
+  .ability-score-info-button:hover {
+    cursor: pointer;
   }
 </style>
