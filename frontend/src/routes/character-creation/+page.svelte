@@ -86,7 +86,7 @@
                     deselectOtherClasses();
                     selectClass(classData.id);
                   }}">
-              <span class="checkable"></span>
+              <span class="checkable class-button-text"></span>
             </label>
             <ClassCard classData={classData} allClasses={data.classes}
               selected={isClassSelected(classData.id)} />
@@ -305,5 +305,11 @@
     .class-list {
       grid-template-columns: auto;
     }
+  }
+
+  .class-button-text {
+    font-size: 2em;
+    padding: 0;
+    padding-right: 0.6em;
   }
 </style>
