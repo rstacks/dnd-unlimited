@@ -60,6 +60,7 @@
       </div>
 
       <div>
+        <div class="class-list">
         {#each data.classes as classData}
           <div class="class-selector">
             <label>
@@ -71,6 +72,7 @@
             <ClassCard classData={classData} allClasses={data.classes} />
           </div>
         {/each}
+        </div>
       </div>
 
       <div class="ability-scores">
@@ -263,5 +265,25 @@
 
   .ability-score-info-button:hover {
     cursor: pointer;
+  }
+
+  .class-list {
+    display: grid;
+    width: fit-content;
+    grid-template-columns: auto auto auto;
+    column-gap: 3em;
+    margin: auto;
+  }
+
+  @media (max-width: 1200px) {
+    .class-list {
+      grid-template-columns: auto auto;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .class-list {
+      grid-template-columns: auto;
+    }
   }
 </style>
