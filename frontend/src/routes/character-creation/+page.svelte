@@ -110,7 +110,7 @@
                 id="button-{classData.id}" type="radio" oninput="{() => {
                     deselectOtherClasses();
                     selectClass(classData.id);
-                  }}">
+                  }}" tabindex="-1">
               <span class="checkable class-button-text"></span>
             </label>
             <ClassCard classData={classData} allClasses={data.classes}
@@ -143,42 +143,42 @@
             <label for="str">Strength:</label>
           </div>
           <div class="score-input">
-            <input name="str" type="number" placeholder="STR" />
+            <input name="str" type="number" placeholder="STR" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="dex">Dexterity:</label>
           </div>
           <div class="score-input">
-            <input name="dex" type="number" placeholder="DEX" />
+            <input name="dex" type="number" placeholder="DEX" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="con">Constitution:</label>
           </div>
           <div class="score-input">
-            <input name="con" type="number" placeholder="CON" />
+            <input name="con" type="number" placeholder="CON" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="int">Intelligence:</label>
           </div>
           <div class="score-input">
-            <input name="int" type="number" placeholder="INT" />
+            <input name="int" type="number" placeholder="INT" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="wis">Wisdom:</label>
           </div>
           <div class="score-input">
-            <input name="wis" type="number" placeholder="WIS" />
+            <input name="wis" type="number" placeholder="WIS" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="cha">Charisma:</label>
           </div>
           <div class="score-input">
-            <input name="cha" type="number" placeholder="CHA" />
+            <input name="cha" type="number" placeholder="CHA" tabindex="-1" />
           </div>
         </div>
       </div>

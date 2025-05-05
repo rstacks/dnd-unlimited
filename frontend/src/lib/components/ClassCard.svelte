@@ -49,7 +49,7 @@
   </p>
   {#if classData.feat_name.toLowerCase() === "spellcasting"}
     <footer>
-      <button>View Spells</button>
+      <button tabindex="-1">View Spells</button>
     </footer>
   {/if}
 </article>
