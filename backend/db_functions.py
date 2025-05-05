@@ -3,6 +3,14 @@
 import sqlite3
 
 DB_CONNECTION_STR = "./db/dnd-db.db"
+SAVE_SHORT_TO_LONG = {
+  "str": "Strength",
+  "dex": "Dexterity",
+  "con": "Constitution",
+  "intl": "Intelligence",
+  "wis": "Wisdom",
+  "cha": "Charisma"
+}
 
 def _get_db_connection() -> sqlite3.Connection:
   con = sqlite3.connect(DB_CONNECTION_STR)
@@ -13,7 +21,7 @@ def _assign_class_saves(cur: sqlite3.Cursor, class_id: int, class_data: dict) ->
   cur.execute(saves_query, (class_id,))
   class_saves: list[list] = cur.fetchall()
   for class_save in class_saves:
-    class_data["saves"].append(class_save[0])
+    class_data["saves"].append(SAVE_SHORT_TO_LONG[class_save[0]])
 
 def _assign_class_skills(cur: sqlite3.Cursor, class_id: int, class_data: dict) -> None:
   skills_query = "SELECT s.skill_name FROM class_skill_proficiencies AS csp INNER JOIN skills AS s ON csp.skill_id = s.id WHERE csp.class_id = ?"

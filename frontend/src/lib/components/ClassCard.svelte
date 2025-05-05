@@ -62,7 +62,9 @@
         <label for="{"feat-modal-" + classRecord.id}" class="close">&times;</label>
       </header>
       <section class="content">
-        {classRecord.feat_desc}
+        {#each classRecord.feat_desc as chr}
+          {#if chr === "\n"}<br><br>{:else if chr === "-"}&#x2022;{:else}{chr}{/if}
+        {/each}
       </section>
     </article>
   </div>
@@ -73,6 +75,7 @@
     width: 20em;
     margin: auto;
     margin-top: 1em;
+    margin-bottom: 1em;
   }
 
   header {
@@ -90,7 +93,7 @@
   }
 
   article p {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
 
   footer {
@@ -103,5 +106,9 @@
 
   .modal section {
     padding-bottom: 1em;
+  }
+
+  .modal {
+    font-size: 0.8em;
   }
 </style>
