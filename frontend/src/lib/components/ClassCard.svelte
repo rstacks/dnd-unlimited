@@ -5,12 +5,34 @@
     <img src="class-icons/barbarian.svg" alt="Barbarian class icon" />
     <h4>Barbarian</h4>
   </header>
-  <p>Description: A wandering warrior imbued with primal magic.</p>
-  <p>Hit Dice: d8</p>
-  <p>Feat (Clickable for more info): Spellcasting</p>
-  <p>Save Proficiencies:</p>
-  <p>Skill Proficiencies:</p>
+  <p><strong>Description:</strong> A wandering warrior imbued with primal magic.</p>
+  <p><strong>Hit Dice:</strong> d8</p>
+  <p>
+    <strong>Feat:</strong> Spellcasting
+    <label for="feat-modal" class="info-button pseudo button">
+      <img src="info-icon.svg" alt="More feat info button">
+    </label>
+  </p>
+  <p><strong>Save Proficiencies:</strong></p>
+  <p><strong>Skill Proficiencies:</strong></p>
+  <footer>
+    <button>View Spells</button>
+  </footer>
 </article>
+
+<div class="modal">
+  <input type="checkbox" id="feat-modal">
+  <label for="feat-modal" class="overlay"></label>
+  <article>
+    <header>
+      <h3>Spellcasting</h3>
+      <label for="feat-modal" class="close">&times;</label>
+    </header>
+    <section class="content">
+      You have the ability to cast spells as an action. Depending on the class, you will have access to a specific set of cantrips and casted spells.\nCantrips are spells with no cost that can be cast as often as you desire.\nCasted spells consume a Spell Slot upon casting.\nYour character has a limited number of Spell Slots. As you gain levels, the number of Spell Slots available to you increases. You may also gain higher level Spell Slots.
+    </section>
+  </article>
+</div>
 
 <style>
   article {
@@ -34,6 +56,18 @@
   }
 
   article p {
-    font-size: 0.75em;
+    font-size: 0.9em;
+  }
+
+  footer {
+    padding-top: 0;
+  }
+
+  .info-button {
+    padding: 0;
+  }
+
+  .modal section {
+    padding-bottom: 1em;
   }
 </style>
