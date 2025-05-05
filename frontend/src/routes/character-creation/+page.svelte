@@ -44,6 +44,12 @@
           <label for="ranged-wep">Ranged Weapon:</label>
           <input name="ranged-wep" type="text" placeholder="Ranged Weapon Name" />
         </div>
+
+        <div class="basic-info-field">
+          <label for="bkg-info">Background Info:</label>
+          <textarea name="bkg-info" id="bkg-info-input"
+            placeholder="Background Info (Optional)"></textarea>
+        </div>
       </div>
 
       <div>
@@ -119,11 +125,11 @@
 
 <style>
   .char-creation-screen {
-    position: fixed;
     height: 100%;
     width: 100%;
     border-style: none;
     border-radius: 0;
+    overflow: auto;
   }
 
   .char-creation-header {
@@ -166,6 +172,12 @@
 
   .basic-info-field label {
     display: block;
+  }
+
+  textarea {
+    width: 15em;
+    height: 10em;
+    resize: vertical;
   }
 
   .ability-scores input {
