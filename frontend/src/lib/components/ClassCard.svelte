@@ -6,12 +6,14 @@
   interface Props {
     classData: ClassData;
     allClasses: ClassData[];
+    selected: boolean;
   }
 
-  let { classData, allClasses }: Props = $props();
+  let { classData, allClasses, selected }: Props = $props();
 </script>
 
-<article class="card class-card">
+<article class="card class-card"
+  style:background-color="{selected ? "rgb(196, 230, 242)" : "white"}">
   <header>
     <img src="{"class-icons/" + classData.class_name.toLowerCase() + ".svg"}"
       alt="Barbarian class icon" />

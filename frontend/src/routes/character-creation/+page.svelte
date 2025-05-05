@@ -5,16 +5,33 @@
 <script lang="ts">
   import ClassCard from "$lib/components/ClassCard.svelte";
   import type { PageProps } from "./$types";
+  import { type ClassSelected } from "./+page.server";
 
   let { data }: PageProps = $props();
+  let classSelectedStatuses = $state(data.classSelectedList);
 
-  function deselectOtherClasses(buttonToSelectId: string): void {
+  function deselectOtherClasses(): void {
     const otherButtons = <HTMLCollectionOf<HTMLInputElement>>document.getElementsByClassName("class-button");
     for (const button of otherButtons) {
       button.checked = false;
     }
-    const buttonToSelect = document.getElementById(buttonToSelectId) as HTMLInputElement;
+    for (const classSelectedStatus of classSelectedStatuses) {
+      classSelectedStatus.selected = false;
+    }
+  }
+
+  function selectClass(classId: number): void {
+    const buttonToSelect = document.getElementById("button-" + classId) as HTMLInputElement;
     buttonToSelect.checked = true;
+    classSelectedStatuses.find((elem) => classId === elem.classId)!.selected = true;
+  }
+
+  function isClassSelected(classId: number): boolean {
+    const classSelectedStatus = classSelectedStatuses.find((elem) => classId === elem.classId);
+    if (classSelectedStatus) {
+      return classSelectedStatus.selected;
+    }
+    return false;
   }
 </script>
 
@@ -65,11 +82,14 @@
           <div class="class-selector">
             <label>
               <input class="class-button" checked={false} name="button-{classData.id}"
-                type="radio" oninput="{() => { deselectOtherClasses("button-" + classData.id) }}"
-                id="button-{classData.id}">
+                id="button-{classData.id}" type="radio" oninput="{() => {
+                    deselectOtherClasses();
+                    selectClass(classData.id);
+                  }}">
               <span class="checkable"></span>
             </label>
-            <ClassCard classData={classData} allClasses={data.classes} />
+            <ClassCard classData={classData} allClasses={data.classes}
+              selected={isClassSelected(classData.id)} />
           </div>
         {/each}
         </div>
