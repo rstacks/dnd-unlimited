@@ -57,6 +57,14 @@
     <label for="tab-4" class="button pseudo toggle char-tab">Create!</label>
     <div class="row form-tabs">
       <div class="basic-info">
+        <div class="flex tab-arrow-group">
+          <div class="arrow-right">
+            <label class="button pseudo tab-arrow" for="tab-2">
+              <span>Next</span>
+              <img src="forward-arrow.svg" alt="Right Arrow for Next Tab">
+            </label>
+          </div>
+        </div>
         <div class="basic-info-field">
           <label for="char-name">Character Name:</label>
           <input name="char-name" type="text" placeholder="Character Name" />
@@ -80,6 +88,20 @@
       </div>
 
       <div>
+        <div class="flex tab-arrow-group">
+          <div>
+            <label class="button pseudo tab-arrow" for="tab-1">
+              <img src="backward-arrow.svg" alt="Left Arrow for Previous Tab">
+              <span>Previous</span>
+            </label>
+          </div>
+          <div class="arrow-right">
+            <label class="button pseudo tab-arrow" for="tab-3">
+              <span>Next</span>
+              <img src="forward-arrow.svg" alt="Right Arrow for Next Tab">
+            </label>
+          </div>
+        </div>
         <div class="class-list">
         {#each data.classes as classData}
           <div class="class-selector">
@@ -99,6 +121,20 @@
       </div>
 
       <div class="ability-scores">
+        <div class="flex tab-arrow-group">
+          <div>
+            <label class="button pseudo tab-arrow" for="tab-2">
+              <img src="backward-arrow.svg" alt="Left Arrow for Previous Tab">
+              <span>Previous</span>
+            </label>
+          </div>
+          <div class="arrow-right">
+            <label class="button pseudo tab-arrow" for="tab-4">
+              <span>Next</span>
+              <img src="forward-arrow.svg" alt="Right Arrow for Next Tab">
+            </label>
+          </div>
+        </div>
         <label for="ability-score-info" class="ability-score-info-button pseudo button">
           How do I assign ability scores?
         </label>
@@ -148,6 +184,14 @@
       </div>
 
       <div>
+        <div class="flex tab-arrow-group">
+          <div>
+            <label class="button pseudo tab-arrow" for="tab-3">
+              <img src="backward-arrow.svg" alt="Left Arrow for Previous Tab">
+              <span>Previous</span>
+            </label>
+          </div>
+        </div>
         <p>testicle</p>
       </div>
     </div>
@@ -246,7 +290,7 @@
   }
 
   .basic-info-field {
-    margin-top: 1em;
+    margin-bottom: 1em;
   }
 
   .basic-info-field label {
@@ -326,5 +370,31 @@
 
   .tab-separator {
     vertical-align: middle;
+  }
+
+  .tab-arrow {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    font-size: 0.8em;
+  }
+
+  .tab-arrow:hover {
+    cursor: pointer;
+  }
+
+  .tab-arrow img {
+    width: 1.5em;
+  }
+
+  .arrow-right {
+    display: flex;
+    justify-content: right;
+    margin-right: 1.2em;
+  }
+
+  .tab-arrow-group {
+    margin: auto;
+    max-width: 30em;
   }
 </style>
