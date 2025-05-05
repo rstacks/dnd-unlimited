@@ -16,6 +16,7 @@
     </label>
     <h3>Character Creation</h3>
   </header>
+  <div class="spacer"></div>
   <div class="tabs three char-creation-form">
     <input id="tab-1" type="radio" name="char-creation-tabs" checked />
     <label for="tab-1" class="button pseudo toggle">Basic Info</label>
@@ -132,8 +133,16 @@
   }
 
   .char-creation-header {
+    position: fixed;
     display: flex;
     align-items: center;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+  }
+
+  .spacer {
+    margin-top: 4em;
   }
 
   .back-button {

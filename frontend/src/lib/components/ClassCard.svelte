@@ -11,7 +11,7 @@
   let { classData, allClasses }: Props = $props();
 </script>
 
-<article class="card">
+<article class="card class-card">
   <header>
     <img src="{"class-icons/" + classData.class_name.toLowerCase() + ".svg"}"
       alt="Barbarian class icon" />
@@ -19,7 +19,7 @@
   </header>
   <p><strong>Description:</strong> {classData.class_desc}</p>
   <p><strong>Hit Dice:</strong> {classData.hit_dice}</p>
-  <p>
+  <p class="feat-info">
     <strong>Feat:</strong> {classData.feat_name}
     <label for="{"feat-modal-" + classData.id}" class="info-button pseudo button">
       <img src="info-icon.svg" alt="More feat info button">
@@ -71,8 +71,8 @@
 {/each}
 
 <style>
-  article {
-    width: 20em;
+  .class-card {
+    width: 15em;
     margin: auto;
     margin-top: 1em;
     margin-bottom: 1em;
@@ -102,6 +102,16 @@
 
   .info-button {
     padding: 0;
+    margin-left: 0.2em;
+  }
+
+  .feat-info {
+    display: flex;
+    align-items: center;
+  }
+
+  .feat-info strong {
+    margin-right: 0.3em;
   }
 
   .modal section {
