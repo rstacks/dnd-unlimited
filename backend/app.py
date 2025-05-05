@@ -40,6 +40,15 @@ def get_user_by_id(id: int):
 
   return user_data
 
+@app.post("/users/<int:id>")
+def set_user_name(id: int):
+  if not is_authorized_request(request):
+    abort(401)
+
+  req_json: dict = request.get_json()
+  new_name = req_json["userName"]
+  return db_functions.set_user_name(id, new_name)
+
 @app.post("/login")
 def login():
   if not is_authorized_request(request):
@@ -70,15 +79,11 @@ def register():
   session_id = req_json["sessionId"]
   return db_functions.register_user(phone_hash, user_name, session_id)
 
-@app.post("/users/<int:id>")
-def set_user_name(id: int):
+@app.get("/classes")
+def get_classes():
   if not is_authorized_request(request):
     abort(401)
-
-  req_json: dict = request.get_json()
-  new_name = req_json["userName"]
-  return db_functions.set_user_name(id, new_name)
-
+  return db_functions.get_classes()
 
 
 
