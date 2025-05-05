@@ -1,3 +1,5 @@
+<!-- BIG THANKS FOR THE CLASS ICONS! https://www.flapkan.com/ -->
+
 <article class="card">
   <header>
     <h4>Barbarian</h4>
