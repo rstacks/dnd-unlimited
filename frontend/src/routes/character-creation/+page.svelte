@@ -4,6 +4,7 @@
   
 <script lang="ts">
   import ClassCard from "$lib/components/ClassCard.svelte";
+  import CharacterSummary from "$lib/components/CharacterSummary.svelte";
   import type { PageProps } from "./$types";
   import { type ClassSelected } from "./+page.server";
 
@@ -192,7 +193,7 @@
             </label>
           </div>
         </div>
-        <p>testicle</p>
+        <CharacterSummary />
       </div>
     </div>
   </div>
@@ -377,6 +378,7 @@
     align-items: center;
     width: fit-content;
     font-size: 0.8em;
+    margin-bottom: 0;
   }
 
   .tab-arrow:hover {
