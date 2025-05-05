@@ -51,7 +51,7 @@
 
       <div>
         {#each data.classes as classData}
-          <ClassCard classData={classData} />
+          <ClassCard classData={classData} allClasses={data.classes} />
         {/each}
       </div>
 

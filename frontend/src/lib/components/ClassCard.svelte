@@ -3,7 +3,12 @@
 <script lang="ts">
   import { type ClassData } from "$lib/util/class";
 
-  let { classData }: { classData: ClassData } = $props();
+  interface Props {
+    classData: ClassData;
+    allClasses: ClassData[];
+  }
+
+  let { classData, allClasses }: Props = $props();
 </script>
 
 <article class="card">
@@ -16,7 +21,7 @@
   <p><strong>Hit Dice:</strong> {classData.hit_dice}</p>
   <p>
     <strong>Feat:</strong> {classData.feat_name}
-    <label for="feat-modal" class="info-button pseudo button">
+    <label for="{"feat-modal-" + classData.id}" class="info-button pseudo button">
       <img src="info-icon.svg" alt="More feat info button">
     </label>
   </p>
@@ -47,19 +52,21 @@
   {/if}
 </article>
 
-<div class="modal">
-  <input type="checkbox" id="feat-modal">
-  <label for="feat-modal" class="overlay"></label>
-  <article>
-    <header>
-      <h3>{classData.feat_name}</h3>
-      <label for="feat-modal" class="close">&times;</label>
-    </header>
-    <section class="content">
-      {classData.feat_desc}
-    </section>
-  </article>
-</div>
+{#each allClasses as classRecord}
+  <div class="modal">
+    <input type="checkbox" id="{"feat-modal-" + classRecord.id}">
+    <label for="{"feat-modal-" + classRecord.id}" class="overlay"></label>
+    <article>
+      <header>
+        <h3>{classRecord.feat_name}</h3>
+        <label for="{"feat-modal-" + classRecord.id}" class="close">&times;</label>
+      </header>
+      <section class="content">
+        {classRecord.feat_desc}
+      </section>
+    </article>
+  </div>
+{/each}
 
 <style>
   article {
