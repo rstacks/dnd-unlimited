@@ -43,15 +43,18 @@
     <h3>Character Creation</h3>
   </header>
   <div class="spacer"></div>
-  <div class="tabs three char-creation-form">
+  <div class="tabs four char-creation-form">
     <input id="tab-1" type="radio" name="char-creation-tabs" checked />
-    <label for="tab-1" class="button pseudo toggle">Basic Info</label>
-    /
+    <label for="tab-1" class="button pseudo toggle char-tab">Basic Info</label>
+    <span class="tab-separator">/</span>
     <input id="tab-2" type="radio" name="char-creation-tabs" />
-    <label for="tab-2" class="button pseudo toggle">Class</label>
-    /
+    <label for="tab-2" class="button pseudo toggle char-tab">Class</label>
+    <span class="tab-separator">/</span>
     <input id="tab-3" type="radio" name="char-creation-tabs" />
-    <label for="tab-3" class="button pseudo toggle">Ability Scores</label>
+    <label for="tab-3" class="button pseudo toggle char-tab">Ability Scores</label>
+    <span class="tab-separator">/</span>
+    <input id="tab-4" type="radio" name="char-creation-tabs" />
+    <label for="tab-4" class="button pseudo toggle char-tab">Create!</label>
     <div class="row form-tabs">
       <div class="basic-info">
         <div class="basic-info-field">
@@ -142,6 +145,10 @@
             <input name="cha" type="number" placeholder="CHA" />
           </div>
         </div>
+      </div>
+
+      <div>
+        <p>testicle</p>
       </div>
     </div>
   </div>
@@ -311,5 +318,13 @@
     font-size: 2em;
     padding: 0;
     padding-right: 0.6em;
+  }
+
+  .char-tab {
+    font-size: 0.7em;
+  }
+
+  .tab-separator {
+    vertical-align: middle;
   }
 </style>
