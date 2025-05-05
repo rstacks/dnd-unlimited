@@ -1,23 +1,50 @@
 <!-- BIG THANKS FOR THE CLASS ICONS! https://www.flapkan.com/ -->
 
+<script lang="ts">
+  import { type ClassData } from "$lib/util/class";
+
+  let { classData }: { classData: ClassData } = $props();
+</script>
+
 <article class="card">
   <header>
-    <img src="class-icons/barbarian.svg" alt="Barbarian class icon" />
-    <h4>Barbarian</h4>
+    <img src="{"class-icons/" + classData.class_name.toLowerCase() + ".svg"}"
+      alt="Barbarian class icon" />
+    <h4>{classData.class_name}</h4>
   </header>
-  <p><strong>Description:</strong> A wandering warrior imbued with primal magic.</p>
-  <p><strong>Hit Dice:</strong> d8</p>
+  <p><strong>Description:</strong> {classData.class_desc}</p>
+  <p><strong>Hit Dice:</strong> {classData.hit_dice}</p>
   <p>
-    <strong>Feat:</strong> Spellcasting
+    <strong>Feat:</strong> {classData.feat_name}
     <label for="feat-modal" class="info-button pseudo button">
       <img src="info-icon.svg" alt="More feat info button">
     </label>
   </p>
-  <p><strong>Save Proficiencies:</strong></p>
-  <p><strong>Skill Proficiencies:</strong></p>
-  <footer>
-    <button>View Spells</button>
-  </footer>
+  <p>
+    <strong>Save Proficiencies:</strong>
+    {#each classData.saves as save, i}
+      {#if i === 0}
+        {save}
+      {:else}
+        , {save}
+      {/if}
+    {/each}
+  </p>
+  <p>
+    <strong>Skill Proficiencies:</strong>
+    {#each classData.skills as skill, i}
+      {#if i === 0}
+        {skill}
+      {:else}
+        , {skill}
+      {/if}
+    {/each}    
+  </p>
+  {#if classData.feat_name.toLowerCase() === "spellcasting"}
+    <footer>
+      <button>View Spells</button>
+    </footer>
+  {/if}
 </article>
 
 <div class="modal">
@@ -25,11 +52,11 @@
   <label for="feat-modal" class="overlay"></label>
   <article>
     <header>
-      <h3>Spellcasting</h3>
+      <h3>{classData.feat_name}</h3>
       <label for="feat-modal" class="close">&times;</label>
     </header>
     <section class="content">
-      You have the ability to cast spells as an action. Depending on the class, you will have access to a specific set of cantrips and casted spells.\nCantrips are spells with no cost that can be cast as often as you desire.\nCasted spells consume a Spell Slot upon casting.\nYour character has a limited number of Spell Slots. As you gain levels, the number of Spell Slots available to you increases. You may also gain higher level Spell Slots.
+      {classData.feat_desc}
     </section>
   </article>
 </div>

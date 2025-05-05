@@ -4,6 +4,9 @@
   
 <script lang="ts">
   import ClassCard from "$lib/components/ClassCard.svelte";
+  import type { PageProps } from "./$types";
+
+  let { data }: PageProps = $props();
 </script>
 
 <article class="card char-creation-screen" id="char-creation-screen">
@@ -47,7 +50,9 @@
       </div>
 
       <div>
-        <ClassCard />
+        {#each data.classes as classData}
+          <ClassCard classData={classData} />
+        {/each}
       </div>
 
       <div class="ability-scores">
