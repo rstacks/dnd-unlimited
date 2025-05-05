@@ -1,17 +1,11 @@
 <svelte:head>
   <title>Character Creation | DnD Unlimited</title>
 </svelte:head>
-
-<script lang="ts">
-  // TODO: reset form inputs when close button pressed
-  // function closeCharacterCreation(): void {
-  //   const elem = document.getElementById("char-creation-screen");
-  //   if (elem) {
-  //     elem.style.display = "none";
-  //   }
-  // }
-</script>
   
+<script lang="ts">
+  import ClassCard from "$lib/components/ClassCard.svelte";
+</script>
+
 <article class="card char-creation-screen" id="char-creation-screen">
   <header class="char-creation-header">
     <label for="leave-modal" class="back-button pseudo button">
@@ -53,7 +47,7 @@
       </div>
 
       <div>
-        zone 2
+        <ClassCard />
       </div>
 
       <div class="ability-scores">
