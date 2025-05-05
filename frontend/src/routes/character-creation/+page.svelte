@@ -7,6 +7,15 @@
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
+
+  function deselectOtherClasses(buttonToSelectId: string): void {
+    const otherButtons = <HTMLCollectionOf<HTMLInputElement>>document.getElementsByClassName("class-button");
+    for (const button of otherButtons) {
+      button.checked = false;
+    }
+    const buttonToSelect = document.getElementById(buttonToSelectId) as HTMLInputElement;
+    buttonToSelect.checked = true;
+  }
 </script>
 
 <article class="card char-creation-screen" id="char-creation-screen">
@@ -52,7 +61,15 @@
 
       <div>
         {#each data.classes as classData}
-          <ClassCard classData={classData} allClasses={data.classes} />
+          <div class="class-selector">
+            <label>
+              <input class="class-button" checked={false} name="button-{classData.id}"
+                type="radio" oninput="{() => { deselectOtherClasses("button-" + classData.id) }}"
+                id="button-{classData.id}">
+              <span class="checkable"></span>
+            </label>
+            <ClassCard classData={classData} allClasses={data.classes} />
+          </div>
         {/each}
       </div>
 
@@ -204,6 +221,10 @@
     text-align: left;
     margin-top: 1em;
     padding-left: 0;
+  }
+
+  .class-selector {
+    display: flex;
   }
 </style>
   
