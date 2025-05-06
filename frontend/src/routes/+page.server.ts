@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { BACKEND_URL, API_KEY } from "$env/static/private";
 import bcrypt from "bcrypt";
 import { error, redirect, type Cookies } from "@sveltejs/kit";
-import { getUserIdByPhone, getUserIdBySession } from "$lib/util/user";
+import { getUserIdByPhone, isLoggedIn } from "$lib/util/user";
 
 const SALT_ROUNDS = 10;
 
@@ -21,8 +21,7 @@ interface FormCookies {
 }
 
 export const load = (async ({ cookies }) => {
-  const sessionId = cookies.get("sessionId");
-  if (sessionId && (-1 !== await getUserIdBySession(sessionId))) {
+  if (await isLoggedIn(cookies)) {
     redirect(303, "/dashboard");
   }
 

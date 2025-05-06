@@ -1,5 +1,5 @@
 import { BACKEND_URL, API_KEY } from "$env/static/private";
-import { error } from "@sveltejs/kit";
+import { error, type Cookies } from "@sveltejs/kit";
 import bcrypt from "bcrypt";
 
 interface UserAuthInfo {
@@ -67,4 +67,17 @@ export async function getUserById(userId: number): Promise<UserData> {
 
   const userData: UserData = await resp.json();
   return userData;
+}
+
+export async function isLoggedIn(cookies: Cookies): Promise<boolean> {
+  const sessionId = cookies.get("sessionId");
+  if (!sessionId) {
+    return false;
+  }
+  const userId = await getUserIdBySession(sessionId);
+  if (userId === -1) {
+    return false;
+  }
+
+  return true;
 }
