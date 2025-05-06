@@ -144,7 +144,8 @@ def get_classes():
 
 def create_class_character(class_id: int) -> int | None:
   class_info_query = "SELECT c.hit_dice, f.feat_name FROM classes AS c INNER JOIN feats AS f ON c.feat_id = f.id WHERE c.id = ?"
-  general_insertion_query = "INSERT INTO characters (class_id, lvl, xp, proficiency_bonus, speed, hp, max_hp"
+  general_insertion_stmt = "INSERT INTO characters (class_id, lvl, xp, proficiency_bonus, speed, hp, max_hp) VALUES (?, ?, ?, ?, ?, ?, ?)"
+  feat_update_stmt = "UPDATE characters SET ? = ? WHERE id = ?"
 
   con = _get_db_connection()
   cur = con.cursor()
@@ -155,26 +156,25 @@ def create_class_character(class_id: int) -> int | None:
   feat: str = class_record[1]
   max_hit_die_roll = int(hit_die[1:])
 
-  if feat == "Spellcasting":
-    specific_insertion_query = general_insertion_query + ", lvl_1_spell_slots) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-    # Warlocks (class_id == 11) get less slots than all other spellcasters
-    spell_slots = 1 if class_id == 11 else 2
-    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, spell_slots))
-  if feat == "Rage":
-    specific_insertion_query = general_insertion_query + ", rages, rage_damage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, 2, 2))
-  if feat == "Second Wind":
-    specific_insertion_query = general_insertion_query + ", second_wind) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, 2))
-  if feat == "Martial Arts":
-    specific_insertion_query = general_insertion_query + ", martial_arts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, "1d6"))
-  if feat == "Sneak Attack":
-    specific_insertion_query = general_insertion_query + ", sneak_attack) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
-    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, "1d6"))
-
+  cur.execute(general_insertion_stmt, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll))
   con.commit()
   character_id = cur.lastrowid
+
+  if feat == "Spellcasting":
+    # Warlocks (class_id == 11) get less slots than all other spellcasters
+    spell_slots = 1 if class_id == 11 else 2
+    cur.execute(feat_update_stmt, ("lvl_1_spell_slots", spell_slots, character_id))
+  if feat == "Rage":
+    cur.execute(feat_update_stmt, ("rages", 2, character_id))
+    cur.execute(feat_update_stmt, ("rage_damage", 2, character_id))
+  if feat == "Second Wind":
+    cur.execute(feat_update_stmt, ("second_wind", 2, character_id))
+  if feat == "Martial Arts":
+    cur.execute(feat_update_stmt, ("martial_arts", "1d6", character_id))
+  if feat == "Sneak Attack":
+    cur.execute(feat_update_stmt, ("sneak_attack", "1d6", character_id))
+
+  con.commit()
   con.close()
 
   return character_id
