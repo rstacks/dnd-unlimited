@@ -157,7 +157,7 @@ async function registerInDb(phoneHash: string, username: string, sessionId: stri
     },
     body: JSON.stringify({
       phoneHash: phoneHash,
-      userName: username,
+      userName: username.trim(),
       sessionId: sessionId
     })
   });

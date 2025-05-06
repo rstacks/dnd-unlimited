@@ -24,6 +24,11 @@
 
   let { data }: PageProps = $props();
   let classSelectedStatuses = $state(data.classSelectedList);
+  let characterFormInputs: CharacterFormInputs = $state({
+    basicInfo: { name: "", meleeWep: "", rangedWep: "", notes: "" },
+    classData: undefined,
+    abilityScores: { str: 0, dex: 0, con: 0, intl: 0, wis: 0, cha: 0 }
+  });
 
   function deselectOtherClasses(): void {
     const otherButtons = <HTMLCollectionOf<HTMLInputElement>>document.getElementsByClassName("class-button");
@@ -56,10 +61,10 @@
     const backgroundInputElem = document.getElementById("bkg-info-input") as HTMLInputElement;
 
     return {
-      name: charInputElem.value,
-      meleeWep: meleeInputElem.value,
-      rangedWep: rangedInputElem.value,
-      notes: backgroundInputElem.value
+      name: charInputElem.value.trim(),
+      meleeWep: meleeInputElem.value.trim(),
+      rangedWep: rangedInputElem.value.trim(),
+      notes: backgroundInputElem.value.trim()
     };
   }
 
@@ -257,7 +262,11 @@
             </label>
           </div>
         </div>
-        <!-- <CharacterSummary /> -->
+        <CharacterSummary name={characterFormInputs.basicInfo.name}
+          meleeWep={characterFormInputs.basicInfo.meleeWep}
+          rangedWep={characterFormInputs.basicInfo.rangedWep}
+          className={characterFormInputs.classData?.class_name}
+          abilityScores={characterFormInputs.abilityScores} />
       </div>
     </div>
   </div>

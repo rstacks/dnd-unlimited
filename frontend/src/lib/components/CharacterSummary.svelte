@@ -5,7 +5,7 @@
     name: string;
     meleeWep: string;
     rangedWep: string;
-    className: string;
+    className: string | undefined;
     abilityScores: AbilityScores;
   }
 
@@ -16,7 +16,12 @@
   <header>
     <h4>Character Summary</h4>
   </header>
-  <p><strong>Name:</strong> {name}</p>
+  <p>
+    <strong>Name:</strong>
+    {#if name}
+      {name}
+    {/if}
+  </p>
   <p><strong>Melee Weapon:</strong> {meleeWep}</p>
   <p><strong>Ranged Weapon:</strong> {rangedWep}</p>
   <p><strong>Class:</strong> {className}</p>

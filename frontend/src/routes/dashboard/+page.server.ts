@@ -65,7 +65,7 @@ async function setNameInDb(userId: number, name: string): Promise<void> {
       "content-type": "application/json"
     },
     body: JSON.stringify({
-      userName: name
+      userName: name.trim()
     })
   });
 
