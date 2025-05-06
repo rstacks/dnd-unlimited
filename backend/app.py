@@ -90,4 +90,7 @@ def create_character():
   if not is_authorized_request(request):
     abort(401)
 
+  for wep in weps:
+    db_functions.create_weapon()
+
   return

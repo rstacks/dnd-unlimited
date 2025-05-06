@@ -1,6 +1,7 @@
 # Functions for interacting with the database are defined here.
 
 import sqlite3
+from math import floor
 
 DB_CONNECTION_STR = "./db/dnd-db.db"
 SAVE_SHORT_TO_LONG = {
@@ -29,6 +30,9 @@ def _assign_class_skills(cur: sqlite3.Cursor, class_id: int, class_data: dict) -
   class_skills: list[list] = cur.fetchall()
   for class_skill in class_skills:
     class_data["skills"].append(class_skill[0])
+
+def _get_ability_modifier(ability_score: int) -> int:
+  return floor((ability_score - 10) / 2)
 
 def get_users():
   con = _get_db_connection()
@@ -142,6 +146,18 @@ def get_classes():
 
   return { "classes": formatted_records }
 
+def create_weapon(name: str, type: str) -> int | None:
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute("INSERT INTO weapons (weapon_name, weapon_type) VALUES (?, ?)", (name, type))
+  con.commit()
+  weapon_id = cur.lastrowid
+
+  con.close()
+
+  return weapon_id
+
 def create_class_character(class_id: int) -> int | None:
   class_info_query = "SELECT c.hit_dice, f.feat_name FROM classes AS c INNER JOIN feats AS f ON c.feat_id = f.id WHERE c.id = ?"
   general_insertion_stmt = "INSERT INTO characters (class_id, lvl, xp, proficiency_bonus, speed, hp, max_hp) VALUES (?, ?, ?, ?, ?, ?, ?)"
@@ -179,18 +195,34 @@ def create_class_character(class_id: int) -> int | None:
 
   return character_id
 
-def create_character(user_id: int, class_id: int, name: str, ability_scores: dict, notes: str):
-  # will require user_id, character_name, str, dex, con, intl, wis, cha, notes
-  # calculated from user input: AC=10+dex mod, hp and max_hp=hit die max + con mod
+def create_character(user_id: int, class_id: int, name: str, ability_scores: dict, notes: str, weapon_ids: list[int]):
+  update_char_stmt = "UPDATE characters SET user_id = ?, character_name = ?, str = ?, dex = ?, con = ?, intl = ?, wis = ?, cha = ?, armor_class = ?, hp = hp + ?, max_hp = max_hp + ?, notes = ? WHERE id = ?"
+  insert_char_weps_stmt = "INSERT INTO character_weapons VALUES (?, ?, ?)"
 
-  # don't forget weapons and character_weapons tables
+  char_id = create_class_character(class_id)
+  character_weapons_records = [(char_id, wep_id, "1d6") for wep_id in weapon_ids]
 
   con = _get_db_connection()
-
+  
   cur = con.cursor()
-  
-  
-  cur.execute()
-  con.commit()
+  cur.execute(update_char_stmt, (
+    user_id,
+    name,
+    ability_scores["str"],
+    ability_scores["dex"],
+    ability_scores["con"],
+    ability_scores["intl"],
+    ability_scores["wis"],
+    ability_scores["cha"],
+    10 + _get_ability_modifier(ability_scores["dex"]),
+    _get_ability_modifier(ability_scores["con"]),
+    _get_ability_modifier(ability_scores["con"]),
+    notes,
+    char_id
+  ))
+  cur.executemany(insert_char_weps_stmt, character_weapons_records)
 
+  con.commit()
   con.close()
+
+  return { "new_character_id": char_id }
