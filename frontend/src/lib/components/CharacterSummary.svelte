@@ -141,18 +141,23 @@
       <h3>Confirm Creation</h3>
       <label for="confirm-modal" class="close">&times;</label>
     </header>
-    <section class="content">
-      If you would like to make any changes to your character, you may go 
-      back and edit your responses. If you're ready to go, hit create!
-    </section>
-    <footer class="confirm-buttons">
-      <div class="back-button">
-        <label for="confirm-modal" class="button">Go Back</label>
-      </div>
-      <div class="create-button">
-        <input type="submit" class="button success" value="Create">
-      </div>
-    </footer>
+    <form method="POST" action="/character-creation">
+      <fieldset>
+        <input type="text" name="cock" value="gays">
+      </fieldset>
+      <section class="content">
+        If you would like to make any changes to your character, you may go 
+        back and edit your responses. If you're ready to go, hit create!
+      </section>
+      <footer class="confirm-buttons">
+        <div class="back-button">
+          <label for="confirm-modal" class="button">Go Back</label>
+        </div>
+        <div class="create-button">
+          <input type="submit" class="button success" value="Create">
+        </div>
+      </footer>
+    </form>
   </article>
 </div>
 
@@ -204,5 +209,9 @@
   .create-button {
     display: flex;
     justify-content: end;
+  }
+
+  fieldset {
+    display: none;
   }
 </style>

@@ -1,4 +1,4 @@
-import type { PageServerLoad } from "./$types";
+import type { PageServerLoad, Actions } from "./$types";
 import { getUserIdBySession } from "$lib/util/user";
 import { redirect } from "@sveltejs/kit";
 import { getClasses } from "$lib/util/class";
@@ -38,3 +38,10 @@ function initializeClassSelectedList(classes: ClassData[]): ClassSelected[] {
   }
   return classSelectedList;
 }
+
+export const actions = {
+  default: async ({ request }) => {
+    const test = await request.formData();
+    console.log(test.get("cock"));
+  }
+} satisfies Actions;
