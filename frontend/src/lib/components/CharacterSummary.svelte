@@ -3,13 +3,15 @@
 
   interface Props {
     name: string;
+    notes: string;
     meleeWep: string;
     rangedWep: string;
     className: string | undefined;
+    classId: number | undefined;
     abilityScores: AbilityScores;
   }
 
-  let { name, meleeWep, rangedWep, className, abilityScores }: Props = $props();
+  let { name, notes, meleeWep, rangedWep, className, classId, abilityScores }: Props = $props();
 
   function isValidAbilityScores(): boolean {
     return (abilityScores.str >= 3 && abilityScores.str <= 18)
@@ -142,9 +144,12 @@
       <label for="confirm-modal" class="close">&times;</label>
     </header>
     <form method="POST" action="/character-creation">
-      <fieldset>
-        <input type="text" name="cock" value="gays">
-      </fieldset>
+      <input type="hidden" name="class-id" value={classId}>
+      <input type="hidden" name="char-name" value={name}>
+      <input type="hidden" name="ability-scores" value={abilityScores}>
+      <input type="hidden" name="bkg-notes" value={notes}>
+      <input type="hidden" name="melee-wep" value={meleeWep}>
+      <input type="hidden" name="ranged-wep" value={rangedWep}>
       <section class="content">
         If you would like to make any changes to your character, you may go 
         back and edit your responses. If you're ready to go, hit create!
@@ -209,9 +214,5 @@
   .create-button {
     display: flex;
     justify-content: end;
-  }
-
-  fieldset {
-    display: none;
   }
 </style>

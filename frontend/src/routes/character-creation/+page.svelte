@@ -274,9 +274,11 @@
           </div>
         </div>
         <CharacterSummary name={characterFormInputs.basicInfo.name}
+          notes={characterFormInputs.basicInfo.notes}
           meleeWep={characterFormInputs.basicInfo.meleeWep}
           rangedWep={characterFormInputs.basicInfo.rangedWep}
           className={characterFormInputs.classData?.class_name}
+          classId={characterFormInputs.classData?.id}
           abilityScores={characterFormInputs.abilityScores} />
       </div>
     </div>
