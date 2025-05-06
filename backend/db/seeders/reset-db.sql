@@ -101,7 +101,7 @@ CREATE TABLE class_skill_proficiencies (
 );
 CREATE TABLE character_weapons (
   character_id INTEGER REFERENCES characters,
-  weapon_id INTEGER REFERENCES spells,
+  weapon_id INTEGER REFERENCES weapons,
   damage_die TEXT,
   PRIMARY KEY (character_id, weapon_id)
 );

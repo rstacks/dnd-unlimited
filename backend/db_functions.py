@@ -179,7 +179,7 @@ def create_class_character(class_id: int) -> int | None:
 
   return character_id
 
-def create_character():
+def create_character(user_id: int, class_id: int, name: str, ability_scores: dict, notes: str):
   # will require user_id, character_name, str, dex, con, intl, wis, cha, notes
   # calculated from user input: AC=10+dex mod, hp and max_hp=hit die max + con mod
 
