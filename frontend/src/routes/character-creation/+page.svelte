@@ -377,7 +377,7 @@
     display: flex;
     align-items: center;
     width: fit-content;
-    font-size: 0.8em;
+    font-size: 0.7em;
     margin-bottom: 0;
   }
 

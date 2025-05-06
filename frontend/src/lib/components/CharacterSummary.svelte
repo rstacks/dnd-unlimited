@@ -1,22 +1,36 @@
+<script lang="ts">
+  import type { AbilityScores } from "$lib/util/character";
+
+  interface Props {
+    name: string;
+    meleeWep: string;
+    rangedWep: string;
+    className: string;
+    abilityScores: AbilityScores;
+  }
+
+  let { name, meleeWep, rangedWep, className, abilityScores }: Props = $props();
+</script>
+
 <article class="card">
   <header>
     <h4>Character Summary</h4>
   </header>
-  <p><strong>Name:</strong> Roxy</p>
-  <p><strong>Melee Weapon:</strong> Sword</p>
-  <p><strong>Ranged Weapon:</strong> Gun</p>
-  <p><strong>Class:</strong> Sorcerer</p>
+  <p><strong>Name:</strong> {name}</p>
+  <p><strong>Melee Weapon:</strong> {meleeWep}</p>
+  <p><strong>Ranged Weapon:</strong> {rangedWep}</p>
+  <p><strong>Class:</strong> {className}</p>
   <p><strong>Ability Scores:</strong></p>
   <div class="ability-scores">
     <div>
-      <p><strong>STR:</strong> 14</p>
-      <p><strong>DEX:</strong> 14</p>
-      <p><strong>CON:</strong> 14</p>
+      <p><strong>STR:</strong> {abilityScores.str}</p>
+      <p><strong>DEX:</strong> {abilityScores.dex}</p>
+      <p><strong>CON:</strong> {abilityScores.con}</p>
     </div>
     <div>
-      <p><strong>INT:</strong> 14</p>
-      <p><strong>WIS:</strong> 14</p>
-      <p><strong>CHA:</strong> 14</p>
+      <p><strong>INT:</strong> {abilityScores.intl}</p>
+      <p><strong>WIS:</strong> {abilityScores.wis}</p>
+      <p><strong>CHA:</strong> {abilityScores.cha}</p>
     </div>
   </div>
 </article>
