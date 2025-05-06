@@ -6,7 +6,21 @@
   import ClassCard from "$lib/components/ClassCard.svelte";
   import CharacterSummary from "$lib/components/CharacterSummary.svelte";
   import type { PageProps } from "./$types";
-  import { type ClassSelected } from "./+page.server";
+  import type { ClassData } from "$lib/util/class";
+  import type { AbilityScores } from "$lib/util/character";
+
+  interface BasicInfoInputs {
+    name: string;
+    meleeWep: string;
+    rangedWep: string;
+    notes: string;
+  }
+
+  interface CharacterFormInputs {
+    basicInfo: BasicInfoInputs;
+    classData: ClassData | undefined;
+    abilityScores: AbilityScores;
+  }
 
   let { data }: PageProps = $props();
   let classSelectedStatuses = $state(data.classSelectedList);
@@ -33,6 +47,56 @@
       return classSelectedStatus.selected;
     }
     return false;
+  }
+
+  function getBasicInfoInputs(): BasicInfoInputs {
+    const charInputElem = document.getElementById("char-name-input") as HTMLInputElement;
+    const meleeInputElem = document.getElementById("melee-wep-input") as HTMLInputElement;
+    const rangedInputElem = document.getElementById("ranged-wep-input") as HTMLInputElement;
+    const backgroundInputElem = document.getElementById("bkg-info-input") as HTMLInputElement;
+
+    return {
+      name: charInputElem.value,
+      meleeWep: meleeInputElem.value,
+      rangedWep: rangedInputElem.value,
+      notes: backgroundInputElem.value
+    };
+  }
+
+  function getSelectedClass(): ClassData | undefined {
+    const classId = classSelectedStatuses.find((elem) => elem.selected)?.classId;
+    const classData = data.classes.find((elem) => elem.id === classId);
+    return classData;
+  }
+
+  function getAbilityScoresInputs(): AbilityScores {
+    const strInput = document.getElementById("str-input") as HTMLInputElement;
+    const dexInput = document.getElementById("dex-input") as HTMLInputElement;
+    const conInput = document.getElementById("con-input") as HTMLInputElement;
+    const intInput = document.getElementById("int-input") as HTMLInputElement;
+    const wisInput = document.getElementById("wis-input") as HTMLInputElement;
+    const chaInput = document.getElementById("cha-input") as HTMLInputElement;
+
+    return {
+      str: strInput.valueAsNumber,
+      dex: dexInput.valueAsNumber,
+      con: conInput.valueAsNumber,
+      intl: intInput.valueAsNumber,
+      wis: wisInput.valueAsNumber,
+      cha: chaInput.valueAsNumber
+    };
+  }
+
+  function getCharacterFormInputs(): CharacterFormInputs {
+    const basicInfo = getBasicInfoInputs();
+    const classData = getSelectedClass();
+    const abilityScores = getAbilityScoresInputs();
+    
+    return {
+      basicInfo: basicInfo,
+      classData: classData,
+      abilityScores: abilityScores
+    };
   }
 </script>
 
@@ -68,17 +132,17 @@
         </div>
         <div class="basic-info-field">
           <label for="char-name">Character Name:</label>
-          <input name="char-name" type="text" placeholder="Character Name" />
+          <input id="char-name-input" name="char-name" type="text" placeholder="Character Name" />
         </div>
         
         <div class="basic-info-field">
           <label for="melee-wep">Melee Weapon:</label>
-          <input name="melee-wep" type="text" placeholder="Melee Weapon Name" />
+          <input id="melee-wep-input" name="melee-wep" type="text" placeholder="Melee Weapon Name" />
         </div>
         
         <div class="basic-info-field">
           <label for="ranged-wep">Ranged Weapon:</label>
-          <input name="ranged-wep" type="text" placeholder="Ranged Weapon Name" />
+          <input id="ranged-wep-input" name="ranged-wep" type="text" placeholder="Ranged Weapon Name" />
         </div>
 
         <div class="basic-info-field">
@@ -144,42 +208,42 @@
             <label for="str">Strength:</label>
           </div>
           <div class="score-input">
-            <input name="str" type="number" placeholder="STR" tabindex="-1" />
+            <input id="str-input" name="str" type="number" placeholder="STR" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="dex">Dexterity:</label>
           </div>
           <div class="score-input">
-            <input name="dex" type="number" placeholder="DEX" tabindex="-1" />
+            <input id="dex-input" name="dex" type="number" placeholder="DEX" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="con">Constitution:</label>
           </div>
           <div class="score-input">
-            <input name="con" type="number" placeholder="CON" tabindex="-1" />
+            <input id="con-input" name="con" type="number" placeholder="CON" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="int">Intelligence:</label>
           </div>
           <div class="score-input">
-            <input name="int" type="number" placeholder="INT" tabindex="-1" />
+            <input id="int-input" name="int" type="number" placeholder="INT" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="wis">Wisdom:</label>
           </div>
           <div class="score-input">
-            <input name="wis" type="number" placeholder="WIS" tabindex="-1" />
+            <input id="wis-input" name="wis" type="number" placeholder="WIS" tabindex="-1" />
           </div>
   
           <div class="score-label">
             <label for="cha">Charisma:</label>
           </div>
           <div class="score-input">
-            <input name="cha" type="number" placeholder="CHA" tabindex="-1" />
+            <input id="cha-input" name="cha" type="number" placeholder="CHA" tabindex="-1" />
           </div>
         </div>
       </div>
@@ -193,7 +257,7 @@
             </label>
           </div>
         </div>
-        <CharacterSummary />
+        <!-- <CharacterSummary /> -->
       </div>
     </div>
   </div>
