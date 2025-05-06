@@ -146,7 +146,12 @@
     <form method="POST" action="/character-creation">
       <input type="hidden" name="class-id" value={classId}>
       <input type="hidden" name="char-name" value={name}>
-      <input type="hidden" name="ability-scores" value={abilityScores}>
+      <input type="hidden" name="str" value={abilityScores.str}>
+      <input type="hidden" name="dex" value={abilityScores.dex}>
+      <input type="hidden" name="con" value={abilityScores.con}>
+      <input type="hidden" name="intl" value={abilityScores.intl}>
+      <input type="hidden" name="wis" value={abilityScores.wis}>
+      <input type="hidden" name="cha" value={abilityScores.cha}>
       <input type="hidden" name="bkg-notes" value={notes}>
       <input type="hidden" name="melee-wep" value={meleeWep}>
       <input type="hidden" name="ranged-wep" value={rangedWep}>

@@ -1,9 +1,10 @@
 import type { PageServerLoad, Actions } from "./$types";
 import { getUserIdBySession, isLoggedIn } from "$lib/util/user";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import { getClasses } from "$lib/util/class";
 import type { ClassData } from "$lib/util/class";
 import type { AbilityScores } from "$lib/util/character";
+import { BACKEND_URL, API_KEY } from "$env/static/private";
 
 /**
  * Tracks whether a given class has been selected by the user
@@ -17,7 +18,7 @@ export interface ClassSelected {
 interface CharacterInfo {
   classId?: number;
   charName?: string;
-  abilityScores?: AbilityScores;
+  abilityScores: AbilityScores;
   notes?: string;
   meleeWep?: string;
   rangedWep?: string;
@@ -41,12 +42,10 @@ export const actions = {
 
     const sessionId = cookies.get("sessionId")!;
     const userId = await getUserIdBySession(sessionId);
+    const characterFormInputs = await getFormData(request);
 
-    const formResults = await getFormData(request);
-    console.log(formResults);
-    console.log(JSON.stringify(formResults.abilityScores));
-
-    //redirect(303, "/dashboard");
+    await createCharacterInDb(userId, characterFormInputs);
+    redirect(303, "/dashboard");
   }
 } satisfies Actions;
 
@@ -65,16 +64,51 @@ async function getFormData(request: Request): Promise<CharacterInfo> {
   const data = await request.formData();
   const classId = Number(data.get("class-id")?.toString());
   const name = data.get("char-name")?.toString();
-  const abilityScores = data.get("ability-scores")?.valueOf() as AbilityScores | undefined;
+  const str = Number(data.get("str")?.toString());
+  const dex = Number(data.get("dex")?.toString());
+  const con = Number(data.get("con")?.toString());
+  const intl = Number(data.get("intl")?.toString());
+  const wis = Number(data.get("wis")?.toString());
+  const cha = Number(data.get("cha")?.toString());
   const notes = data.get("bkg-notes")?.toString();
   const meleeWep = data.get("melee-wep")?.toString();
   const rangedWep = data.get("ranged-wep")?.toString();
   return {
     classId: classId,
     charName: name,
-    abilityScores: abilityScores,
+    abilityScores: {
+      str: str,
+      dex: dex,
+      con: con,
+      intl: intl,
+      wis: wis,
+      cha: cha
+    },
     notes: notes,
     meleeWep: meleeWep,
     rangedWep: rangedWep
   };
+}
+
+async function createCharacterInDb(userId: number, charInfo: CharacterInfo): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/create-character", {
+    method: "POST",
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      userId: userId,
+      classId: charInfo.classId,
+      charName: charInfo.charName,
+      abilityScores: charInfo.abilityScores,
+      notes: charInfo.notes,
+      meleeWep: charInfo.meleeWep,
+      rangedWep: charInfo.rangedWep
+    })
+  });
+
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
 }
