@@ -15,7 +15,7 @@
 
 <article class="card welcome">
   <header>
-    <h2>Welcome, {data.name}!</h2>
+    <h2>Greetings, {data.name}</h2>
   </header>
 </article>
 

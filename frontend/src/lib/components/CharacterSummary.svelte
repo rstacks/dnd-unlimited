@@ -133,6 +133,29 @@
   <p class="below-card-content">Please fix any missing or invalid inputs before proceeding.</p>
 {/if}
 
+<div class="modal">
+  <input type="checkbox" id="confirm-modal">
+  <label for="confirm-modal" class="overlay"></label>
+  <article>
+    <header>
+      <h3>Confirm Creation</h3>
+      <label for="confirm-modal" class="close">&times;</label>
+    </header>
+    <section class="content">
+      If you would like to make any changes to your character, you may go 
+      back and edit your responses. If you're ready to go, hit create!
+    </section>
+    <footer class="confirm-buttons">
+      <div class="back-button">
+        <label for="confirm-modal" class="button">Go Back</label>
+      </div>
+      <div class="create-button">
+        <input type="submit" class="button success" value="Create">
+      </div>
+    </footer>
+  </article>
+</div>
+
 <style>
   article {
     width: 20em;
@@ -171,5 +194,15 @@
 
   .create {
     width: 10em;
+  }
+
+  .confirm-buttons {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+
+  .create-button {
+    display: flex;
+    justify-content: end;
   }
 </style>
