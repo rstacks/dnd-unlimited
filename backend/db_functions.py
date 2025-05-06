@@ -142,15 +142,54 @@ def get_classes():
 
   return { "classes": formatted_records }
 
+def create_class_character(class_id: int) -> None:
+  class_info_query = "SELECT c.hit_dice, f.feat_name FROM classes AS c INNER JOIN feats AS f ON c.feat_id = f.id WHERE c.id = ?"
+  general_insertion_query = "INSERT INTO characters (class_id, lvl, xp, proficiency_bonus, speed, hp, max_hp"
 
+  con = _get_db_connection()
+  cur = con.cursor()
+  
+  cur.execute(class_info_query, (class_id,))
+  class_record = cur.fetchone()
+  hit_die: str = class_record[0]
+  feat: str = class_record[1]
+  max_hit_die_roll = int(hit_die[1:])
 
+  if feat == "Spellcasting":
+    specific_insertion_query = general_insertion_query + ", lvl_1_spell_slots) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    # Warlocks (class_id == 11) get less slots than all other spellcasters
+    spell_slots = 1 if class_id == 11 else 2
+    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, spell_slots))
+  if feat == "Rage":
+    specific_insertion_query = general_insertion_query + ", rages, rage_damage) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, 2, 2))
+  if feat == "Second Wind":
+    specific_insertion_query = general_insertion_query + ", second_wind) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, 2))
+  if feat == "Martial Arts":
+    specific_insertion_query = general_insertion_query + ", martial_arts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, "1d6"))
+  if feat == "Sneak Attack":
+    specific_insertion_query = general_insertion_query + ", sneak_attack) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    cur.execute(specific_insertion_query, (class_id, 1, 0, 2, 30, max_hit_die_roll, max_hit_die_roll, "1d6"))
 
-def get_skills():
+  con.commit()
+  con.close()
+
+def create_character():
+  # will require user_id, character_name, str, dex, con, intl, wis, cha, notes
+  # default set: lvl, xp, proficiency bonus (+2), speed (30)
+  # class-specific: class_id, hp and max hp before con mod is added, lvl_1_spell slots, rages, rage damage, second wind, martial arts, sneak attack 
+  # calculated from user input: AC=10+dex mod, hp and max_hp=hit die max + con mod
+
+  # don't forget junction table insertions, like weapons
+
   con = _get_db_connection()
 
   cur = con.cursor()
-  cur.execute("SELECT * FROM skills;")
-  res = cur.fetchall()
+  
+  
+  cur.execute()
+  con.commit()
 
   con.close()
-  return res

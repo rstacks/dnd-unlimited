@@ -85,21 +85,9 @@ def get_classes():
     abort(401)
   return db_functions.get_classes()
 
-
-
-
-
-
-
-
-@app.get("/skills")
-def get_skills():
+@app.post("/create-character")
+def create_character():
   if not is_authorized_request(request):
     abort(401)
 
-  skills = db_functions.get_skills()
-  return skills
-
-# @app.get("/test-var/<int:num>")
-# def show_num(num):
-#   return f"your number: {num}"
+  return
