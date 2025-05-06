@@ -137,23 +137,27 @@
         </div>
         <div class="basic-info-field">
           <label for="char-name">Character Name:</label>
-          <input id="char-name-input" name="char-name" type="text" placeholder="Character Name" />
+          <input id="char-name-input" name="char-name" type="text" placeholder="Character Name"
+            onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
         </div>
         
         <div class="basic-info-field">
           <label for="melee-wep">Melee Weapon:</label>
-          <input id="melee-wep-input" name="melee-wep" type="text" placeholder="Melee Weapon Name" />
+          <input id="melee-wep-input" name="melee-wep" type="text" placeholder="Melee Weapon Name"
+            onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
         </div>
         
         <div class="basic-info-field">
           <label for="ranged-wep">Ranged Weapon:</label>
-          <input id="ranged-wep-input" name="ranged-wep" type="text" placeholder="Ranged Weapon Name" />
+          <input id="ranged-wep-input" name="ranged-wep" type="text" placeholder="Ranged Weapon Name"
+            onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
         </div>
 
         <div class="basic-info-field">
           <label for="bkg-info">Background Info:</label>
           <textarea name="bkg-info" id="bkg-info-input"
-            placeholder="Background Info (Optional)"></textarea>
+            placeholder="Background Info (Optional)"
+            onchange="{() => {characterFormInputs = getCharacterFormInputs()}}"></textarea>
         </div>
       </div>
 
@@ -180,6 +184,7 @@
                 id="button-{classData.id}" type="radio" oninput="{() => {
                     deselectOtherClasses();
                     selectClass(classData.id);
+                    characterFormInputs = getCharacterFormInputs();
                   }}" tabindex="-1">
               <span class="checkable class-button-text"></span>
             </label>
@@ -213,42 +218,48 @@
             <label for="str">Strength:</label>
           </div>
           <div class="score-input">
-            <input id="str-input" name="str" type="number" placeholder="STR" tabindex="-1" />
+            <input id="str-input" name="str" type="number" placeholder="STR" tabindex="-1"
+              onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
           </div>
   
           <div class="score-label">
             <label for="dex">Dexterity:</label>
           </div>
           <div class="score-input">
-            <input id="dex-input" name="dex" type="number" placeholder="DEX" tabindex="-1" />
+            <input id="dex-input" name="dex" type="number" placeholder="DEX" tabindex="-1"
+              onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
           </div>
   
           <div class="score-label">
             <label for="con">Constitution:</label>
           </div>
           <div class="score-input">
-            <input id="con-input" name="con" type="number" placeholder="CON" tabindex="-1" />
+            <input id="con-input" name="con" type="number" placeholder="CON" tabindex="-1"
+              onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
           </div>
   
           <div class="score-label">
             <label for="int">Intelligence:</label>
           </div>
           <div class="score-input">
-            <input id="int-input" name="int" type="number" placeholder="INT" tabindex="-1" />
+            <input id="int-input" name="int" type="number" placeholder="INT" tabindex="-1"
+              onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
           </div>
   
           <div class="score-label">
             <label for="wis">Wisdom:</label>
           </div>
           <div class="score-input">
-            <input id="wis-input" name="wis" type="number" placeholder="WIS" tabindex="-1" />
+            <input id="wis-input" name="wis" type="number" placeholder="WIS" tabindex="-1"
+              onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
           </div>
   
           <div class="score-label">
             <label for="cha">Charisma:</label>
           </div>
           <div class="score-input">
-            <input id="cha-input" name="cha" type="number" placeholder="CHA" tabindex="-1" />
+            <input id="cha-input" name="cha" type="number" placeholder="CHA" tabindex="-1"
+              onchange="{() => {characterFormInputs = getCharacterFormInputs()}}" />
           </div>
         </div>
       </div>

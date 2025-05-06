@@ -128,7 +128,7 @@
 </article>
 
 {#if isValidCharacter()}
-  <label for="confirm-modal" class="button below-card-content">Create Character</label>
+  <label for="confirm-modal" class="button below-card-content create">Create Character</label>
 {:else}
   <p class="below-card-content">Please fix any missing or invalid inputs before proceeding.</p>
 {/if}
@@ -167,5 +167,9 @@
     margin: auto;
     margin-top: 1em;
     width: 15em;
+  }
+
+  .create {
+    width: 10em;
   }
 </style>
