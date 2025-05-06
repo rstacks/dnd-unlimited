@@ -90,7 +90,17 @@ def create_character():
   if not is_authorized_request(request):
     abort(401)
 
-  for wep in weps:
-    db_functions.create_weapon()
+  req_json: dict = request.get_json()
+  user_id = req_json["userId"]
+  class_id = req_json["classId"]
+  char_name = req_json["charName"]
+  ability_scores = req_json["abilityScores"],
+  notes = req_json["notes"]
+  melee_wep_name = req_json["meleeWep"]
+  ranged_wep_name = req_json["rangedWep"]
 
-  return
+  weapon_ids: list[int] = []
+  weapon_ids.append(db_functions.create_weapon(melee_wep_name, "melee"))
+  weapon_ids.append(db_functions.create_weapon(ranged_wep_name, "ranged"))
+
+  return db_functions.create_character(user_id, class_id, char_name, ability_scores, notes, weapon_ids)
