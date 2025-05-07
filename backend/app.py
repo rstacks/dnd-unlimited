@@ -105,3 +105,7 @@ def create_character():
 
   # Ability scores JSON is being received as a 1-element tuple for no fucking reason
   return db_functions.create_character(user_id, class_id, char_name, ability_scores[0], notes, weapon_ids)
+
+@app.get("/characters/<int:user_id>")
+def get_user_characters(user_id: int):
+  return
