@@ -1,15 +1,23 @@
 <script lang="ts">
+  import type { Spell } from "$lib/util/spell";
+
+  let { spell }: { spell: Spell } = $props();
+
   let showMore = $state(false);
 
-  function toggleShowMore() {
+  function toggleShowMore(): void {
     showMore = !showMore;
+  }
+
+  function capitalize(str: string): string {
+    return str.at(0)?.toUpperCase() + str.substring(1);
   }
 </script>
 
 <article class="card">
   <header>
     <div class="spell-name">
-      <h4><i>Casted</i> Dissonant Whispers</h4>
+      <h4><i>{capitalize(spell.spell_type)}</i> {spell.spell_name}</h4>
     </div>
     <div class="show-icon">
       <button class="pseudo" onclick="{() => {toggleShowMore()}}">
@@ -23,7 +31,11 @@
   </header>
   {#if showMore}
     <section>
-      <span>One creature of your choice that you can see within range hears a discordant melody in its mind. The target makes a Wisdom saving throw. On a failed save, it takes 3d6 damage and must immediately move as far away from you as it can, using the safest route. On a successful save, the target takes half as much damage only.\nThe damage increases by 1d6 for each spell slot level above 1.</span>
+      <span>
+        {#each spell.spell_desc as chr}
+          {#if chr === "\n"}<br><br>{:else if chr === "-"}&#x2022;{:else}{chr}{/if}
+        {/each}
+      </span>
     </section>
   {/if}
 </article>

@@ -1,7 +1,7 @@
 <!-- BIG THANKS FOR THE CLASS ICONS! https://www.flapkan.com/ -->
 
 <script lang="ts">
-  import { type ClassData } from "$lib/util/class";
+  import type { ClassData } from "$lib/util/class";
 
   interface Props {
     classData: ClassData;
