@@ -4,6 +4,7 @@
 
 <script lang="ts">
   import TitleBar from "$lib/components/TitleBar.svelte";
+  import SpellCard from "$lib/components/SpellCard.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -25,6 +26,8 @@
   <img src="add-icon.svg" alt="Add Character Button">
   <span>New Character</span>
 </a>
+
+<SpellCard />
 
 <div class="modal">
   <input type="checkbox" id="my-modal">
