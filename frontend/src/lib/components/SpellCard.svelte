@@ -33,7 +33,7 @@
     <section>
       <span>
         {#each spell.spell_desc as chr}
-          {#if chr === "\n"}<br><br>{:else}{chr}{/if}
+          {#if chr === "\n"}<br><br>{:else if chr === "*"}&#x2022;{:else}{chr}{/if}
         {/each}
       </span>
     </section>
