@@ -179,16 +179,16 @@ def create_class_character(class_id: int) -> int | None:
   if feat == "Spellcasting":
     # Warlocks (class_id == 11) get less slots than all other spellcasters
     spell_slots = 1 if class_id == 11 else 2
-    cur.execute(feat_update_stmt, ("lvl_1_spell_slots", spell_slots, character_id))
+    cur.execute(feat_update_stmt.replace("?", "lvl_1_spell_slots", 1), (spell_slots, character_id))
   if feat == "Rage":
-    cur.execute(feat_update_stmt, ("rages", 2, character_id))
-    cur.execute(feat_update_stmt, ("rage_damage", 2, character_id))
+    cur.execute(feat_update_stmt.replace("?", "rages", 1), (2, character_id))
+    cur.execute(feat_update_stmt.replace("?", "rage_damage", 1), (2, character_id))
   if feat == "Second Wind":
-    cur.execute(feat_update_stmt, ("second_wind", 2, character_id))
+    cur.execute(feat_update_stmt.replace("?", "second_wind", 1), (2, character_id))
   if feat == "Martial Arts":
-    cur.execute(feat_update_stmt, ("martial_arts", "1d6", character_id))
+    cur.execute(feat_update_stmt.replace("?", "martial_arts", 1), ("1d6", character_id))
   if feat == "Sneak Attack":
-    cur.execute(feat_update_stmt, ("sneak_attack", "1d6", character_id))
+    cur.execute(feat_update_stmt.replace("?", "sneak_attack", 1), ("1d6", character_id))
 
   con.commit()
   con.close()

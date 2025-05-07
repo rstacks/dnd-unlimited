@@ -103,4 +103,5 @@ def create_character():
   weapon_ids.append(db_functions.create_weapon(melee_wep_name, "melee"))
   weapon_ids.append(db_functions.create_weapon(ranged_wep_name, "ranged"))
 
-  return db_functions.create_character(user_id, class_id, char_name, ability_scores, notes, weapon_ids)
+  # Ability scores JSON is being received as a 1-element tuple for no fucking reason
+  return db_functions.create_character(user_id, class_id, char_name, ability_scores[0], notes, weapon_ids)
