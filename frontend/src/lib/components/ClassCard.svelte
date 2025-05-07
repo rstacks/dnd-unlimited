@@ -2,14 +2,17 @@
 
 <script lang="ts">
   import type { ClassData } from "$lib/util/class";
+  import type { Spell } from "$lib/util/spell";
+  import SpellCard from "./SpellCard.svelte";
 
   interface Props {
     classData: ClassData;
     allClasses: ClassData[];
     selected: boolean;
+    allSpells: Spell[];
   }
 
-  let { classData, allClasses, selected }: Props = $props();
+  let { classData, allClasses, selected, allSpells }: Props = $props();
 </script>
 
 <article class="card class-card"
@@ -49,7 +52,7 @@
   </p>
   {#if classData.feat_name.toLowerCase() === "spellcasting"}
     <footer>
-      <button tabindex="-1">View Spells</button>
+      <label for="{"spells-modal-" + classData.id}" class="button">View Spells</label>
     </footer>
   {/if}
 </article>
@@ -70,7 +73,27 @@
       </section>
     </article>
   </div>
+
+  <div class="modal">
+    <input type="checkbox" id="{"spells-modal-" + classRecord.id}">
+    <label for="{"spells-modal-" + classRecord.id}" class="overlay"></label>
+    <article>
+      <header>
+        <h3>{classRecord.class_name} Spells</h3>
+        <label for="{"spells-modal-" + classRecord.id}" class="close">&times;</label>
+      </header>
+      <section class="content">
+        {#each allSpells as spell}
+          {#if spell.class_id === classRecord.id}
+            <SpellCard spell={spell} />
+          {/if}
+        {/each}
+      </section>
+    </article>
+  </div>
 {/each}
+
+
 
 <style>
   .class-card {

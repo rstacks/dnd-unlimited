@@ -189,7 +189,7 @@
               <span class="checkable class-button-text"></span>
             </label>
             <ClassCard classData={classData} allClasses={data.classes}
-              selected={isClassSelected(classData.id)} />
+              selected={isClassSelected(classData.id)} allSpells={data.spells} />
           </div>
         {/each}
         </div>

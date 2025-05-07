@@ -5,6 +5,7 @@ import { getClasses } from "$lib/util/class";
 import type { ClassData } from "$lib/util/class";
 import type { AbilityScores } from "$lib/util/character";
 import { BACKEND_URL, API_KEY } from "$env/static/private";
+import { getSpells } from "$lib/util/spell";
 
 /**
  * Tracks whether a given class has been selected by the user
@@ -31,7 +32,8 @@ export const load = (async ({ cookies }) => {
 
   const classes = await getClasses();
   const classSelectedList = initializeClassSelectedList(classes);
-  return { classes: classes, classSelectedList: classSelectedList };
+  const spells = await getSpells();
+  return { classes: classes, classSelectedList: classSelectedList, spells: spells };
 }) satisfies PageServerLoad;
 
 export const actions = {

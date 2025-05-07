@@ -14,7 +14,7 @@
   }
 </script>
 
-<article class="card">
+<article class="card" style:padding-bottom="{showMore ? "1em" : "0"}">
   <header>
     <div class="spell-name">
       <h4><i>{capitalize(spell.spell_type)}</i> {spell.spell_name}</h4>
@@ -33,7 +33,7 @@
     <section>
       <span>
         {#each spell.spell_desc as chr}
-          {#if chr === "\n"}<br><br>{:else if chr === "-"}&#x2022;{:else}{chr}{/if}
+          {#if chr === "\n"}<br><br>{:else}{chr}{/if}
         {/each}
       </span>
     </section>
@@ -42,8 +42,8 @@
 
 <style>
   article {
-    max-width: 20em;
     margin: auto;
+    margin-bottom: 1em;
   }
 
   header {
@@ -70,7 +70,6 @@
   }
 
   section {
-    font-size: 0.75em;
     padding: 1em;
   }
 </style>
