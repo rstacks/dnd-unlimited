@@ -146,6 +146,28 @@ def get_classes():
 
   return { "classes": formatted_records }
 
+def get_spells_by_class(class_id: int):
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute("SELECT spell_type, spell_name, spell_desc FROM spells WHERE class_id = ?", (class_id,))
+  spell_records: list[list] = cur.fetchall()
+
+  con.close()
+
+  if not spell_records:
+    raise ValueError("Class not found")
+
+  formatted_records = []
+  for spell_record in spell_records:
+    formatted_records.append({
+      "spell_type": spell_record[0],
+      "spell_name": spell_record[1],
+      "spell_desc": spell_record[2]
+    })
+
+  return { "spells": formatted_records }
+
 def create_weapon(name: str, type: str) -> int | None:
   con = _get_db_connection()
 

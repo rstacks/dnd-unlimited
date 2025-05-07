@@ -85,6 +85,19 @@ def get_classes():
     abort(401)
   return db_functions.get_classes()
 
+@app.get("/spells/<int:class_id>")
+def get_spells_by_class(class_id: int):
+  if not is_authorized_request(request):
+    abort(401)
+
+  spell_records = {}
+  try:
+    spell_records = db_functions.get_spells_by_class(class_id)
+  except ValueError as e:
+    abort(404, e)
+
+  return spell_records
+
 @app.post("/create-character")
 def create_character():
   if not is_authorized_request(request):
