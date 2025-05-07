@@ -229,5 +229,7 @@ def create_character(user_id: int, class_id: int, name: str, ability_scores: dic
 
 def get_user_characters(user_id: int):
   gigaquery = "SELECT ch.id, ch.class_id, cl.class_name, cl.hit_dice, f.feat_name, f.feat_desc, ch.character_name, ch.lvl, ch.xp, ch.str, ch.dex, ch.con, ch.intl, ch.wis, ch.cha, ch.armor_class, ch.hp, ch.max_hp, ch.notes, ch.status_effects, ch.lvl_1_spell_slots, ch.lvl_2_spell_slots, ch.lvl_3_spell_slots, ch.lvl_4_spell_slots, ch.proficiency_bonus, ch.speed, ch.rages, ch.rage_damage, ch.second_wind, ch.martial_arts, ch.sneak_attack FROM characters AS ch INNER JOIN classes AS cl ON ch.class_id = cl.id INNER JOIN feats AS f ON cl.feat_id = f.id WHERE ch.user_id = ?"
+  # need query for the four junction tables
+  # need to get spells too
 
   return
