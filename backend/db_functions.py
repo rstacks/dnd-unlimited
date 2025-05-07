@@ -163,10 +163,31 @@ def get_spells_by_class(class_id: int):
     formatted_records.append({
       "spell_type": spell_record[0],
       "spell_name": spell_record[1],
-      "spell_desc": spell_record[2]
+      "spell_desc": spell_record[2],
+      "class_id": class_id
     })
 
   return { "spells": formatted_records }
+
+def get_spells():
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute("SELECT spell_type, spell_name, spell_desc, class_id FROM spells")
+  spell_records: list[list] = cur.fetchall()
+
+  con.close()
+
+  formatted_records = []
+  for spell_record in spell_records:
+    formatted_records.append({
+      "spell_type": spell_record[0],
+      "spell_name": spell_record[1],
+      "spell_desc": spell_record[2],
+      "class_id": spell_record[3]
+    })
+
+  return { "spells": formatted_records }  
 
 def create_weapon(name: str, type: str) -> int | None:
   con = _get_db_connection()

@@ -98,6 +98,12 @@ def get_spells_by_class(class_id: int):
 
   return spell_records
 
+@app.get("/spells")
+def get_spells():
+  if not is_authorized_request(request):
+    abort(401)
+  return db_functions.get_spells()
+
 @app.post("/create-character")
 def create_character():
   if not is_authorized_request(request):
