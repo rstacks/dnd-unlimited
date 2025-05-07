@@ -22,7 +22,9 @@
     </div>
   </header>
   {#if showMore}
-    <span>One creature of your choice that you can see within range hears a discordant melody in its mind. The target makes a Wisdom saving throw. On a failed save, it takes 3d6 damage and must immediately move as far away from you as it can, using the safest route. On a successful save, the target takes half as much damage only.\nThe damage increases by 1d6 for each spell slot level above 1.</span>
+    <section>
+      <span>One creature of your choice that you can see within range hears a discordant melody in its mind. The target makes a Wisdom saving throw. On a failed save, it takes 3d6 damage and must immediately move as far away from you as it can, using the safest route. On a successful save, the target takes half as much damage only.\nThe damage increases by 1d6 for each spell slot level above 1.</span>
+    </section>
   {/if}
 </article>
 
@@ -55,7 +57,8 @@
     justify-content: end;
   }
 
-  span {
+  section {
     font-size: 0.75em;
+    padding: 1em;
   }
 </style>
