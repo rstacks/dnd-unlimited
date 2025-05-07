@@ -201,6 +201,55 @@ def create_weapon(name: str, type: str) -> int | None:
 
   return weapon_id
 
+def get_character_weapons(char_id: int):
+  char_weapons_query = "SELECT w.weapon_name, w.weapon_type, w.weapon_desc, cw.damage_die FROM character_weapons AS cw INNER JOIN weapons AS w ON cw.weapon_id = w.id WHERE cw.character_id = ?"
+
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute(char_weapons_query, (char_id,))
+  raw_weapons_records: list[list] = cur.fetchall()
+
+  con.close()
+
+  if not raw_weapons_records:
+    raise ValueError("Character not found")
+  
+  formatted_records = []
+  for weapon_record in raw_weapons_records:
+    formatted_records.append({
+      "weapon_name": weapon_record[0],
+      "weapon_type": weapon_record[1],
+      "weapon_desc": weapon_record[2],
+      "damage_die": weapon_record[3]
+    })
+
+  return { "weapons": formatted_records }
+
+def get_character_items(char_id: int):
+  char_items_query = "SELECT i.item_name, i.item_desc, ci.amount FROM character_items AS ci INNER JOIN items AS i ON ci.item_id = i.id WHERE ci.character_id = ?"
+
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute(char_items_query, (char_id,))
+  raw_items_records: list[list] = cur.fetchall()
+
+  con.close()
+
+  if not raw_items_records:
+    raise ValueError("Character not found")
+  
+  formatted_records = []
+  for item_record in raw_items_records:
+    formatted_records.append({
+      "item_name": item_record[0],
+      "item_desc": item_record[1],
+      "amount": item_record[2]
+    })
+
+  return { "items": formatted_records }
+
 def create_class_character(class_id: int) -> int | None:
   class_info_query = "SELECT c.hit_dice, f.feat_name FROM classes AS c INNER JOIN feats AS f ON c.feat_id = f.id WHERE c.id = ?"
   general_insertion_stmt = "INSERT INTO characters (class_id, lvl, xp, proficiency_bonus, speed, hp, max_hp) VALUES (?, ?, ?, ?, ?, ?, ?)"
@@ -273,8 +322,6 @@ def create_character(user_id: int, class_id: int, name: str, ability_scores: dic
 def get_user_characters(user_id: int):
   char_table_joined_query = "SELECT ch.id, ch.class_id, cl.class_name, cl.hit_dice, f.feat_name, f.feat_desc, ch.character_name, ch.lvl, ch.xp, ch.str, ch.dex, ch.con, ch.intl, ch.wis, ch.cha, ch.armor_class, ch.hp, ch.max_hp, ch.notes, ch.status_effects, ch.lvl_1_spell_slots, ch.lvl_2_spell_slots, ch.lvl_3_spell_slots, ch.lvl_4_spell_slots, ch.proficiency_bonus, ch.speed, ch.rages, ch.rage_damage, ch.second_wind, ch.martial_arts, ch.sneak_attack FROM characters AS ch INNER JOIN classes AS cl ON ch.class_id = cl.id INNER JOIN feats AS f ON cl.feat_id = f.id WHERE ch.user_id = ?"
 
-  # need query for the weapon and item junction tables, which may mean joining with individual tables (weapons, items)
-
   con = _get_db_connection()
 
   cur = con.cursor()
@@ -322,15 +369,16 @@ def get_user_characters(user_id: int):
       "items": []
     }
 
+    char_id = raw_char_record[0]
     class_id = raw_char_record[1]
     _assign_class_saves(cur, class_id, char_record)
     _assign_class_skills(cur, class_id, char_record)
     char_record["spells"] = get_spells_by_class(class_id)["spells"]
+    char_record["weapons"] = get_character_weapons(char_id)["weapons"]
+    char_record["items"] = get_character_items(char_id)["items"]
 
     formatted_records.append(char_record)
 
-
-
   con.close()
 
-  return
+  return { "characters": formatted_records }
