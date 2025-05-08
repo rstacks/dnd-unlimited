@@ -49,23 +49,28 @@
       </div>
     {/if}
     <footer class="character-sheet-tab-buttons">
-      <button onclick="{() => {sheetTab = "overview"}}">
+      <button onclick="{() => {sheetTab = "overview"}}"
+        style:background-color="{sheetTab === "overview" ? "rgb(219, 219, 219)" : "transparent"}">
         <img src="character-sheet-icons/overview.svg" alt="Overview Icon">
         <span>Overview</span>
       </button>
-      <button onclick="{() => {sheetTab = "weapons"}}">
+      <button onclick="{() => {sheetTab = "weapons"}}"
+        style:background-color="{sheetTab === "weapons" ? "rgb(219, 219, 219)" : "transparent"}">
         <img src="character-sheet-icons/weapons.svg" alt="Weapons and Items Icon">
         <span>Weapons & Items</span>
       </button>
-      <button onclick="{() => {sheetTab = "skillsAndSaves"}}">
+      <button onclick="{() => {sheetTab = "skillsAndSaves"}}"
+        style:background-color="{sheetTab === "skillsAndSaves" ? "rgb(219, 219, 219)" : "transparent"}">
         <img src="character-sheet-icons/skills.svg" alt="Skills and Saves Icon">
         <span>Skills & Saves</span>
       </button>
-      <button onclick="{() => {sheetTab = "spells"}}">
+      <button onclick="{() => {sheetTab = "spells"}}"
+        style:background-color="{sheetTab === "spells" ? "rgb(219, 219, 219)" : "transparent"}">
         <img src="character-sheet-icons/spells.svg" alt="Spells and Feats Icon">
         <span>Spells</span>
       </button>
-      <button onclick="{() => {sheetTab = "stats"}}">
+      <button onclick="{() => {sheetTab = "stats"}}"
+        style:background-color="{sheetTab === "stats" ? "rgb(219, 219, 219)" : "transparent"}">
         <img src="character-sheet-icons/stats.svg" alt="Stats Icon">
         <span>Stats</span>
       </button>
@@ -121,9 +126,15 @@
     padding: 0;
   }
 
+  @media (max-width: 500px) {
+    .character-sheet-tab-buttons {
+      font-size: 0.45em;
+    }
+  }
+
   .character-sheet-tab-buttons button {
     height: 100%;
-    padding: 0;
+    padding: 0.25em;
     margin: 0;
     border-radius: 0;
     background-color: transparent;
@@ -132,8 +143,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
   }
 
   .character-sheet-tab-buttons img {
