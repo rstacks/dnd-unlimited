@@ -4,7 +4,6 @@
 
 <script lang="ts">
   import TitleBar from "$lib/components/TitleBar.svelte";
-  import SpellCard from "$lib/components/SpellCard.svelte";
   import CharacterCard from "$lib/components/CharacterCard.svelte";
   import type { PageProps } from "./$types";
 
@@ -21,8 +20,13 @@
   </header>
 </article>
 
-<p class="no-characters">You don't have any characters. Why not create one?</p>
-<CharacterCard />
+{#if data.characters.length === 0}
+  <p class="no-characters">You don't have any characters. Why not create one?</p>
+{:else}
+  {#each data.characters as character}
+    <CharacterCard character={character} />
+  {/each}
+{/if}
 
 <a class="add button" href="/character-creation">
   <img src="add-icon.svg" alt="Add Character Button">
@@ -64,7 +68,7 @@
     width: fit-content;
     margin: auto;
     font-size: 0.75em;
-    margin-bottom: 3em;
+    margin-bottom: 1em;
   }
 
   .welcome header {
@@ -107,6 +111,7 @@
     font-size: 0.75em;
     color: rgb(99, 102, 109);
     margin-bottom: 1em;
+    margin-top: 3em;
   }
 
   .add {

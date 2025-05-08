@@ -2,6 +2,7 @@ import type { PageServerLoad, Actions } from "./$types";
 import { getUserIdBySession, getUserById, isLoggedIn } from "$lib/util/user";
 import { BACKEND_URL, API_KEY } from "$env/static/private"; 
 import { redirect, error } from "@sveltejs/kit";
+import { getUserCharacters } from "$lib/util/character";
 
 export const load = (async ({ cookies }) => {
   if (!(await isLoggedIn(cookies))) {
@@ -11,7 +12,8 @@ export const load = (async ({ cookies }) => {
   const sessionId = cookies.get("sessionId")!;
   const userId = await getUserIdBySession(sessionId);
   const userData = await getUserById(userId);
-  return { name: userData.user_name };
+  const characters = await getUserCharacters(userId);
+  return { name: userData.user_name, characters: characters };
 }) satisfies PageServerLoad;
 
 export const actions = {

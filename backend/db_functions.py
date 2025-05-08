@@ -211,9 +211,6 @@ def get_character_weapons(char_id: int):
   raw_weapons_records: list[list] = cur.fetchall()
 
   con.close()
-
-  if not raw_weapons_records:
-    raise ValueError("Character not found")
   
   formatted_records = []
   for weapon_record in raw_weapons_records:
@@ -236,9 +233,6 @@ def get_character_items(char_id: int):
   raw_items_records: list[list] = cur.fetchall()
 
   con.close()
-
-  if not raw_items_records:
-    raise ValueError("Character not found")
   
   formatted_records = []
   for item_record in raw_items_records:
