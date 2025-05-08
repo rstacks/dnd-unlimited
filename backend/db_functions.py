@@ -155,9 +155,6 @@ def get_spells_by_class(class_id: int):
 
   con.close()
 
-  if not spell_records:
-    raise ValueError("Class not found")
-
   formatted_records = []
   for spell_record in spell_records:
     formatted_records.append({
