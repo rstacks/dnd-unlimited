@@ -11,5 +11,9 @@
 </article>
 
 <style>
-  
+  article {
+    position: absolute;
+    z-index: 5;
+    top: 7.75em;
+  }
 </style>

@@ -28,31 +28,27 @@
   let { character }: { character: Character } = $props();
   let nextLevel = Number(character.lvl) + 1;
   let nextLevelKey = $state(nextLevel as keyof typeof LEVEL_TO_XP_MIN);
+  let showCharacterSheet = $state(false);
 </script>
 
-<div class="card-sheet-grid">
-  <div class="character-card-container">
-    <article class="card">
-      <img class="class-icon" src="{"class-icons/" + character.class_name.toLowerCase() + ".svg"}"
-        alt="{character.class_name + " class icon"}">
-      <div class="content">
-        <h3>{character.character_name}</h3>
-        <p>Level {character.lvl} {character.class_name}</p>
-        <span>{character.xp}/{LEVEL_TO_XP_MIN[nextLevelKey]} XP</span>
-      </div>
-      <div class="select-class-button">
-        <button class="pseudo">
-          <img src="start-icon.svg" alt="Choose This Character Button">
-        </button>
-      </div>
-    </article>
+<article class="card">
+  <img class="class-icon" src="{"class-icons/" + character.class_name.toLowerCase() + ".svg"}"
+    alt="{character.class_name + " class icon"}">
+  <div class="content">
+    <h3>{character.character_name}</h3>
+    <p>Level {character.lvl} {character.class_name}</p>
+    <span>{character.xp}/{LEVEL_TO_XP_MIN[nextLevelKey]} XP</span>
   </div>
-  
-  <div class="character-sheet">
-    <CharacterSheet character={character} />
+  <div class="select-class-button">
+    <button class="pseudo" onclick="{() => {showCharacterSheet = true}}">
+      <img src="start-icon.svg" alt="Choose This Character Button">
+    </button>
   </div>
-</div>
+</article>
 
+{#if showCharacterSheet}
+  <CharacterSheet character={character} />
+{/if}
 
 <style>
   article {
@@ -92,20 +88,5 @@
     flex-grow: 1;
     align-items: center;
     justify-content: end;
-  }
-
-  .card-sheet-grid {
-    display: grid;
-    grid-template-rows: 10em;
-  }
-
-  .character-card-container {
-    grid-row-start: 1;
-    grid-column-start: 1;
-  }
-
-  .character-sheet {
-    grid-row-start: 1;
-    grid-column-start: 1;
   }
 </style>
