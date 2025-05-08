@@ -8,6 +8,7 @@
   }
 
   let { character, xpGoal, show=$bindable() }: Props = $props();
+  let sheetTab: "overview" | "weapons" | "skillsAndSaves" | "spells" | "stats"  = $state("overview");
 </script>
 
 <div class="character-sheet">
@@ -26,41 +27,49 @@
         <span>{character.xp}/{xpGoal} XP</span>
       </div>
     </header>
-    <div class="tabs five">
-      <input id="tab-1" type="radio" name="char-sheet-tabs" checked />
-      <input id="tab-2" type="radio" name="char-sheet-tabs" />
-      <input id="tab-3" type="radio" name="char-sheet-tabs" />
-      <input id="tab-4" type="radio" name="char-sheet-tabs" />
-      <input id="tab-5" type="radio" name="char-sheet-tabs" />
-      <div class="row">
-        <div>
-          fuck
-        </div>
-
-        <div>
-          shit
-        </div>
-
-        <div>
-          balls
-        </div>
-
-        <div>
-          cock
-        </div>
-
-        <div>
-          damn
-        </div>
+    {#if sheetTab === "overview"}
+      <div>
+        fuck
       </div>
-      <footer class="character-sheet-tab-buttons">
-        <label for="tab-1" class="leftmost-tab">Overview</label>
-        <label for="tab-2">Weapons & Items</label>  
-        <label for="tab-3">Skills & Saves</label>  
-        <label for="tab-4">Spells</label>  
-        <label for="tab-5" class="rightmost-tab">Stats</label>  
-      </footer>
-    </div>
+    {:else if sheetTab === "weapons"} 
+      <div>
+        shit
+      </div>
+    {:else if sheetTab === "skillsAndSaves"}
+      <div>
+        balls
+      </div>
+    {:else if sheetTab === "spells"}
+      <div>
+        cock
+      </div>
+    {:else if sheetTab === "stats"}
+      <div>
+        damn
+      </div>
+    {/if}
+    <footer class="character-sheet-tab-buttons">
+      <button onclick="{() => {sheetTab = "overview"}}">
+        <img src="character-sheet-icons/overview.svg" alt="Overview Icon">
+        <span>Overview</span>
+      </button>
+      <button onclick="{() => {sheetTab = "weapons"}}">
+        <img src="character-sheet-icons/weapons.svg" alt="Weapons and Items Icon">
+        <span>Weapons & Items</span>
+      </button>
+      <button onclick="{() => {sheetTab = "skillsAndSaves"}}">
+        <img src="character-sheet-icons/skills.svg" alt="Skills and Saves Icon">
+        <span>Skills & Saves</span>
+      </button>
+      <button onclick="{() => {sheetTab = "spells"}}">
+        <img src="character-sheet-icons/spells.svg" alt="Spells and Feats Icon">
+        <span>Spells</span>
+      </button>
+      <button onclick="{() => {sheetTab = "stats"}}">
+        <img src="character-sheet-icons/stats.svg" alt="Stats Icon">
+        <span>Stats</span>
+      </button>
+    </footer>
   </article>
 </div>
 
@@ -68,7 +77,7 @@
   .character-sheet {
     position: absolute;
     z-index: 5;
-    top: 7.75em;
+    top: 8.5em;
     left: 0.2em;
     right: 0.2em;
     /* height: 80%; */
@@ -108,25 +117,26 @@
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
-    font-size: 0.75em;
+    font-size: 0.5em;
     padding: 0;
   }
 
-  .character-sheet-tab-buttons label {
-    text-align: center;
-    border-style: solid;
-    border-color: rgb(168, 168, 168);
-    border-width: 0.1em;
-    border-top: 0;
-    border-bottom: 0;
-    border-right: 0;
+  .character-sheet-tab-buttons button {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
   }
 
-  .leftmost-tab {
-    border-left: 0;
-  }
-
-  .rightmost-tab {
-    border-right: 0;
+  .character-sheet-tab-buttons img {
+    width: 3em;
   }
 </style>

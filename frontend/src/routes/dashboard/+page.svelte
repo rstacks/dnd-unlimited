@@ -72,7 +72,7 @@
     width: fit-content;
     margin: auto;
     font-size: 0.75em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
   }
 
   .welcome header {
@@ -115,7 +115,7 @@
     font-size: 0.75em;
     color: rgb(99, 102, 109);
     margin-bottom: 1em;
-    margin-top: 3em;
+    margin-top: 2em;
   }
 
   .add {
