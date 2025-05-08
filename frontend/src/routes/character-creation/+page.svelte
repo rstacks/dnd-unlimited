@@ -104,7 +104,7 @@
     };
   }
 </script>
-
+  
 <article class="card char-creation-screen" id="char-creation-screen">
   <header class="char-creation-header">
     <label for="leave-modal" class="back-button pseudo button">
@@ -326,6 +326,14 @@
 </div>
 
 <style>
+  /* Styles for HTML injected by the server while the document loads */
+  .loading-msg {
+    width: fit-content;
+    padding: 0.25em;
+    margin: auto;
+    margin-top: 1em;
+  }
+
   .char-creation-screen {
     height: 100%;
     width: 100%;
