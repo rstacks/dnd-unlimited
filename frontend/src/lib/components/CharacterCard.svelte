@@ -2,7 +2,7 @@
   import type { Character } from "$lib/util/character";
   import CharacterSheet from "./CharacterSheet.svelte";
 
-  const LEVEL_TO_XP_MIN = {
+  export const LEVEL_TO_XP_MIN = {
     1: 0,
     2: 300,
     3: 900,
@@ -47,7 +47,9 @@
 </article>
 
 {#if showCharacterSheet}
-  <CharacterSheet character={character} />
+  <CharacterSheet character={character}
+    xpGoal={LEVEL_TO_XP_MIN[nextLevelKey]}
+    bind:show={showCharacterSheet} />
 {/if}
 
 <style>
