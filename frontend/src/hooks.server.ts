@@ -7,7 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
         if (!done) {
           return html.replace(
             '<body>',
-            '<body><p class="card loading-msg">Loading...</p></body>'
+            '<body><p class="card" style="width: fit-content; padding: 0.25em; margin: auto; margin-top: 1em;">Loading...</p></body>'
           );
         }
         return html;
