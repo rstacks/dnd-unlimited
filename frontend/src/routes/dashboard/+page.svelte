@@ -5,6 +5,7 @@
 <script lang="ts">
   import TitleBar from "$lib/components/TitleBar.svelte";
   import SpellCard from "$lib/components/SpellCard.svelte";
+  import CharacterCard from "$lib/components/CharacterCard.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -21,6 +22,7 @@
 </article>
 
 <p class="no-characters">You don't have any characters. Why not create one?</p>
+<CharacterCard />
 
 <a class="add button" href="/character-creation">
   <img src="add-icon.svg" alt="Add Character Button">

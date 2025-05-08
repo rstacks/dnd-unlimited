@@ -19,7 +19,7 @@
   style:background-color="{selected ? "rgb(196, 230, 242)" : "white"}">
   <header>
     <img src="{"class-icons/" + classData.class_name.toLowerCase() + ".svg"}"
-      alt="Barbarian class icon" />
+      alt="{classData.class_name + " class icon"}" />
     <h4>{classData.class_name}</h4>
   </header>
   <p><strong>Description:</strong> {classData.class_desc}</p>
