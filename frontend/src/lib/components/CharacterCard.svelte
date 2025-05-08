@@ -48,7 +48,7 @@
   article {
     display: flex;
     align-items: center;
-    width: 20em;
+    max-width: 25em;
     margin: auto;
     margin-bottom: 1em;
   }
@@ -60,6 +60,11 @@
 
   h3 {
     padding: 0;
+  }
+
+  .content {
+    padding-top: 1em;
+    padding-bottom: 1em;
   }
 
   button {
@@ -74,7 +79,7 @@
 
   .select-class-button {
     display: flex;
-    width: 5em;
+    flex-grow: 1;
     align-items: center;
     justify-content: end;
   }

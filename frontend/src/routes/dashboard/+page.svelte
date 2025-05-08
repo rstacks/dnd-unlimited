@@ -23,15 +23,20 @@
 {#if data.characters.length === 0}
   <p class="no-characters">You don't have any characters. Why not create one?</p>
 {:else}
-  {#each data.characters as character}
-    <CharacterCard character={character} />
-  {/each}
+  <div class="character-cards">
+    {#each data.characters as character}
+      <CharacterCard character={character} />
+    {/each}
+  </div>
 {/if}
 
-<a class="add button" href="/character-creation">
-  <img src="add-icon.svg" alt="Add Character Button">
-  <span>New Character</span>
-</a>
+<div class="new-character-button">
+  <a class="add button" href="/character-creation">
+    <img src="add-icon.svg" alt="Add Character Button">
+    <span>New Character</span>
+  </a>
+</div>
+
 
 <div class="modal">
   <input type="checkbox" id="my-modal">
@@ -125,5 +130,14 @@
   .add span {
     margin-left: 0.25em;
     margin-right: 0.5em;
+  }
+
+  .character-cards {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+
+  .new-character-button {
+    padding-bottom: 1em;
   }
 </style>
