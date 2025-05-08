@@ -54,21 +54,11 @@
         </div>
       </div>
       <footer class="character-sheet-tab-buttons">
-        <div class="leftmost-tab">
-          <label for="tab-1">Overview</label>
-        </div>
-        <div>
-          <label for="tab-2">Weapons & Items</label>  
-        </div>
-        <div>
-          <label for="tab-3">Skills & Saves</label>  
-        </div>
-        <div>
-          <label for="tab-4">Spells</label>  
-        </div>
-        <div class="rightmost-tab">
-          <label for="tab-5">Stats</label>  
-        </div>
+        <label for="tab-1" class="leftmost-tab">Overview</label>
+        <label for="tab-2">Weapons & Items</label>  
+        <label for="tab-3">Skills & Saves</label>  
+        <label for="tab-4">Spells</label>  
+        <label for="tab-5" class="rightmost-tab">Stats</label>  
       </footer>
     </div>
   </article>
@@ -113,6 +103,8 @@
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     border-style: solid;
+    border-color: rgb(168, 168, 168);
+    border-width: 0.1em;
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
@@ -120,11 +112,14 @@
     padding: 0;
   }
 
-  .character-sheet-tab-buttons div {
+  .character-sheet-tab-buttons label {
     text-align: center;
     border-style: solid;
+    border-color: rgb(168, 168, 168);
+    border-width: 0.1em;
     border-top: 0;
     border-bottom: 0;
+    border-right: 0;
   }
 
   .leftmost-tab {
