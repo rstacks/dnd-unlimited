@@ -127,4 +127,13 @@ def create_character():
 
 @app.get("/characters/<int:user_id>")
 def get_user_characters(user_id: int):
-  return
+  if not is_authorized_request(request):
+    abort(401)
+
+  character_records = {}
+  try:
+    character_records = db_functions.get_user_characters(user_id)
+  except ValueError as e:
+    abort(404, e)
+
+  return character_records
