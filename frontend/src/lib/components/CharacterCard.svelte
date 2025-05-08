@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { type Character } from "$lib/util/character";
+  import type { Character } from "$lib/util/character";
+  import CharacterSheet from "./CharacterSheet.svelte";
 
   const LEVEL_TO_XP_MIN = {
     1: 0,
@@ -29,20 +30,29 @@
   let nextLevelKey = $state(nextLevel as keyof typeof LEVEL_TO_XP_MIN);
 </script>
 
-<article class="card">
-  <img class="class-icon" src="{"class-icons/" + character.class_name.toLowerCase() + ".svg"}"
-    alt="{character.class_name + " class icon"}">
-  <div class="content">
-    <h3>{character.character_name}</h3>
-    <p>Level {character.lvl} {character.class_name}</p>
-    <span>{character.xp}/{LEVEL_TO_XP_MIN[nextLevelKey]} XP</span>
+<div class="card-sheet-grid">
+  <div class="character-card-container">
+    <article class="card">
+      <img class="class-icon" src="{"class-icons/" + character.class_name.toLowerCase() + ".svg"}"
+        alt="{character.class_name + " class icon"}">
+      <div class="content">
+        <h3>{character.character_name}</h3>
+        <p>Level {character.lvl} {character.class_name}</p>
+        <span>{character.xp}/{LEVEL_TO_XP_MIN[nextLevelKey]} XP</span>
+      </div>
+      <div class="select-class-button">
+        <button class="pseudo">
+          <img src="start-icon.svg" alt="Choose This Character Button">
+        </button>
+      </div>
+    </article>
   </div>
-  <div class="select-class-button">
-    <button class="pseudo">
-      <img src="start-icon.svg" alt="Choose This Character Button">
-    </button>
+  
+  <div class="character-sheet">
+    <CharacterSheet character={character} />
   </div>
-</article>
+</div>
+
 
 <style>
   article {
@@ -82,5 +92,20 @@
     flex-grow: 1;
     align-items: center;
     justify-content: end;
+  }
+
+  .card-sheet-grid {
+    display: grid;
+    grid-template-rows: 10em;
+  }
+
+  .character-card-container {
+    grid-row-start: 1;
+    grid-column-start: 1;
+  }
+
+  .character-sheet {
+    grid-row-start: 1;
+    grid-column-start: 1;
   }
 </style>

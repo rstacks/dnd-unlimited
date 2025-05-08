@@ -37,7 +37,6 @@
   </a>
 </div>
 
-
 <div class="modal">
   <input type="checkbox" id="my-modal">
   <label for="my-modal" class="overlay"></label>
