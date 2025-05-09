@@ -17,61 +17,59 @@
   let props: Props = $props();
 </script>
 
-<section>
-  <div class="bkg-info">
-    <strong>Background Info</strong>
-    <textarea placeholder="Background Info (Optional)" value={props.notes}></textarea>
-  </div>
-  <div class="combat-info">
-    <div class="not-hp">
-      <div>
-        <strong>Initiative</strong>
-        <span>
-          {#if getAbilityModifier(props.dex) >= 0}
-            +{getAbilityModifier(props.dex)}
-          {:else}
-            {getAbilityModifier(props.dex)}
-          {/if}
-        </span>
-      </div>
-    
-      <div>
-        <strong>Hit Dice</strong>
-        <span>{props.lvl}{props.hit_dice}</span>
-      </div>
-    
-      <div>
-        <strong>Armor Class</strong>
-        <span>{props.armor_class}</span>
-      </div>
+<div class="bkg-info">
+  <strong>Background Info</strong>
+  <textarea placeholder="Background Info (Optional)" value={props.notes}></textarea>
+</div>
+<div class="combat-info">
+  <div class="not-hp">
+    <div>
+      <strong>Initiative</strong>
+      <span>
+        {#if getAbilityModifier(props.dex) >= 0}
+          +{getAbilityModifier(props.dex)}
+        {:else}
+          {getAbilityModifier(props.dex)}
+        {/if}
+      </span>
     </div>
   
-    <div class="hp-info">
-      <strong>Hit Points</strong>
-      <fieldset>
-        <input class="numeric-input" type="number" autocomplete="off"
-          value={props.hp}>
-        <span>
-          / {props.max_hp} HP
-        </span>
-      </fieldset>
-    </div>
-  </div>
-  <div class="stat-info">
     <div>
-      <strong>Proficiency Bonus</strong>
-      <span>+{props.proficiency_bonus}</span>
+      <strong>Hit Dice</strong>
+      <span>{props.lvl}{props.hit_dice}</span>
     </div>
+  
     <div>
-      <strong>Speed</strong>
-      <span>{props.speed} ft</span>
+      <strong>Armor Class</strong>
+      <span>{props.armor_class}</span>
     </div>
   </div>
-  <div class="bkg-info status">
-    <strong>Status Effects</strong>
-    <textarea placeholder="Status Effects" value={props.status_effects}></textarea>
+
+  <div class="hp-info">
+    <strong>Hit Points</strong>
+    <fieldset>
+      <input class="numeric-input" type="number" autocomplete="off"
+        value={props.hp}>
+      <span>
+        / {props.max_hp} HP
+      </span>
+    </fieldset>
   </div>
-</section>
+</div>
+<div class="stat-info">
+  <div>
+    <strong>Proficiency Bonus</strong>
+    <span>+{props.proficiency_bonus}</span>
+  </div>
+  <div>
+    <strong>Speed</strong>
+    <span>{props.speed} ft</span>
+  </div>
+</div>
+<div class="bkg-info status">
+  <strong>Status Effects</strong>
+  <textarea placeholder="Status Effects" value={props.status_effects}></textarea>
+</div>
 
 <style>
   textarea {
@@ -89,6 +87,7 @@
     border-radius: 0.5em;
     width: 19em;
     margin: auto;
+    margin-top: 1em;
     padding: 1em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;

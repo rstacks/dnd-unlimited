@@ -94,23 +94,24 @@
   .character-sheet {
     position: absolute;
     z-index: 5;
-    top: 8.5em;
-    left: 0.2em;
-    right: 0.2em;
-    /* height: 100%; */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: fit-content;
   }
 
   article {
-    max-width: 60em;
+    max-width: 30em;
+    width: 100%;
     margin: auto;
-    /* height: 100%; */
+    height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto auto;
   }
 
   header {
     display: flex;
     align-items: center;
-    position: absolute;
-    top: 0;
     background-color: white;
     width: 100%;
   }
@@ -134,10 +135,8 @@
 
   .sheet-content {
     display: block;
-    margin: 0;
     padding: 0;
     overflow: auto;
-    /* height: 100%; */
   }
 
   .character-sheet-tab-buttons {
@@ -152,8 +151,6 @@
     border-right: 0;
     font-size: 0.5em;
     padding: 0;
-    position: absolute;
-    bottom: 0;
   }
 
   @media (max-width: 500px) {
