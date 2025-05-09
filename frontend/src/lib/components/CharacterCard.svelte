@@ -3,7 +3,12 @@
   import CharacterSheet from "./CharacterSheet.svelte";
   import { LEVEL_TO_XP_MIN } from "$lib/util/character-functions";
 
-  let { character }: { character: Character } = $props();
+  interface Props {
+    character: Character;
+    hideDashboard?: boolean;
+  }
+
+  let { character, hideDashboard=$bindable(false) }: Props = $props();
   let nextLevel = Number(character.lvl) + 1;
   let nextLevelKey = $state(nextLevel as keyof typeof LEVEL_TO_XP_MIN);
   let showCharacterSheet = $state(false);
