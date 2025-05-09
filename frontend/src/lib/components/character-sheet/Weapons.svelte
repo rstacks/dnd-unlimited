@@ -43,17 +43,21 @@
   {/each}
 </div>
 
-<div>
+<div class="weapon-container">
   <strong>Items</strong>
   {#if props.items.length === 0}
     <p>You don't have any items.</p>
   {/if}
   {#each props.items as item}
-    <div>
-      <strong>Name</strong>
-      <strong>Amount</strong>
-      <span>{item.item_name}</span>
-      <span>{item.amount}</span>
+    <div class="weapon-info items">
+      <div class="item-name">
+        <strong>Name</strong>
+        <span>{item.item_name}</span>
+      </div>
+      <div class="item-amount">
+        <strong>Amount</strong>
+        <span>{item.amount}</span>
+      </div>
     </div>
   {/each}
 </div>
@@ -96,5 +100,20 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    text-align: center;
+  }
+
+  .items div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item-name {
+    width: 10em;
+  }
+
+  .item-amount {
+    text-align: center;
+    flex-grow: 1;
   }
 </style>
