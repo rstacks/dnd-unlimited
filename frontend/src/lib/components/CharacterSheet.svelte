@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Character } from "$lib/util/character";
+  import Overview from "./character-sheet/Overview.svelte";
 
   interface Props {
     character: Character;
@@ -28,9 +29,16 @@
       </div>
     </header>
     {#if sheetTab === "overview"}
-      <div>
-        fuck
-      </div>
+      <Overview hit_dice={character.hit_dice}
+        lvl={character.lvl}
+        dex={character.dex}
+        armor_class={character.armor_class}
+        hp={character.hp}
+        max_hp={character.max_hp}
+        notes={character.notes}
+        status_effects={character.status_effects}
+        proficiency_bonus={character.proficiency_bonus}
+        speed={character.speed} />
     {:else if sheetTab === "weapons"} 
       <div>
         shit
