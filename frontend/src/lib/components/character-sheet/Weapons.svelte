@@ -52,7 +52,13 @@
     <div class="weapon-info items">
       <div class="item-name">
         <strong>Name</strong>
-        <span>{item.item_name}</span>
+        <div>
+          <span>{item.item_name}</span>
+          <label class="more-item-info pseudo button"
+            for="{"item-modal-" + item.item_name}">
+            <img src="info-icon.svg" alt="Item Description Button">
+          </label>
+        </div>
       </div>
       <div class="item-amount">
         <strong>Amount</strong>
@@ -61,6 +67,22 @@
     </div>
   {/each}
 </div>
+
+{#each props.items as item}
+  <div class="modal">
+    <input type="checkbox" id="{"item-modal-" + item.item_name}">
+    <label for="{"item-modal-" + item.item_name}" class="overlay"></label>
+    <article>
+      <header>
+        <h3>{item.item_name}</h3>
+        <label for="{"item-modal-" + item.item_name}" class="close">&times;</label>
+      </header>
+      <section class="content item-desc">
+        <p>{item.item_desc}</p>
+      </section>
+    </article>
+  </div>
+{/each}
 
 <style>
   .weapon-container {
@@ -112,6 +134,12 @@
     width: 10em;
   }
 
+  .item-name div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   .item-amount {
     text-align: center;
     flex-grow: 1;
@@ -119,5 +147,20 @@
 
   .bottom {
     margin-bottom: 1em;
+  }
+
+  .more-item-info {
+    display: flex;
+    padding: 0em;
+    width: fit-content;
+    margin-left: 0.25em;
+  }
+
+  .more-item-info img {
+    width: 1em;
+  }
+
+  .item-desc p {
+    padding-bottom: 1em;
   }
 </style>

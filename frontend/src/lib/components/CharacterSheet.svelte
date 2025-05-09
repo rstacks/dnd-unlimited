@@ -117,7 +117,7 @@
     margin: auto;
     height: 100vh;
     display: grid;
-    grid-template-rows: auto 73% auto;
+    grid-template-rows: 23% 70% 7%;
   }
 
   header {
