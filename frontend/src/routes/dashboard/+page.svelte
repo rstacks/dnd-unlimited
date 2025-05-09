@@ -8,33 +8,40 @@
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
+  let showCharacterSheetStates: boolean[] = $state(data.charSheetStates);
+  let showDashboard: boolean = $derived(showCharacterSheetStates.findIndex((elem) => elem) === -1);
+  $inspect(showCharacterSheetStates);
+  $inspect(showDashboard);
 </script>
 
 <TitleBar account_modal_class="my-modal" />
 
-<div class="spacer"></div>
+<div class="scrollable-area" style={showDashboard ? "" : "height: 0; overflow: hidden;"}>
+  <div class="spacer"></div>
 
-<article class="card welcome">
-  <header>
-    <h2>Greetings, {data.name}</h2>
-  </header>
-</article>
-
-{#if data.characters.length === 0}
-  <p class="no-characters">You don't have any characters. Why not create one?</p>
-{:else}
-  <div class="character-cards">
-    {#each data.characters as character}
-      <CharacterCard character={character} />
-    {/each}
+  <article class="card welcome">
+    <header>
+      <h2>Greetings, {data.name}</h2>
+    </header>
+  </article>
+  
+  {#if data.characters.length === 0}
+    <p class="no-characters">You don't have any characters. Why not create one?</p>
+  {:else}
+    <div class="character-cards">
+      {#each data.characters as character, i}
+        <CharacterCard character={character}
+          bind:hideDashboard={showCharacterSheetStates[i]} />
+      {/each}
+    </div>
+  {/if}
+  
+  <div class="new-character-button">
+    <a class="add button" href="/character-creation">
+      <img src="add-icon.svg" alt="Add Character Button">
+      <span>New Character</span>
+    </a>
   </div>
-{/if}
-
-<div class="new-character-button">
-  <a class="add button" href="/character-creation">
-    <img src="add-icon.svg" alt="Add Character Button">
-    <span>New Character</span>
-  </a>
 </div>
 
 <div class="modal">

@@ -6,9 +6,10 @@
     character: Character;
     xpGoal: number;
     show: boolean;
+    hideDash: boolean;
   }
 
-  let { character, xpGoal, show=$bindable() }: Props = $props();
+  let { character, xpGoal, show=$bindable(), hideDash=$bindable() }: Props = $props();
   let sheetTab: "overview" | "weapons" | "skillsAndSaves" | "spells" | "stats"  = $state("overview");
 </script>
 
@@ -16,7 +17,10 @@
   <article class="card">
     <header>
       <div class="close-button">
-        <button class="pseudo" onclick="{() => {show = false}}">
+        <button class="pseudo" onclick="{() => {
+            show = false;
+            hideDash = false;
+          }}">
           <img src="back-icon.svg" alt="Back to Characters View Button">
         </button>
       </div>
@@ -98,6 +102,7 @@
     left: 0;
     width: 100%;
     height: fit-content;
+    background-color: rgb(175, 196, 255);
   }
 
   article {

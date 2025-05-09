@@ -13,7 +13,16 @@ export const load = (async ({ cookies }) => {
   const userId = await getUserIdBySession(sessionId);
   const userData = await getUserById(userId);
   const characters = await getUserCharacters(userId);
-  return { name: userData.user_name, characters: characters };
+  let showCharacterSheetStates: boolean[] = [];
+  for (const character of characters) {
+    showCharacterSheetStates.push(false);
+  }
+
+  return {
+    name: userData.user_name,
+    characters: characters,
+    charSheetStates: showCharacterSheetStates
+  };
 }) satisfies PageServerLoad;
 
 export const actions = {

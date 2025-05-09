@@ -5,10 +5,10 @@
 
   interface Props {
     character: Character;
-    hideDashboard?: boolean;
+    hideDashboard: boolean;
   }
 
-  let { character, hideDashboard=$bindable(false) }: Props = $props();
+  let { character, hideDashboard=$bindable() }: Props = $props();
   let nextLevel = Number(character.lvl) + 1;
   let nextLevelKey = $state(nextLevel as keyof typeof LEVEL_TO_XP_MIN);
   let showCharacterSheet = $state(false);
@@ -23,7 +23,10 @@
     <span>{character.xp}/{LEVEL_TO_XP_MIN[nextLevelKey]} XP</span>
   </div>
   <div class="select-class-button">
-    <button class="pseudo" onclick="{() => {showCharacterSheet = true}}">
+    <button class="pseudo" onclick="{() => {
+        showCharacterSheet = true;
+        hideDashboard = true;
+      }}">
       <img src="start-icon.svg" alt="Choose This Character Button">
     </button>
   </div>
@@ -32,7 +35,8 @@
 {#if showCharacterSheet}
   <CharacterSheet character={character}
     xpGoal={LEVEL_TO_XP_MIN[nextLevelKey]}
-    bind:show={showCharacterSheet} />
+    bind:show={showCharacterSheet}
+    bind:hideDash={hideDashboard} />
 {/if}
 
 <style>
