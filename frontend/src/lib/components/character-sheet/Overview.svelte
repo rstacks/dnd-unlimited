@@ -71,7 +71,11 @@
   {#if !props.status_effects}
     <p>No active effects</p>
   {:else}
-    <p>{props.status_effects}</p>
+    <p>
+      {#each props.status_effects as chr}
+        {#if chr === "\n"}<br><br>{:else}{chr}{/if}
+      {/each}
+    </p>
   {/if}
 </div>
 

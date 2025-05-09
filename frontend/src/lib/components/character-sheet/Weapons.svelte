@@ -20,20 +20,24 @@
   }
 </script>
 
-<div>
+<div class="weapon-container">
   <strong>Weapons</strong>
   {#each props.weapons as weapon}
-    <div>
-      <strong>Name</strong>
-      <strong>Damage</strong>
-      <span>{weapon.weapon_name}</span>
-      <div>
-        <span>{weapon.damage_die}</span>
-        {#if weapon.weapon_type === "melee"}
-          <span>{getAbilityModText(props.str)}</span>
-        {:else if weapon.weapon_type === "ranged"}
-          <span>{getAbilityModText(props.dex)}</span>
-        {/if}
+    <div class="weapon-info">
+      <div class="weapon-name">
+        <strong>Name</strong>
+        <span>{weapon.weapon_name}</span>
+      </div>
+      <div class="weapon-dmg">
+        <strong>Damage</strong>
+        <div>
+          <span>{weapon.damage_die}</span>
+          {#if weapon.weapon_type === "melee"}
+            <span>{getAbilityModText(props.str)}</span>
+          {:else if weapon.weapon_type === "ranged"}
+            <span>{getAbilityModText(props.dex)}</span>
+          {/if}
+        </div>
       </div>
     </div>
   {/each}
@@ -53,3 +57,44 @@
     </div>
   {/each}
 </div>
+
+<style>
+  .weapon-container {
+    border-style: solid;
+    border-color: rgb(118, 155, 255);
+    border-width: 0.2em;
+    border-radius: 0.5em;
+    width: 19em;
+    margin: auto;
+    margin-top: 1em;
+    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  .weapon-info {
+    background-color: rgb(196, 230, 242);
+    border-radius: 0.5em;
+    width: fit-content;
+    margin: auto;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    display: flex;
+    justify-content: center;
+    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  .weapon-name {
+    display: flex;
+    flex-direction: column;
+    width: 10em;
+  }
+
+  .weapon-dmg {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+</style>
