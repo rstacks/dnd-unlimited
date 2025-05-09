@@ -10,8 +10,6 @@
   let { data }: PageProps = $props();
   let showCharacterSheetStates: boolean[] = $state(data.charSheetStates);
   let showDashboard: boolean = $derived(showCharacterSheetStates.findIndex((elem) => elem) === -1);
-  $inspect(showCharacterSheetStates);
-  $inspect(showDashboard);
 </script>
 
 <TitleBar account_modal_class="my-modal" />

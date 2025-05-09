@@ -68,7 +68,11 @@
 </div>
 <div class="bkg-info status">
   <strong>Status Effects</strong>
-  <textarea placeholder="Status Effects" value={props.status_effects}></textarea>
+  {#if !props.status_effects}
+    <p>No active effects</p>
+  {:else}
+    <p>{props.status_effects}</p>
+  {/if}
 </div>
 
 <style>

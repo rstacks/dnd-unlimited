@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Character } from "$lib/util/character";
   import Overview from "./character-sheet/Overview.svelte";
+  import Weapons from "./character-sheet/Weapons.svelte";
 
   interface Props {
     character: Character;
@@ -47,9 +48,10 @@
           proficiency_bonus={character.proficiency_bonus}
           speed={character.speed} />
       {:else if sheetTab === "weapons"} 
-        <div>
-          shit
-        </div>
+        <Weapons str={character.str}
+          dex={character.dex}
+          weapons={character.weapons}
+          items={character.items} />
       {:else if sheetTab === "skillsAndSaves"}
         <div>
           balls
@@ -88,7 +90,7 @@
       <button onclick="{() => {sheetTab = "stats"}}"
         style:background-color="{sheetTab === "stats" ? "rgb(219, 219, 219)" : "white"}">
         <img src="character-sheet-icons/stats.svg" alt="Stats Icon">
-        <span>Stats</span>
+        <span>Ability Scores</span>
       </button>
     </footer>
   </article>
