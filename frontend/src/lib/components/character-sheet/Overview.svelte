@@ -46,16 +46,35 @@
   
     <div>
       <strong>Hit Points</strong>
-      <input type="number" autocomplete="off" value={props.hp}>
+      <input class="numeric-input" type="number" autocomplete="off"
+        value={props.hp}>
       <span>
         / {props.max_hp} HP
       </span>
     </div>
+  </div>
+  <div>
+    <div>
+      <strong>Proficiency Bonus</strong>
+      <span>+{props.proficiency_bonus}</span>
+    </div>
+    <div>
+      <strong>Speed</strong>
+      <span>{props.speed} ft</span>
+    </div>
+  </div>
+  <div>
+    <strong>Status Effects</strong>
+    <textarea placeholder="Status Effects" value={props.status_effects}></textarea>
   </div>
 </section>
 
 <style>
   textarea {
     resize: vertical;
+  }
+
+  .numeric-input {
+    width: 6em;
   }
 </style>

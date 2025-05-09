@@ -25,7 +25,9 @@
       <div class="content">
         <h3>{character.character_name}</h3>
         <p>Level {character.lvl} {character.class_name}</p>
-        <span>{character.xp}/{xpGoal} XP</span>
+        <input class="xp-input" type="number" autocomplete="off"
+          value={character.xp}>
+        <span>/{xpGoal} XP</span>
       </div>
     </header>
     {#if sheetTab === "overview"}
@@ -155,5 +157,9 @@
 
   .character-sheet-tab-buttons img {
     width: 3em;
+  }
+
+  .xp-input {
+    width: 6em;
   }
 </style>
