@@ -30,57 +30,59 @@
         <span>/{xpGoal} XP</span>
       </div>
     </header>
-    {#if sheetTab === "overview"}
-      <Overview hit_dice={character.hit_dice}
-        lvl={character.lvl}
-        dex={character.dex}
-        armor_class={character.armor_class}
-        hp={character.hp}
-        max_hp={character.max_hp}
-        notes={character.notes}
-        status_effects={character.status_effects}
-        proficiency_bonus={character.proficiency_bonus}
-        speed={character.speed} />
-    {:else if sheetTab === "weapons"} 
-      <div>
-        shit
-      </div>
-    {:else if sheetTab === "skillsAndSaves"}
-      <div>
-        balls
-      </div>
-    {:else if sheetTab === "spells"}
-      <div>
-        cock
-      </div>
-    {:else if sheetTab === "stats"}
-      <div>
-        damn
-      </div>
-    {/if}
+    <section class="sheet-content">
+      {#if sheetTab === "overview"}
+        <Overview hit_dice={character.hit_dice}
+          lvl={character.lvl}
+          dex={character.dex}
+          armor_class={character.armor_class}
+          hp={character.hp}
+          max_hp={character.max_hp}
+          notes={character.notes}
+          status_effects={character.status_effects}
+          proficiency_bonus={character.proficiency_bonus}
+          speed={character.speed} />
+      {:else if sheetTab === "weapons"} 
+        <div>
+          shit
+        </div>
+      {:else if sheetTab === "skillsAndSaves"}
+        <div>
+          balls
+        </div>
+      {:else if sheetTab === "spells"}
+        <div>
+          cock
+        </div>
+      {:else if sheetTab === "stats"}
+        <div>
+          damn
+        </div>
+      {/if}
+    </section>
     <footer class="character-sheet-tab-buttons">
       <button onclick="{() => {sheetTab = "overview"}}"
-        style:background-color="{sheetTab === "overview" ? "rgb(219, 219, 219)" : "transparent"}">
+        style:background-color="{sheetTab === "overview" ? "rgb(219, 219, 219)" : "white"}">
         <img src="character-sheet-icons/overview.svg" alt="Overview Icon">
         <span>Overview</span>
       </button>
       <button onclick="{() => {sheetTab = "weapons"}}"
-        style:background-color="{sheetTab === "weapons" ? "rgb(219, 219, 219)" : "transparent"}">
+        style:background-color="{sheetTab === "weapons" ? "rgb(219, 219, 219)" : "white"}">
         <img src="character-sheet-icons/weapons.svg" alt="Weapons and Items Icon">
         <span>Weapons & Items</span>
       </button>
       <button onclick="{() => {sheetTab = "skillsAndSaves"}}"
-        style:background-color="{sheetTab === "skillsAndSaves" ? "rgb(219, 219, 219)" : "transparent"}">
+        style:background-color="{sheetTab === "skillsAndSaves" ? "rgb(219, 219, 219)" : "white"}">
         <img src="character-sheet-icons/skills.svg" alt="Skills and Saves Icon">
         <span>Skills & Saves</span>
       </button>
       <button onclick="{() => {sheetTab = "spells"}}"
-        style:background-color="{sheetTab === "spells" ? "rgb(219, 219, 219)" : "transparent"}">
+        style:background-color="{sheetTab === "spells" ? "rgb(219, 219, 219)" : "white"}">
         <img src="character-sheet-icons/spells.svg" alt="Spells and Feats Icon">
         <span>Spells</span>
       </button>
       <button onclick="{() => {sheetTab = "stats"}}"
-        style:background-color="{sheetTab === "stats" ? "rgb(219, 219, 219)" : "transparent"}">
+        style:background-color="{sheetTab === "stats" ? "rgb(219, 219, 219)" : "white"}">
         <img src="character-sheet-icons/stats.svg" alt="Stats Icon">
         <span>Stats</span>
       </button>
@@ -95,7 +97,7 @@
     top: 8.5em;
     left: 0.2em;
     right: 0.2em;
-    /* height: 80%; */
+    /* height: 100%; */
   }
 
   article {
@@ -107,6 +109,10 @@
   header {
     display: flex;
     align-items: center;
+    position: absolute;
+    top: 0;
+    background-color: white;
+    width: 100%;
   }
 
   .class-icon {
@@ -122,6 +128,14 @@
     width: 1.5em;
   }
 
+  .sheet-content {
+    display: block;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    /* height: 100%; */
+  }
+
   .character-sheet-tab-buttons {
     width: 100%;
     display: grid;
@@ -134,6 +148,8 @@
     border-right: 0;
     font-size: 0.5em;
     padding: 0;
+    position: absolute;
+    bottom: 0;
   }
 
   @media (max-width: 500px) {
