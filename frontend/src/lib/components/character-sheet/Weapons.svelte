@@ -43,7 +43,7 @@
   {/each}
 </div>
 
-<div class="weapon-container">
+<div class="weapon-container bottom">
   <strong>Items</strong>
   {#if props.items.length === 0}
     <p>You don't have any items.</p>
@@ -115,5 +115,9 @@
   .item-amount {
     text-align: center;
     flex-grow: 1;
+  }
+
+  .bottom {
+    margin-bottom: 1em;
   }
 </style>

@@ -85,7 +85,11 @@
       <button onclick="{() => {sheetTab = "spells"}}"
         style:background-color="{sheetTab === "spells" ? "rgb(219, 219, 219)" : "white"}">
         <img src="character-sheet-icons/spells.svg" alt="Spells and Feats Icon">
-        <span>Spells</span>
+        {#if character.feat_name === "Spellcasting"}
+          <span>Spells</span>
+        {:else}
+          <span>Feat</span>
+        {/if}
       </button>
       <button onclick="{() => {sheetTab = "stats"}}"
         style:background-color="{sheetTab === "stats" ? "rgb(219, 219, 219)" : "white"}">
@@ -113,7 +117,7 @@
     margin: auto;
     height: 100vh;
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto 73% auto;
   }
 
   header {
