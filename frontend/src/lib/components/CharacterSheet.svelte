@@ -116,6 +116,10 @@
   }
 
   .class-icon {
+    margin-right: 0.5em;
+  }
+
+  .class-icon {
     width: 5em;
   }
 
