@@ -137,3 +137,9 @@ def get_user_characters(user_id: int):
     abort(404, e)
 
   return character_records
+
+@app.get("/skills")
+def get_skills():
+  if not is_authorized_request(request):
+    abort(401)
+  return db_functions.get_skills()

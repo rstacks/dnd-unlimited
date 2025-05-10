@@ -1,16 +1,18 @@
 <script lang="ts">
-  import type { Character } from "$lib/util/character";
+  import type { Character, Skill } from "$lib/util/character";
   import Overview from "./character-sheet/Overview.svelte";
   import Weapons from "./character-sheet/Weapons.svelte";
+  import SkillsAndSaves from "./character-sheet/SkillsAndSaves.svelte";
 
   interface Props {
     character: Character;
     xpGoal: number;
     show: boolean;
     hideDash: boolean;
+    skills: Skill[];
   }
 
-  let { character, xpGoal, show=$bindable(), hideDash=$bindable() }: Props = $props();
+  let { character, xpGoal, show=$bindable(), hideDash=$bindable(), skills }: Props = $props();
   let sheetTab: "overview" | "weapons" | "skillsAndSaves" | "spells" | "stats"  = $state("overview");
 </script>
 
@@ -53,9 +55,16 @@
           weapons={character.weapons}
           items={character.items} />
       {:else if sheetTab === "skillsAndSaves"}
-        <div>
-          balls
-        </div>
+        <SkillsAndSaves skills={skills}
+          str={character.str}
+          dex={character.dex}
+          con={character.con}
+          intl={character.intl}
+          wis={character.wis}
+          cha={character.cha}
+          proficiency_bonus={character.proficiency_bonus}
+          charSaves={character.saves}
+          charSkills={character.skills} />
       {:else if sheetTab === "spells"}
         <div>
           cock

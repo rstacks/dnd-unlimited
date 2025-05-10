@@ -56,15 +56,24 @@ export interface Character {
   second_wind: number;
   martial_arts: string;
   sneak_attack: string;
-  saves: string[],
-  skills: string[],
-  spells: Spell[],
-  weapons: Weapon[],
+  saves: string[];
+  skills: string[];
+  spells: Spell[];
+  weapons: Weapon[];
   items: Item[]
 }
 
 interface CharactersJSON {
   characters: Character[];
+}
+
+export interface Skill {
+  skill_name: string;
+  ability_name: string;
+}
+
+interface SkillsJSON {
+  skills: Skill[];
 }
 
 export async function getUserCharacters(userId: number): Promise<Character[]> {
@@ -78,4 +87,21 @@ export async function getUserCharacters(userId: number): Promise<Character[]> {
   const respJson: CharactersJSON = await resp.json();
   const allCharacters: Character[] = respJson.characters;
   return allCharacters;
+}
+
+export async function getSkills(): Promise<Skill[]> {
+  const resp = await fetch(BACKEND_URL + "/skills", {
+    headers: { "Authorization": "Bearer " + API_KEY }
+  });
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
+
+  const respJson: SkillsJSON = await resp.json();
+  let allSkills: Skill[] = respJson.skills;
+  const sortedSkills = allSkills.sort((lhs, rhs) => {
+    return lhs.skill_name.localeCompare(rhs.skill_name);
+  });
+
+  return sortedSkills;
 }

@@ -24,3 +24,11 @@ export const LEVEL_TO_XP_MIN = {
 export function getAbilityModifier(abilityScore: number): number {
   return Math.floor((abilityScore - 10) / 2);
 }
+
+export function getAbilityModText(abilityScore: number): string {
+  const mod = getAbilityModifier(abilityScore);
+  if (mod >= 0) {
+    return "+" + mod.toFixed(0);
+  }
+  return mod.toFixed(0);
+}

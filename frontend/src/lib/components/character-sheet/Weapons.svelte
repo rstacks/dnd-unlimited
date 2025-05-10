@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getAbilityModifier } from "$lib/util/character-functions";
+  import { getAbilityModText } from "$lib/util/character-functions";
   import type { Weapon, Item } from "$lib/util/character";
 
   interface Props {
@@ -10,14 +10,6 @@
   }
 
   let props: Props = $props();
-
-  function getAbilityModText(abilityScore: number): string {
-    const mod = getAbilityModifier(abilityScore);
-    if (mod >= 0) {
-      return "+" + mod.toFixed(0);
-    }
-    return mod.toFixed(0);
-  }
 </script>
 
 <div class="weapon-container">

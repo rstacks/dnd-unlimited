@@ -1,14 +1,15 @@
 <script lang="ts">
-  import type { Character } from "$lib/util/character";
+  import type { Character, Skill } from "$lib/util/character";
   import CharacterSheet from "./CharacterSheet.svelte";
   import { LEVEL_TO_XP_MIN } from "$lib/util/character-functions";
 
   interface Props {
     character: Character;
     hideDashboard: boolean;
+    skills: Skill[];
   }
 
-  let { character, hideDashboard=$bindable() }: Props = $props();
+  let { character, hideDashboard=$bindable(), skills }: Props = $props();
   let nextLevel = Number(character.lvl) + 1;
   let nextLevelKey = $state(nextLevel as keyof typeof LEVEL_TO_XP_MIN);
   let showCharacterSheet = $state(false);
@@ -36,7 +37,8 @@
   <CharacterSheet character={character}
     xpGoal={LEVEL_TO_XP_MIN[nextLevelKey]}
     bind:show={showCharacterSheet}
-    bind:hideDash={hideDashboard} />
+    bind:hideDash={hideDashboard}
+    skills={skills} />
 {/if}
 
 <style>

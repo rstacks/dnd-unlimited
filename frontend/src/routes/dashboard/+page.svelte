@@ -29,7 +29,8 @@
     <div class="character-cards">
       {#each data.characters as character, i}
         <CharacterCard character={character}
-          bind:hideDashboard={showCharacterSheetStates[i]} />
+          bind:hideDashboard={showCharacterSheetStates[i]}
+          skills={data.skills} />
       {/each}
     </div>
   {/if}

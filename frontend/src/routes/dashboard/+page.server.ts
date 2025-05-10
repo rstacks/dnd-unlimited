@@ -2,7 +2,7 @@ import type { PageServerLoad, Actions } from "./$types";
 import { getUserIdBySession, getUserById, isLoggedIn } from "$lib/util/user";
 import { BACKEND_URL, API_KEY } from "$env/static/private"; 
 import { redirect, error } from "@sveltejs/kit";
-import { getUserCharacters } from "$lib/util/character";
+import { getSkills, getUserCharacters } from "$lib/util/character";
 
 export const load = (async ({ cookies }) => {
   if (!(await isLoggedIn(cookies))) {
@@ -13,6 +13,7 @@ export const load = (async ({ cookies }) => {
   const userId = await getUserIdBySession(sessionId);
   const userData = await getUserById(userId);
   const characters = await getUserCharacters(userId);
+  const skills = await getSkills();
   let showCharacterSheetStates: boolean[] = [];
   for (const character of characters) {
     showCharacterSheetStates.push(false);
@@ -21,7 +22,8 @@ export const load = (async ({ cookies }) => {
   return {
     name: userData.user_name,
     characters: characters,
-    charSheetStates: showCharacterSheetStates
+    charSheetStates: showCharacterSheetStates,
+    skills: skills
   };
 }) satisfies PageServerLoad;
 

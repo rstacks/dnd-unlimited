@@ -373,3 +373,21 @@ def get_user_characters(user_id: int):
   con.close()
 
   return { "characters": formatted_records }
+
+def get_skills():
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute("SELECT skill_name, ability_name FROM skills")
+  skills_records: list[list] = cur.fetchall()
+
+  con.close()
+
+  formatted_records = []
+  for skill_record in skills_records:
+    formatted_records.append({
+      "skill_name": skill_record[0],
+      "ability_name": skill_record[1]
+    })
+  
+  return { "skills": formatted_records }
