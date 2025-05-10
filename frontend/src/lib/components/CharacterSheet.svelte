@@ -55,6 +55,11 @@
           value={character.xp} id="experience-input" onchange="{() => {updateXp()}}">
         <span>/{xpGoal} XP</span>
       </div>
+      <div class="refresh-button">
+        <button class="pseudo">
+          <img src="refresh-icon.svg" alt="Refresh Character Button">
+        </button>
+      </div>
     </header>
     <section class="sheet-content">
       {#if sheetTab === "overview"}
@@ -231,5 +236,20 @@
 
   .xp-input {
     width: 6em;
+  }
+
+  .refresh-button {
+    flex-grow: 1;
+    display: flex;
+    justify-content: end;
+  }
+
+  .refresh-button button {
+    display: flex;
+    padding: 0.1em;
+  }
+
+  .refresh-button button img {
+    width: 1.5em;
   }
 </style>

@@ -16,42 +16,42 @@
 <div class="ability-scores">
   <div class="score-container">
     <strong>Strength</strong>
-    <span>{props.str}</span>
+    <span class="score">{props.str}</span>
     <div>
       <span>{getAbilityModText(props.str)}</span>
     </div>
   </div>
   <div class="score-container">
     <strong>Dexterity</strong>
-    <span>{props.dex}</span>
+    <span class="score">{props.dex}</span>
     <div>
       <span>{getAbilityModText(props.dex)}</span>
     </div>
   </div>
   <div class="score-container">
     <strong>Constitution</strong>
-    <span>{props.con}</span>
+    <span class="score">{props.con}</span>
     <div>
       <span>{getAbilityModText(props.con)}</span>
     </div>
   </div>
   <div class="score-container">
     <strong>Intelligence</strong>
-    <span>{props.intl}</span>
+    <span class="score">{props.intl}</span>
     <div>
       <span>{getAbilityModText(props.intl)}</span>
     </div>
   </div>
   <div class="score-container">
     <strong>Wisdom</strong>
-    <span>{props.wis}</span>
+    <span class="score">{props.wis}</span>
     <div>
       <span>{getAbilityModText(props.wis)}</span>
     </div>
   </div>
   <div class="score-container">
     <strong>Charisma</strong>
-    <span>{props.cha}</span>
+    <span class="score">{props.cha}</span>
     <div>
       <span>{getAbilityModText(props.cha)}</span>
     </div>
@@ -93,5 +93,10 @@
     border-radius: 0.5em;
     width: 3em;
     text-align: center;
+  }
+
+  span.score {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
   }
 </style>
