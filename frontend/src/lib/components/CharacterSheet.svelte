@@ -5,6 +5,7 @@
   import SkillsAndSaves from "./character-sheet/SkillsAndSaves.svelte";
   import Spells from "./character-sheet/Spells.svelte";
   import AbilityScores from "./character-sheet/AbilityScores.svelte";
+  import { LEVEL_TO_XP_MIN } from "$lib/util/character-functions";
 
   interface Props {
     character: Character;
@@ -20,6 +21,12 @@
   function updateXp(): void {
     const xpInput = document.getElementById("experience-input") as HTMLInputElement;
     const xp = xpInput.valueAsNumber;
+
+    const currentLvl = character.lvl as keyof typeof LEVEL_TO_XP_MIN;
+    if (xp < LEVEL_TO_XP_MIN[currentLvl]) {
+      return;
+    }
+
     try {
       localStorage.setItem(character.id + "-xp", xp.toString());
     } catch (e: any) {

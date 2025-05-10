@@ -28,6 +28,11 @@
   function updateLvl1Slots(): void {
     const lvl1SlotInput = document.getElementById("lvl-1-slot-input") as HTMLInputElement;
     const lvl1Slots = lvl1SlotInput.valueAsNumber;
+
+    if (lvl1Slots > props.lvl_1_spell_slots || lvl1Slots < 0) {
+      return;
+    }
+
     try {
       localStorage.setItem(props.char_id + "-lvl1-spell-slots", lvl1Slots.toString());
     } catch (e: any) {
@@ -45,6 +50,11 @@
   function updateLvl2Slots(): void {
     const lvl2SlotInput = document.getElementById("lvl-2-slot-input") as HTMLInputElement;
     const lvl2Slots = lvl2SlotInput.valueAsNumber;
+
+    if (lvl2Slots > props.lvl_2_spell_slots || lvl2Slots < 0) {
+      return;
+    }
+
     try {
       localStorage.setItem(props.char_id + "-lvl2-spell-slots", lvl2Slots.toString());
     } catch (e: any) {
@@ -62,6 +72,11 @@
   function updateLvl3Slots(): void {
     const lvl3SlotInput = document.getElementById("lvl-3-slot-input") as HTMLInputElement;
     const lvl3Slots = lvl3SlotInput.valueAsNumber;
+
+    if (lvl3Slots > props.lvl_3_spell_slots || lvl3Slots < 0) {
+      return;
+    }
+
     try {
       localStorage.setItem(props.char_id + "-lvl3-spell-slots", lvl3Slots.toString());
     } catch (e: any) {
@@ -79,6 +94,11 @@
   function updateLvl4Slots(): void {
     const lvl4SlotInput = document.getElementById("lvl-4-slot-input") as HTMLInputElement;
     const lvl4Slots = lvl4SlotInput.valueAsNumber;
+
+    if (lvl4Slots > props.lvl_4_spell_slots || lvl4Slots < 0) {
+      return;
+    }
+
     try {
       localStorage.setItem(props.char_id + "-lvl4-spell-slots", lvl4Slots.toString());
     } catch (e: any) {
@@ -96,6 +116,11 @@
   function updateRages(): void {
     const rageInput = document.getElementById("rage-input") as HTMLInputElement;
     const rages = rageInput.valueAsNumber;
+
+    if (rages > props.rages || rages < 0) {
+      return;
+    }
+
     try {
       localStorage.setItem(props.char_id + "-rages", rages.toString());
     } catch (e: any) {
@@ -113,6 +138,11 @@
   function updateSecondWind(): void {
     const secondWindInput = document.getElementById("second-wind-input") as HTMLInputElement;
     const secondWind = secondWindInput.valueAsNumber;
+
+    if (secondWind > props.second_wind || secondWind < 0) {
+      return;
+    }
+
     try {
       localStorage.setItem(props.char_id + "-second-wind", secondWind.toString());
     } catch (e: any) {
