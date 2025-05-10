@@ -67,7 +67,18 @@
           charSaves={character.saves}
           charSkills={character.skills} />
       {:else if sheetTab === "spells"}
-        <Spells spells={character.spells} />
+        <Spells spells={character.spells}
+          feat_name={character.feat_name}
+          feat_desc={character.feat_desc}
+          lvl_1_spell_slots={character.lvl_1_spell_slots}
+          lvl_2_spell_slots={character.lvl_2_spell_slots}
+          lvl_3_spell_slots={character.lvl_3_spell_slots}
+          lvl_4_spell_slots={character.lvl_4_spell_slots}
+          rages={character.rages}
+          rage_damage={character.rage_damage}
+          second_wind={character.second_wind}
+          martial_arts={character.martial_arts}
+          sneak_attack={character.sneak_attack} />
       {:else if sheetTab === "stats"}
         <div>
           damn
