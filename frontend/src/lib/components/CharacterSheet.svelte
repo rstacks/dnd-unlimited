@@ -4,6 +4,7 @@
   import Weapons from "./character-sheet/Weapons.svelte";
   import SkillsAndSaves from "./character-sheet/SkillsAndSaves.svelte";
   import Spells from "./character-sheet/Spells.svelte";
+  import AbilityScores from "./character-sheet/AbilityScores.svelte";
 
   interface Props {
     character: Character;
@@ -80,9 +81,12 @@
           martial_arts={character.martial_arts}
           sneak_attack={character.sneak_attack} />
       {:else if sheetTab === "stats"}
-        <div>
-          damn
-        </div>
+        <AbilityScores str={character.str}
+          dex={character.dex}
+          con={character.con}
+          intl={character.intl}
+          wis={character.wis}
+          cha={character.cha} />
       {/if}
     </section>
     <footer class="character-sheet-tab-buttons">
