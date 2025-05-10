@@ -66,79 +66,138 @@
   }
 </script>
 
-<div>
+<div class="saves">
   <strong>Saving Throws</strong>
   <ul>
     <li>
       {#if props.charSaves.includes("Strength")}
-        <strong>Strength:</strong>
-        <strong>{getProficientModText(props.str, props.proficiency_bonus)}</strong>
+        <strong class="label-text">Strength:</strong>
+        <strong class="value-text">{getProficientModText(props.str, props.proficiency_bonus)}</strong>
       {:else}
-        <span>Strength:</span>
-        <span>{getAbilityModText(props.str)}</span>
+        <span class="label-text">Strength:</span>
+        <span class="value-text">{getAbilityModText(props.str)}</span>
       {/if}
     </li>
     <li>
       {#if props.charSaves.includes("Dexterity")}
-        <strong>Dexterity:</strong>
-        <strong>{getProficientModText(props.dex, props.proficiency_bonus)}</strong>
+        <strong class="label-text">Dexterity:</strong>
+        <strong class="value-text">{getProficientModText(props.dex, props.proficiency_bonus)}</strong>
       {:else}
-        <span>Dexterity:</span>
-        <span>{getAbilityModText(props.dex)}</span>
+        <span class="label-text">Dexterity:</span>
+        <span class="value-text">{getAbilityModText(props.dex)}</span>
       {/if}
     </li>
     <li>
       {#if props.charSaves.includes("Constitution")}
-        <strong>Constitution:</strong>
-        <strong>{getProficientModText(props.con, props.proficiency_bonus)}</strong>
+        <strong class="label-text">Constitution:</strong>
+        <strong class="value-text">{getProficientModText(props.con, props.proficiency_bonus)}</strong>
       {:else}
-        <span>Constitution:</span>
-        <span>{getAbilityModText(props.con)}</span>
+        <span class="label-text">Constitution:</span>
+        <span class="value-text">{getAbilityModText(props.con)}</span>
       {/if}
     </li>
     <li>
       {#if props.charSaves.includes("Intelligence")}
-        <strong>Intelligence:</strong>
-        <strong>{getProficientModText(props.intl, props.proficiency_bonus)}</strong>
+        <strong class="label-text">Intelligence:</strong>
+        <strong class="value-text">{getProficientModText(props.intl, props.proficiency_bonus)}</strong>
       {:else}
-        <span>Intelligence:</span>
-        <span>{getAbilityModText(props.intl)}</span>
+        <span class="label-text">Intelligence:</span>
+        <span class="value-text">{getAbilityModText(props.intl)}</span>
       {/if}
     </li>
     <li>
       {#if props.charSaves.includes("Wisdom")}
-        <strong>Wisdom:</strong>
-        <strong>{getProficientModText(props.wis, props.proficiency_bonus)}</strong>
+        <strong class="label-text">Wisdom:</strong>
+        <strong class="value-text">{getProficientModText(props.wis, props.proficiency_bonus)}</strong>
       {:else}
-        <span>Wisdom:</span>
-        <span>{getAbilityModText(props.wis)}</span>
+        <span class="label-text">Wisdom:</span>
+        <span class="value-text">{getAbilityModText(props.wis)}</span>
       {/if}
     </li>
     <li>
       {#if props.charSaves.includes("Charisma")}
-        <strong>Charisma:</strong>
-        <strong>{getProficientModText(props.cha, props.proficiency_bonus)}</strong>
+        <strong class="label-text">Charisma:</strong>
+        <strong class="value-text">{getProficientModText(props.cha, props.proficiency_bonus)}</strong>
       {:else}
-        <span>Charisma:</span>
-        <span>{getAbilityModText(props.cha)}</span>
+        <span class="label-text">Charisma:</span>
+        <span class="value-text">{getAbilityModText(props.cha)}</span>
       {/if}
     </li>
   </ul>
 </div>
 
-<div>
+<div class="skills">
   <strong>Skills</strong>
   <ul>
     {#each props.skills as skill}
       <li>
         {#if props.charSkills.includes(skill.skill_name)}
-          <strong>{skill.skill_name}:</strong>
-          <strong>{getSkillModText(skill.ability_name, true)}</strong>
+          <strong class="label-text">{skill.skill_name}:</strong>
+          <strong class="value-text">{getSkillModText(skill.ability_name, true)}</strong>
         {:else}
-          <span>{skill.skill_name}:</span>
-          <span>{getSkillModText(skill.ability_name, false)}</span>
+          <span class="label-text">{skill.skill_name}:</span>
+          <span class="value-text">{getSkillModText(skill.ability_name, false)}</span>
         {/if}
       </li>
     {/each}
   </ul>
 </div>
+
+<style>
+  div.saves {
+    border-style: solid;
+    border-color: rgb(118, 155, 255);
+    border-width: 0.2em;
+    border-radius: 0.5em;
+    width: 19em;
+    margin: auto;
+    margin-top: 1em;
+    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  div.skills {
+    border-style: solid;
+    border-color: rgb(118, 155, 255);
+    border-width: 0.2em;
+    border-radius: 0.5em;
+    width: 19em;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: auto;
+    width: 15em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  li {
+    display: flex;
+    background-color: rgb(196, 230, 242);
+    border-radius: 0.5em;
+    margin-top: 0.25em;
+    padding: 0.5em;
+    width: 10em;
+  }
+
+  .label-text {
+    width: 9em;
+  }
+
+  .value-text {
+    text-align: center;
+    flex-grow: 1;
+  }
+</style>
