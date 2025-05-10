@@ -3,6 +3,7 @@
   import SpellCard from "../SpellCard.svelte";
 
   interface Props {
+    char_id: number;
     spells: Spell[];
     feat_name: string;
     feat_desc: string;
@@ -22,6 +23,108 @@
 
   function toggleShowMore(): void {
     showMore = !showMore;
+  }
+
+  function updateLvl1Slots(): void {
+    const lvl1SlotInput = document.getElementById("lvl-1-slot-input") as HTMLInputElement;
+    const lvl1Slots = lvl1SlotInput.valueAsNumber;
+    try {
+      localStorage.setItem(props.char_id + "-lvl1-spell-slots", lvl1Slots.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
+  function getLvl1Slots(): number {
+    const lvl1Slots = localStorage.getItem(props.char_id + "-lvl1-spell-slots");
+    if (!lvl1Slots) {
+      return props.lvl_1_spell_slots;
+    }
+    return Number(lvl1Slots);
+  }
+
+  function updateLvl2Slots(): void {
+    const lvl2SlotInput = document.getElementById("lvl-2-slot-input") as HTMLInputElement;
+    const lvl2Slots = lvl2SlotInput.valueAsNumber;
+    try {
+      localStorage.setItem(props.char_id + "-lvl2-spell-slots", lvl2Slots.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
+  function getLvl2Slots(): number {
+    const lvl2Slots = localStorage.getItem(props.char_id + "-lvl2-spell-slots");
+    if (!lvl2Slots) {
+      return props.lvl_2_spell_slots;
+    }
+    return Number(lvl2Slots);
+  }
+
+  function updateLvl3Slots(): void {
+    const lvl3SlotInput = document.getElementById("lvl-3-slot-input") as HTMLInputElement;
+    const lvl3Slots = lvl3SlotInput.valueAsNumber;
+    try {
+      localStorage.setItem(props.char_id + "-lvl3-spell-slots", lvl3Slots.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
+  function getLvl3Slots(): number {
+    const lvl3Slots = localStorage.getItem(props.char_id + "-lvl3-spell-slots");
+    if (!lvl3Slots) {
+      return props.lvl_3_spell_slots;
+    }
+    return Number(lvl3Slots);
+  }
+
+  function updateLvl4Slots(): void {
+    const lvl4SlotInput = document.getElementById("lvl-4-slot-input") as HTMLInputElement;
+    const lvl4Slots = lvl4SlotInput.valueAsNumber;
+    try {
+      localStorage.setItem(props.char_id + "-lvl4-spell-slots", lvl4Slots.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
+  function getLvl4Slots(): number {
+    const lvl4Slots = localStorage.getItem(props.char_id + "-lvl4-spell-slots");
+    if (!lvl4Slots) {
+      return props.lvl_4_spell_slots;
+    }
+    return Number(lvl4Slots);
+  }
+
+  function updateRages(): void {
+    const rageInput = document.getElementById("rage-input") as HTMLInputElement;
+    const rages = rageInput.valueAsNumber;
+    try {
+      localStorage.setItem(props.char_id + "-rages", rages.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
+  function getRages(): number {
+    const rages = localStorage.getItem(props.char_id + "-rages");
+    if (!rages) {
+      return props.rages;
+    }
+    return Number(rages);
+  }
+
+  function updateSecondWind(): void {
+    const secondWindInput = document.getElementById("second-wind-input") as HTMLInputElement;
+    const secondWind = secondWindInput.valueAsNumber;
+    try {
+      localStorage.setItem(props.char_id + "-second-wind", secondWind.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
+  function getSecondWindUses(): number {
+    const secondWind = localStorage.getItem(props.char_id + "-second-wind");
+    if (!secondWind) {
+      return props.second_wind;
+    }
+    return Number(secondWind);
   }
 </script>
 
@@ -55,7 +158,8 @@
       <strong>Level 1 Spell Slots:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
-          value={props.lvl_1_spell_slots}>
+          value={getLvl1Slots()} id="lvl-1-slot-input"
+          onchange="{() => {updateLvl1Slots()}}">
         <span>/ {props.lvl_1_spell_slots}</span>
       </div>
     </div>
@@ -65,7 +169,8 @@
       <strong>Level 2 Spell Slots:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
-          value={props.lvl_2_spell_slots}>
+          value={getLvl2Slots()} id="lvl-2-slot-input"
+          onchange="{() => {updateLvl2Slots()}}">
         <span>/ {props.lvl_2_spell_slots}</span>
       </div>
     </div>
@@ -75,7 +180,8 @@
       <strong>Level 3 Spell Slots:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
-          value={props.lvl_3_spell_slots}>
+          value={getLvl3Slots()} id="lvl-3-slot-input"
+          onchange="{() => {updateLvl3Slots()}}">
         <span>/ {props.lvl_3_spell_slots}</span>
       </div>
     </div>
@@ -85,7 +191,8 @@
       <strong>Level 4 Spell Slots:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
-          value={props.lvl_4_spell_slots}>
+          value={getLvl4Slots()} id="lvl-4-slot-input"
+          onchange="{() => {updateLvl4Slots()}}">
         <span>/ {props.lvl_4_spell_slots}</span>
       </div>
     </div>
@@ -96,7 +203,8 @@
       <strong>Rage Uses:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
-          value={props.rages}>
+          value={getRages()} id="rage-input"
+          onchange="{() => {updateRages()}}">
         <span>/ {props.rages}</span>
       </div>
     </div>
@@ -115,7 +223,8 @@
       <strong>Second Wind Uses:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
-          value={props.second_wind}>
+          value={getSecondWindUses()} id="second-wind-input"
+          onchange="{() => {updateSecondWind()}}">
         <span>/ {props.second_wind}</span>
       </div>
     </div>

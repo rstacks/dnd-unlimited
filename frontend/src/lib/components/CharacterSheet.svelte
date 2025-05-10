@@ -16,6 +16,16 @@
 
   let { character, xpGoal, show=$bindable(), hideDash=$bindable(), skills }: Props = $props();
   let sheetTab: "overview" | "weapons" | "skillsAndSaves" | "spells" | "stats"  = $state("overview");
+
+  function updateXp(): void {
+    const xpInput = document.getElementById("experience-input") as HTMLInputElement;
+    const xp = xpInput.valueAsNumber;
+    try {
+      localStorage.setItem(character.id + "-xp", xp.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
 </script>
 
 <div class="character-sheet">
@@ -35,13 +45,14 @@
         <h3>{character.character_name}</h3>
         <p>Level {character.lvl} {character.class_name}</p>
         <input class="xp-input" type="number" autocomplete="off"
-          value={character.xp}>
+          value={character.xp} id="experience-input" onchange="{() => {updateXp()}}">
         <span>/{xpGoal} XP</span>
       </div>
     </header>
     <section class="sheet-content">
       {#if sheetTab === "overview"}
-        <Overview hit_dice={character.hit_dice}
+        <Overview char_id={character.id}
+          hit_dice={character.hit_dice}
           lvl={character.lvl}
           dex={character.dex}
           armor_class={character.armor_class}
@@ -68,7 +79,8 @@
           charSaves={character.saves}
           charSkills={character.skills} />
       {:else if sheetTab === "spells"}
-        <Spells spells={character.spells}
+        <Spells char_id={character.id}
+          spells={character.spells}
           feat_name={character.feat_name}
           feat_desc={character.feat_desc}
           lvl_1_spell_slots={character.lvl_1_spell_slots}

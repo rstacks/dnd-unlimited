@@ -2,6 +2,7 @@
   import { getAbilityModifier } from "$lib/util/character-functions";
 
   interface Props {
+    char_id: number;
     hit_dice: string;
     lvl: number;
     dex: number;
@@ -15,11 +16,32 @@
   }
 
   let props: Props = $props();
+
+  function updateNotes(): void {
+    const notesInput = document.getElementById("bkg-info-input") as HTMLInputElement;
+    const notes = notesInput.value;
+    try {
+      localStorage.setItem(props.char_id + "-notes", notes);
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
+
+  function updateHp(): void {
+    const hpInput = document.getElementById("hp-input") as HTMLInputElement;
+    const hp = hpInput.valueAsNumber;
+    try {
+      localStorage.setItem(props.char_id + "-hp", hp.toString());
+    } catch (e: any) {
+      console.log("Local storage access failure. ", e);
+    }
+  }
 </script>
 
 <div class="bkg-info">
   <strong>Background Info</strong>
-  <textarea placeholder="Background Info (Optional)" value={props.notes}></textarea>
+  <textarea placeholder="Background Info (Optional)" value={props.notes}
+    id="bkg-info-input" onchange="{() => {updateNotes()}}"></textarea>
 </div>
 <div class="combat-info">
   <div class="not-hp">
@@ -49,7 +71,7 @@
     <strong>Hit Points</strong>
     <fieldset>
       <input class="numeric-input" type="number" autocomplete="off"
-        value={props.hp}>
+        value={props.hp} id="hp-input" onchange="{() => {updateHp()}}">
       <span>
         / {props.max_hp} HP
       </span>
