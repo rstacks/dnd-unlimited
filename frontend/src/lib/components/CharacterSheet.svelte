@@ -3,6 +3,7 @@
   import Overview from "./character-sheet/Overview.svelte";
   import Weapons from "./character-sheet/Weapons.svelte";
   import SkillsAndSaves from "./character-sheet/SkillsAndSaves.svelte";
+  import Spells from "./character-sheet/Spells.svelte";
 
   interface Props {
     character: Character;
@@ -66,9 +67,7 @@
           charSaves={character.saves}
           charSkills={character.skills} />
       {:else if sheetTab === "spells"}
-        <div>
-          cock
-        </div>
+        <Spells spells={character.spells} />
       {:else if sheetTab === "stats"}
         <div>
           damn
