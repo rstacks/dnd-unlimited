@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS class_saving_throw_proficiencies;
 DROP TABLE IF EXISTS class_skill_proficiencies;
 DROP TABLE IF EXISTS character_weapons;
 DROP TABLE IF EXISTS character_items;
+DROP TABLE IF EXISTS class_levels;
 
 CREATE TABLE users (
   id INTEGER PRIMARY KEY,
@@ -110,6 +111,21 @@ CREATE TABLE character_items (
   item_id INTEGER REFERENCES items,
   amount INTEGER,
   PRIMARY KEY (character_id, item_id)
+);
+CREATE TABLE class_levels (
+  lvl INTEGER,
+  class_id INTEGER REFERENCES classes,
+  proficiency_bonus INTEGER,
+  rages INTEGER,
+  rage_damage INTEGER,
+  lvl_1_spell_slots INTEGER,
+  lvl_2_spell_slots INTEGER,
+  lvl_3_spell_slots INTEGER,
+  lvl_4_spell_slots INTEGER,
+  second_wind INTEGER,
+  martial_arts TEXT,
+  sneak_attack TEXT,
+  PRIMARY KEY (lvl, class_id)
 );
 
 BEGIN;

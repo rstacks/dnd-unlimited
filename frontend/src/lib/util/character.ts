@@ -105,3 +105,12 @@ export async function getSkills(): Promise<Skill[]> {
 
   return sortedSkills;
 }
+
+export function levelUp() {
+  // proficiency bonus goes up by one at level 5, 9, 13, 17
+  // class specific stuff happens
+  // every level: +1 hit die (will be automatically shown, so don't change anything in the db)
+  // increase max hp by average hit die roll result (ceil) + CON
+  // Remember that when CON mod increases by 1, max HP increase by 1 per current level
+  // This should probably live in the backend
+}
