@@ -6,6 +6,7 @@
   import Spells from "./character-sheet/Spells.svelte";
   import AbilityScores from "./character-sheet/AbilityScores.svelte";
   import { LEVEL_TO_XP_MIN } from "$lib/util/character-functions";
+  import { applyAction, enhance } from "$app/forms";
 
   interface Props {
     character: Character;
@@ -177,7 +178,11 @@
 </div>
 
 <form style:display="none" method="POST" action="/dashboard?/updateCharacter"
-  id="char-sheet-form">
+  id="char-sheet-form" use:enhance={() => {
+    return async ({ result }) => {
+      await applyAction(result);
+    };
+  }}>
   <input type="hidden" name="char-id" value={character.id}>
   <input type="hidden" name="xp" value={character.xp}>
   <input type="hidden" name="notes" value={character.notes}>
