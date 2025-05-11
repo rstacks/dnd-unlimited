@@ -1,5 +1,5 @@
 # https://www.dndbeyond.com/classes
-# Script for inserting class stats per level into the database.
+# Script for initializing class_level records in the database.
 # Relevant table schema below.
 
 # CREATE TABLE class_levels (
