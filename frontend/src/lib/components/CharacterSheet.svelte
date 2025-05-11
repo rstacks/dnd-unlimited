@@ -49,13 +49,13 @@
     let notesInput = formInputs.item(2)
     let hpInput = formInputs.item(3)
     
-    if (xpVal) {
+    if (xpVal && !Number.isNaN(Number(xpVal))) {
       xpInput!.value = xpVal;
     }
     if (notesVal) {
       notesInput!.value = notesVal;
     }
-    if (hpVal) {
+    if (hpVal && !Number.isNaN(Number(hpVal))) {
       hpInput!.value = hpVal;
     }
 

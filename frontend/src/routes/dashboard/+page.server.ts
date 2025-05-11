@@ -7,7 +7,7 @@ import { getSkills, getUserCharacters } from "$lib/util/character";
 interface CharacterSheetFields {
   id: number;
   xp: number;
-  notes?: string;
+  notes: string;
   hp: number;
 }
 
@@ -120,15 +120,20 @@ async function logoutInDb(userId: number): Promise<void> {
 
 async function getCharacterSheetFields(request: Request): Promise<CharacterSheetFields> {
   const data = await request.formData();
-  const id = data.get("char-id");
-  const xp = data.get("xp");
-  const notes = data.get("notes");
-  const hp = data.get("hp");
+  const idInput = data.get("char-id");
+  const xpInput = data.get("xp");
+  const notesInput = data.get("notes");
+  const hpInput = data.get("hp");
+
+  let notesVal = "";
+  if (notesInput) {
+    notesVal = notesInput.toString();
+  }
 
   return {
-    id: Number(id?.toString()),
-    xp: Number(xp?.toString()),
-    notes: notes?.toString(),
-    hp: Number(hp?.toString())
+    id: Number(idInput?.toString()),
+    xp: Number(xpInput?.toString()),
+    notes: notesVal,
+    hp: Number(hpInput?.toString())
   };
 }
