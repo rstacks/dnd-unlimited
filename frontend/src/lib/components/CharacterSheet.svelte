@@ -7,6 +7,7 @@
   import AbilityScores from "./character-sheet/AbilityScores.svelte";
   import { LEVEL_TO_XP_MIN } from "$lib/util/character-functions";
   import { applyAction, enhance } from "$app/forms";
+  import { invalidateAll } from "$app/navigation";
 
   interface Props {
     character: Character;
@@ -181,6 +182,7 @@
   id="char-sheet-form" use:enhance={() => {
     return async ({ result }) => {
       await applyAction(result);
+      await invalidateAll();
     };
   }}>
   <input type="hidden" name="char-id" value={character.id}>

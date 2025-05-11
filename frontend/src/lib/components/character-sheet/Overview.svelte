@@ -26,6 +26,13 @@
       console.log("Local storage access failure. ", e);
     }
   }
+  function getNotes(): string {
+    const notes = localStorage.getItem(props.char_id + "-notes");
+    if (!notes) {
+      return props.notes;
+    }
+    return notes;
+  }
 
   function updateHp(): void {
     const hpInput = document.getElementById("hp-input") as HTMLInputElement;
@@ -36,11 +43,18 @@
       console.log("Local storage access failure. ", e);
     }
   }
+  function getHp(): number {
+    const hp = localStorage.getItem(props.char_id + "-hp");
+    if (!hp) {
+      return props.hp;
+    }
+    return Number(hp);
+  }
 </script>
 
 <div class="bkg-info">
   <strong>Background Info</strong>
-  <textarea placeholder="Background Info (Optional)" value={props.notes}
+  <textarea placeholder="Background Info (Optional)" value={getNotes()}
     id="bkg-info-input" onchange="{() => {updateNotes()}}"></textarea>
 </div>
 <div class="combat-info">
@@ -71,7 +85,7 @@
     <strong>Hit Points</strong>
     <fieldset>
       <input class="numeric-input" type="number" autocomplete="off"
-        value={props.hp} id="hp-input" onchange="{() => {updateHp()}}">
+        value={getHp()} id="hp-input" onchange="{() => {updateHp()}}">
       <span>
         / {props.max_hp} HP
       </span>
