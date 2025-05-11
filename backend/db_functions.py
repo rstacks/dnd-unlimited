@@ -404,3 +404,27 @@ def get_skills():
     })
   
   return { "skills": formatted_records }
+
+def get_class_level_stats(lvl: int, class_id: int):
+  query = "SELECT proficiency_bonus, rages, rage_damage, lvl_1_spell_slots, lvl_2_spell_slots, lvl_3_spell_slots, lvl_4_spell_slots, second_wind, martial_arts, sneak_attack FROM class_levels WHERE lvl = ? AND class_id = ?"
+
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute(query, (lvl, class_id))
+  record: list = cur.fetchone()
+
+  con.close()
+
+  return {
+    "proficiency_bonus": record[0],
+    "rages": record[1],
+    "rage_damage": record[2],
+    "lvl_1_spell_slots": record[3],
+    "lvl_2_spell_slots": record[4],
+    "lvl_3_spell_slots": record[5],
+    "lvl_4_spell_slots": record[6],
+    "second_wind": record[7],
+    "martial_arts": record[8],
+    "sneak_attack": record[9]
+  }

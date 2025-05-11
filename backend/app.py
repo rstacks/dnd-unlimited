@@ -156,3 +156,9 @@ def get_skills():
   if not is_authorized_request(request):
     abort(401)
   return db_functions.get_skills()
+
+@app.get("/levels/<int:lvl>/<int:class_id>")
+def get_class_level_stats(lvl: int, class_id: int):
+  if not is_authorized_request(request):
+    abort(401)
+  return db_functions.get_class_level_stats(lvl, class_id)

@@ -106,10 +106,10 @@ export async function getSkills(): Promise<Skill[]> {
   return sortedSkills;
 }
 
-export function levelUp() {
-  // class specific stuff happens
+export async function levelUp() {
   // ability score increase every 4th level (lvl 4, 8, 12, 16)
   //    max is 20 per ability score
   // increase max hp by average hit die roll result (ceil) + CON
   // Remember that when CON mod increases by 1, max HP increase by 1 per current level
+
 }
