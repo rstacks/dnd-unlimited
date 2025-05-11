@@ -374,6 +374,19 @@ def get_user_characters(user_id: int):
 
   return { "characters": formatted_records }
 
+def update_character(id: int, xp: int, notes: str, hp: int):
+  update_query = "UPDATE characters SET xp = ?, notes = ?, hp = ? WHERE id = ?"
+
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute(update_query, (xp, notes, hp, id))
+  con.commit()
+
+  con.close()
+
+  return { "updated_character_id": id }
+
 def get_skills():
   con = _get_db_connection()
 

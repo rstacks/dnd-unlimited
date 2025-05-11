@@ -138,6 +138,19 @@ def get_user_characters(user_id: int):
 
   return character_records
 
+@app.patch("/characters")
+def update_character():
+  if not is_authorized_request(request):
+    abort(401)
+  
+  req_json: dict = request.get_json()
+  char_id = req_json["id"]
+  xp = req_json["xp"]
+  notes = req_json["notes"]
+  hp = req_json["hp"]
+
+  return db_functions.update_character(char_id, xp, notes, hp)
+
 @app.get("/skills")
 def get_skills():
   if not is_authorized_request(request):

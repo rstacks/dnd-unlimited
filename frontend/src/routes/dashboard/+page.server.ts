@@ -67,7 +67,7 @@ export const actions = {
     }
 
     const charSheetFields = await getCharacterSheetFields(request);
-    console.log(charSheetFields);
+    await updateCharInDb(charSheetFields);
   }
 } satisfies Actions;
 
@@ -136,4 +136,24 @@ async function getCharacterSheetFields(request: Request): Promise<CharacterSheet
     notes: notesVal,
     hp: Number(hpInput?.toString())
   };
+}
+
+async function updateCharInDb(charSheetFields: CharacterSheetFields): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/characters", {
+    method: "PATCH",
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      id: charSheetFields.id,
+      xp: charSheetFields.xp,
+      notes: charSheetFields.notes,
+      hp: charSheetFields.hp
+    })
+  });
+
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
 }
