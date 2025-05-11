@@ -33,6 +33,34 @@
       console.log("Local storage access failure. ", e);
     }
   }
+
+  function refreshSheet(): void {
+    const form = document.getElementById("char-sheet-form") as HTMLFormElement;
+    const formInputs = form.getElementsByTagName("input");
+
+    const xpVal = localStorage.getItem(character.id + "-xp");
+    localStorage.removeItem(character.id + "-xp");
+    const notesVal = localStorage.getItem(character.id + "-notes");
+    localStorage.removeItem(character.id + "-notes");
+    const hpVal = localStorage.getItem(character.id + "-hp");
+    localStorage.removeItem(character.id + "-hp");
+
+    let xpInput = formInputs.item(1)
+    let notesInput = formInputs.item(2)
+    let hpInput = formInputs.item(3)
+    
+    if (xpVal) {
+      xpInput!.value = xpVal;
+    }
+    if (notesVal) {
+      notesInput!.value = notesVal;
+    }
+    if (hpVal) {
+      hpInput!.value = hpVal;
+    }
+
+    form.requestSubmit();
+  }
 </script>
 
 <div class="character-sheet">
@@ -42,6 +70,7 @@
         <button class="pseudo" onclick="{() => {
             show = false;
             hideDash = false;
+            refreshSheet();
           }}">
           <img src="back-icon.svg" alt="Back to Characters View Button">
         </button>
@@ -56,7 +85,7 @@
         <span>/{xpGoal} XP</span>
       </div>
       <div class="refresh-button">
-        <button class="pseudo">
+        <button class="pseudo" onclick="{() => {refreshSheet()}}">
           <img src="refresh-icon.svg" alt="Refresh Character Button">
         </button>
       </div>
@@ -146,6 +175,14 @@
     </footer>
   </article>
 </div>
+
+<form style:display="none" method="POST" action="/dashboard?/updateCharacter"
+  id="char-sheet-form">
+  <input type="hidden" name="char-id" value={character.id}>
+  <input type="hidden" name="xp" value={character.xp}>
+  <input type="hidden" name="notes" value={character.notes}>
+  <input type="hidden" name="hp" value={character.hp}>
+</form>
 
 <style>
   .character-sheet {
