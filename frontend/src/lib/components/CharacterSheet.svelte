@@ -224,55 +224,61 @@
     </header>
     <form method="POST" action="/dashboard?/levelUp">
       <input type="hidden" name="char-id" value={character.id}>
-      <input type="hidden" name="next-lvl" value={character.lvl + 1}>
+      <input type="hidden" name="next-lvl" value={Number(character.lvl) + 1}>
       <input type="hidden" name="class-id" value={character.class_id}>
       <input type="hidden" name="ability-scores" value={abilitiesToUpgrade}>
       <input type="hidden" name="num-ability-scores" value={numAbilitiesToUpgrade}>
-      <section class="content">
-        {#if isAbilityScoreIncreaseTime(character.lvl + 1)}
+      <input type="hidden" name="hit-die" value={character.hit_dice}>
+      <input type="hidden" name="con" value={character.con}>
+      <section class="content ability-score-checkboxes">
+        {#if isAbilityScoreIncreaseTime(Number(character.lvl) + 1)}
           <p>
             Select one ability score to increase by 2 OR two ability scores
             to increase by 1. Then, hit the button below to level up!
           </p>
-          <label>
-            <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("str")}}"
-              disabled={character.str >= 20}>
-            <span class="checkable">Strength (Current Score: {character.str})</span>
-          </label>
-          <label>
-            <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("dex")}}"
-              disabled={character.dex >= 20}>
-            <span class="checkable">Dexterity (Current Score: {character.dex})</span>
-          </label>
-          <label>
-            <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("con")}}"
-              disabled={character.con >= 20}>
-            <span class="checkable">Constitution (Current Score: {character.con})</span>
-          </label>
-          <label>
-            <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("intl")}}"
-              disabled={character.intl >= 20}>
-            <span class="checkable">Intelligence (Current Score: {character.intl})</span>
-          </label>
-          <label>
-            <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("wis")}}"
-              disabled={character.wis >= 20}>
-            <span class="checkable">Wisdom (Current Score: {character.wis})</span>
-          </label>
-          <label>
-            <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("cha")}}"
-              disabled={character.cha >= 20}>
-            <span class="checkable">Charisma (Current Score: {character.cha})</span>
-          </label>
+          <div class="label-centerer">
+            <div class="labels">
+              <label>
+                <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("str")}}"
+                  disabled={character.str >= 20}>
+                <span class="checkable">Strength (Current Score: {character.str})</span>
+              </label>
+              <label>
+                <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("dex")}}"
+                  disabled={character.dex >= 20}>
+                <span class="checkable">Dexterity (Current Score: {character.dex})</span>
+              </label>
+              <label>
+                <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("con")}}"
+                  disabled={character.con >= 20}>
+                <span class="checkable">Constitution (Current Score: {character.con})</span>
+              </label>
+              <label>
+                <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("intl")}}"
+                  disabled={character.intl >= 20}>
+                <span class="checkable">Intelligence (Current Score: {character.intl})</span>
+              </label>
+              <label>
+                <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("wis")}}"
+                  disabled={character.wis >= 20}>
+                <span class="checkable">Wisdom (Current Score: {character.wis})</span>
+              </label>
+              <label>
+                <input type="checkbox" oninput="{() => {setAbilitiesToUpgrade("cha")}}"
+                  disabled={character.cha >= 20}>
+                <span class="checkable">Charisma (Current Score: {character.cha})</span>
+              </label>
+            </div>
+          </div>
         {:else}
           <p>Hit the button below to level up!</p>
         {/if}
       </section>
       <footer class="level-up">
-        {#if isAbilityScoreIncreaseTime(character.lvl + 1)
+        {#if isAbilityScoreIncreaseTime(Number(character.lvl) + 1)
             && (numAbilitiesToUpgrade >= 1 && numAbilitiesToUpgrade <= 2)}
           <input type="submit" class="button success" value="Level Up">
-        {:else if !isAbilityScoreIncreaseTime(character.lvl + 1)}
+        {:else if !isAbilityScoreIncreaseTime(Number(character.lvl) + 1)}
           <input type="submit" class="button success" value="Level Up">
         {/if}
       </footer>
@@ -393,5 +399,16 @@
 
   article.level-up {
     height: fit-content;
+  }
+
+  .ability-score-checkboxes .labels {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+
+  div.label-centerer {
+    width: fit-content;
+    margin: auto;
   }
 </style>

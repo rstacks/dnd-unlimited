@@ -122,7 +122,7 @@ def create_character():
   weapon_ids.append(db_functions.create_weapon(melee_wep_name, "melee"))
   weapon_ids.append(db_functions.create_weapon(ranged_wep_name, "ranged"))
 
-  # Ability scores JSON is being received as a 1-element tuple for no fucking reason
+  # Ability scores JSON is being received as a 1-element tuple for some reason
   return db_functions.create_character(user_id, class_id, char_name, ability_scores[0], notes, weapon_ids)
 
 @app.get("/characters/<int:user_id>")
@@ -157,21 +157,26 @@ def level_up_character():
     abort(401)
   
   req_json: dict = request.get_json()
+  char_id = req_json["charId"]
   next_lvl = req_json["nextLvl"]
   class_id = req_json["classId"]
   abilities_to_upgrade = req_json["abilitiesToUpgrade"]
   num_abilities_to_upgrade = req_json["numAbilitiesToUpgrade"]
+  hit_die = req_json["hitDie"]
+  con_score = req_json["con"]
 
-  
+  return db_functions.level_up_character(
+    char_id,
+    next_lvl,
+    class_id,
+    abilities_to_upgrade,
+    num_abilities_to_upgrade,
+    hit_die,
+    con_score
+  )
 
 @app.get("/skills")
 def get_skills():
   if not is_authorized_request(request):
     abort(401)
   return db_functions.get_skills()
-
-# @app.get("/levels/<int:lvl>/<int:class_id>")
-# def get_class_level_stats(lvl: int, class_id: int):
-#   if not is_authorized_request(request):
-#     abort(401)
-#   return db_functions.get_class_level_stats(lvl, class_id)

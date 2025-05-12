@@ -173,14 +173,14 @@
 
   ul {
     list-style-type: none;
-    margin: 0;
-    padding: auto;
+    padding-left: 0;
     width: 15em;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin: auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   li {
@@ -189,7 +189,7 @@
     border-radius: 0.5em;
     margin-top: 0.25em;
     padding: 0.5em;
-    width: 10em;
+    width: 12em;
   }
 
   .label-text {

@@ -34,6 +34,10 @@ def _assign_class_skills(cur: sqlite3.Cursor, class_id: int, class_data: dict) -
 def _get_ability_modifier(ability_score: int) -> int:
   return floor((ability_score - 10) / 2)
 
+def _get_avg_die_roll(hit_die: str) -> int:
+  max_roll = int(hit_die[1:])
+  return (max_roll / 2) + 1
+
 def get_users():
   con = _get_db_connection()
   cur = con.cursor()
@@ -429,9 +433,12 @@ def get_class_level_stats(lvl: int, class_id: int):
     "sneak_attack": record[9]
   }
 
-def level_up_character(char_id: int, next_lvl: int, class_id: int, abilities_to_upgrade: str, num_abilities_to_upgrade: int):
+def level_up_character(char_id: int, next_lvl: int, class_id: int, abilities_to_upgrade: str, num_abilities_to_upgrade: int, hit_die: str, con_score: int):
   initial_update_stmt = "UPDATE characters SET lvl = ?, proficiency_bonus = ?, rages = ?, rage_damage = ?, lvl_1_spell_slots = ?, lvl_2_spell_slots = ?, lvl_3_spell_slots = ?, lvl_4_spell_slots = ?, second_wind = ?, martial_arts = ?, sneak_attack = ? WHERE id = ?"
   new_stats = get_class_level_stats(next_lvl, class_id)
+  initial_con_mod = _get_ability_modifier(con_score)
+  new_con_score = con_score
+  new_con_mod = _get_ability_modifier(new_con_score)
 
   con = _get_db_connection()
   cur = con.cursor()
@@ -462,6 +469,8 @@ def level_up_character(char_id: int, next_lvl: int, class_id: int, abilities_to_
       char_id
     ))
   if abilities_to_upgrade.find("con") != -1:
+    new_con_score += 1 if num_abilities_to_upgrade == 2 else 2
+    new_con_mod = _get_ability_modifier(new_con_score)
     cur.execute("UPDATE characters SET con = con + ? WHERE id = ?", (
       1 if num_abilities_to_upgrade == 2 else 2,
       char_id
@@ -481,8 +490,15 @@ def level_up_character(char_id: int, next_lvl: int, class_id: int, abilities_to_
       1 if num_abilities_to_upgrade == 2 else 2,
       char_id
     ))
+  
+  health_upgrade_stmt = "UPDATE characters SET max_hp = max_hp + ? WHERE id = ?"
+  avg_hit_die_roll = _get_avg_die_roll(hit_die)
+  cur.execute(health_upgrade_stmt, (avg_hit_die_roll + new_con_mod, char_id))
+
+  if new_con_mod - initial_con_mod >= 1:
+    cur.execute(health_upgrade_stmt, (next_lvl, char_id))
 
   con.commit()
-  
-
   con.close()
+
+  return { "leveled_up_character": char_id }

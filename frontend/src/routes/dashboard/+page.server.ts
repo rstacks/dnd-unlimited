@@ -17,6 +17,8 @@ interface LevelUpFormFields {
   classId: number;
   abilitiesToUpgrade: string;     // Space-separated list of strings
   numAbilitiesToUpgrade: number;
+  hitDie: string;
+  con: number;
 }
 
 export const load = (async ({ cookies }) => {
@@ -83,8 +85,7 @@ export const actions = {
     }
 
     const levelUpFormFields = await getLevelUpFormFields(request);
-    //const newStats = await getClassStatsByLevel(levelUpFormFields.classId, levelUpFormFields.nextLvl);
-
+    await levelUpInDb(levelUpFormFields);
   }
 } satisfies Actions;
 
@@ -182,10 +183,16 @@ async function getLevelUpFormFields(request: Request): Promise<LevelUpFormFields
   const classId = data.get("class-id");
   const abilitiesToUpgradeInput = data.get("ability-scores");
   const numAbilitiesToUpgrade = data.get("num-ability-scores");
+  const hitDieInput = data.get("hit-die");
+  const con = data.get("con");
 
   let abilitiesToUpgrade = "";
   if (abilitiesToUpgradeInput) {
     abilitiesToUpgrade = abilitiesToUpgradeInput.toString();
+  }
+  let hitDie = "";
+  if (hitDieInput) {
+    hitDie = hitDieInput.toString();
   }
 
   return {
@@ -193,10 +200,31 @@ async function getLevelUpFormFields(request: Request): Promise<LevelUpFormFields
     nextLvl: Number(nextLvl?.toString()),
     classId: Number(classId?.toString()),
     abilitiesToUpgrade: abilitiesToUpgrade,
-    numAbilitiesToUpgrade: Number(numAbilitiesToUpgrade?.toString())
+    numAbilitiesToUpgrade: Number(numAbilitiesToUpgrade?.toString()),
+    hitDie: hitDie,
+    con: Number(con?.toString())
   };
 }
 
-async function levelUpInDb(): Promise<void> {
+async function levelUpInDb(formFields: LevelUpFormFields): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/characters", {
+    method: "PUT",
+    headers: {
+      "Authorization": "Bearer " + API_KEY,
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({
+      charId: formFields.charId,
+      nextLvl: formFields.nextLvl,
+      classId: formFields.classId,
+      abilitiesToUpgrade: formFields.abilitiesToUpgrade,
+      numAbilitiesToUpgrade: formFields.numAbilitiesToUpgrade,
+      hitDie: formFields.hitDie,
+      con: formFields.con
+    })
+  });
 
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
 }
