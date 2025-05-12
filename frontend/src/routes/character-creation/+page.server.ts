@@ -6,6 +6,7 @@ import type { ClassData } from "$lib/util/class";
 import type { AbilityScores } from "$lib/util/character";
 import { BACKEND_URL, API_KEY } from "$env/static/private";
 import { getSpells } from "$lib/util/spell";
+import { isBackendRunning } from "$lib/util/ping";
 
 /**
  * Tracks whether a given class has been selected by the user
@@ -26,6 +27,10 @@ interface CharacterInfo {
 }
 
 export const load = (async ({ cookies }) => {
+  if (!(await isBackendRunning())) {
+    error(503, { message: "Server offline" });
+  }
+
   if (!(await isLoggedIn(cookies))) {
     redirect(303, "/");
   }

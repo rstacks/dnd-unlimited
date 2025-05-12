@@ -4,6 +4,7 @@ import { BACKEND_URL, API_KEY } from "$env/static/private";
 import bcrypt from "bcrypt";
 import { error, redirect, type Cookies } from "@sveltejs/kit";
 import { getUserIdByPhone, isLoggedIn } from "$lib/util/user";
+import { isBackendRunning } from "$lib/util/ping";
 
 const SALT_ROUNDS = 10;
 
@@ -21,6 +22,10 @@ interface FormCookies {
 }
 
 export const load = (async ({ cookies }) => {
+  if (!(await isBackendRunning())) {
+    error(503, { message: "Server offline" });
+  }
+
   if (await isLoggedIn(cookies)) {
     redirect(303, "/dashboard");
   }

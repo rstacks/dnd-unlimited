@@ -3,6 +3,7 @@ import { getUserIdBySession, getUserById, isLoggedIn } from "$lib/util/user";
 import { BACKEND_URL, API_KEY } from "$env/static/private"; 
 import { redirect, error } from "@sveltejs/kit";
 import { getSkills, getUserCharacters } from "$lib/util/character";
+import { isBackendRunning } from "$lib/util/ping";
 
 interface CharacterSheetFields {
   id: number;
@@ -22,6 +23,10 @@ interface LevelUpFormFields {
 }
 
 export const load = (async ({ cookies }) => {
+  if (!(await isBackendRunning())) {
+    error(503, { message: "Server offline" });
+  }
+
   if (!(await isLoggedIn(cookies))) {
     redirect(303, "/");
   }
