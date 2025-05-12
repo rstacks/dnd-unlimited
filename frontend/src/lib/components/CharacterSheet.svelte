@@ -104,9 +104,11 @@
         {#if character.xp >= xpGoal}
           <label for="level-up-modal" class="button">Level Up</label>
         {:else}
-          <input class="xp-input" type="number" autocomplete="off"
-            value={character.xp} id="experience-input" onchange="{() => {updateXp()}}">
-          <span>/{xpGoal} XP</span>
+          <div class="xp-progress">
+            <input class="xp-input" type="number" autocomplete="off"
+              value={character.xp} id="experience-input" onchange="{() => {updateXp()}}">
+            <span>/{xpGoal} XP</span>
+          </div>
         {/if}
       </div>
       <div class="refresh-button">
@@ -410,5 +412,9 @@
   div.label-centerer {
     width: fit-content;
     margin: auto;
+  }
+
+  div.xp-progress {
+    font-size: 0.9em;
   }
 </style>

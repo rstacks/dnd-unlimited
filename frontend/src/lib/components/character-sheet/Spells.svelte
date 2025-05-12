@@ -195,7 +195,7 @@
     </div>
   {/if}
   {#if props.lvl_2_spell_slots > 0}
-    <div class="feat-stat middle">
+    <div class="{"feat-stat " + (props.lvl_1_spell_slots > 0 ? "middle" : "")}">
       <strong>Level 2 Spell Slots:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
@@ -206,7 +206,7 @@
     </div>
   {/if}
   {#if props.lvl_3_spell_slots > 0}
-    <div class="feat-stat middle">
+    <div class="{"feat-stat " + (props.lvl_1_spell_slots > 0 ? "middle" : "")}">
       <strong>Level 3 Spell Slots:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
@@ -217,7 +217,7 @@
     </div>
   {/if}
   {#if props.lvl_4_spell_slots > 0}
-    <div class="feat-stat middle">
+    <div class="{"feat-stat " + (props.lvl_1_spell_slots > 0 ? "middle" : "")}">
       <strong>Level 4 Spell Slots:</strong>
       <div>
         <input class="xp-input" type="number" autocomplete="off"
