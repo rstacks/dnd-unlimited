@@ -428,3 +428,61 @@ def get_class_level_stats(lvl: int, class_id: int):
     "martial_arts": record[8],
     "sneak_attack": record[9]
   }
+
+def level_up_character(char_id: int, next_lvl: int, class_id: int, abilities_to_upgrade: str, num_abilities_to_upgrade: int):
+  initial_update_stmt = "UPDATE characters SET lvl = ?, proficiency_bonus = ?, rages = ?, rage_damage = ?, lvl_1_spell_slots = ?, lvl_2_spell_slots = ?, lvl_3_spell_slots = ?, lvl_4_spell_slots = ?, second_wind = ?, martial_arts = ?, sneak_attack = ? WHERE id = ?"
+  new_stats = get_class_level_stats(next_lvl, class_id)
+
+  con = _get_db_connection()
+  cur = con.cursor()
+  
+  cur.execute(initial_update_stmt, (
+    next_lvl,
+    new_stats["proficiency_bonus"],
+    new_stats["rages"],
+    new_stats["rage_damage"],
+    new_stats["lvl_1_spell_slots"],
+    new_stats["lvl_2_spell_slots"],
+    new_stats["lvl_3_spell_slots"],
+    new_stats["lvl_4_spell_slots"],
+    new_stats["second_wind"],
+    new_stats["martial_arts"],
+    new_stats["sneak_attack"],
+    char_id
+  ))
+
+  if abilities_to_upgrade.find("str") != -1:
+    cur.execute("UPDATE characters SET str = str + ? WHERE id = ?", (
+      1 if num_abilities_to_upgrade == 2 else 2,
+      char_id
+    ))
+  if abilities_to_upgrade.find("dex") != -1:
+    cur.execute("UPDATE characters SET dex = dex + ? WHERE id = ?", (
+      1 if num_abilities_to_upgrade == 2 else 2,
+      char_id
+    ))
+  if abilities_to_upgrade.find("con") != -1:
+    cur.execute("UPDATE characters SET con = con + ? WHERE id = ?", (
+      1 if num_abilities_to_upgrade == 2 else 2,
+      char_id
+    ))
+  if abilities_to_upgrade.find("intl") != -1:
+    cur.execute("UPDATE characters SET intl = intl + ? WHERE id = ?", (
+      1 if num_abilities_to_upgrade == 2 else 2,
+      char_id
+    ))
+  if abilities_to_upgrade.find("wis") != -1:
+    cur.execute("UPDATE characters SET wis = wis + ? WHERE id = ?", (
+      1 if num_abilities_to_upgrade == 2 else 2,
+      char_id
+    ))
+  if abilities_to_upgrade.find("cha") != -1:
+    cur.execute("UPDATE characters SET cha = cha + ? WHERE id = ?", (
+      1 if num_abilities_to_upgrade == 2 else 2,
+      char_id
+    ))
+
+  con.commit()
+  
+
+  con.close()

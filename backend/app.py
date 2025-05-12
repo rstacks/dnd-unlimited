@@ -151,14 +151,27 @@ def update_character():
 
   return db_functions.update_character(char_id, xp, notes, hp)
 
+@app.put("/characters")
+def level_up_character():
+  if not is_authorized_request(request):
+    abort(401)
+  
+  req_json: dict = request.get_json()
+  next_lvl = req_json["nextLvl"]
+  class_id = req_json["classId"]
+  abilities_to_upgrade = req_json["abilitiesToUpgrade"]
+  num_abilities_to_upgrade = req_json["numAbilitiesToUpgrade"]
+
+  
+
 @app.get("/skills")
 def get_skills():
   if not is_authorized_request(request):
     abort(401)
   return db_functions.get_skills()
 
-@app.get("/levels/<int:lvl>/<int:class_id>")
-def get_class_level_stats(lvl: int, class_id: int):
-  if not is_authorized_request(request):
-    abort(401)
-  return db_functions.get_class_level_stats(lvl, class_id)
+# @app.get("/levels/<int:lvl>/<int:class_id>")
+# def get_class_level_stats(lvl: int, class_id: int):
+#   if not is_authorized_request(request):
+#     abort(401)
+#   return db_functions.get_class_level_stats(lvl, class_id)

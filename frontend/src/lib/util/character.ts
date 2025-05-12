@@ -76,6 +76,19 @@ interface SkillsJSON {
   skills: Skill[];
 }
 
+// export interface ClassStats {
+//   proficiency_bonus: number;
+//   rages: number;
+//   rage_damage: number;
+//   lvl_1_spell_slots: number;
+//   lvl_2_spell_slots: number;
+//   lvl_3_spell_slots: number;
+//   lvl_4_spell_slots: number;
+//   second_wind: number;
+//   martial_arts: string;
+//   sneak_attack: string;
+// }
+
 export async function getUserCharacters(userId: number): Promise<Character[]> {
   const resp = await fetch(BACKEND_URL + "/characters/" + userId, {
     headers: { "Authorization": "Bearer " + API_KEY }
@@ -106,10 +119,20 @@ export async function getSkills(): Promise<Skill[]> {
   return sortedSkills;
 }
 
-export async function levelUp() {
-  // ability score increase every 4th level (lvl 4, 8, 12, 16)
-  //    max is 20 per ability score
-  // increase max hp by average hit die roll result (ceil) + CON
-  // Remember that when CON mod increases by 1, max HP increase by 1 per current level
+// export async function getClassStatsByLevel(classId: number, lvl: number): Promise<ClassStats> {
+//   const resp = await fetch(BACKEND_URL + "/levels/" + lvl + "/" + classId, {
+//     headers: { "Authorization": "Bearer " + API_KEY }
+//   });
+//   if (!resp.ok) {
+//     error(503, { message: "Server offline" });
+//   }
 
-}
+//   const statsJson: ClassStats = await resp.json();
+//   return statsJson;
+// }
+
+// export async function levelUp() {
+//   // increase max hp by average hit die roll result (ceil) + CON
+//   // Remember that when CON mod increases by 1, max HP increase by 1 per current level
+
+// }

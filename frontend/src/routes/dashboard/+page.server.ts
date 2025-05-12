@@ -11,6 +11,14 @@ interface CharacterSheetFields {
   hp: number;
 }
 
+interface LevelUpFormFields {
+  charId: number;
+  nextLvl: number;
+  classId: number;
+  abilitiesToUpgrade: string;     // Space-separated list of strings
+  numAbilitiesToUpgrade: number;
+}
+
 export const load = (async ({ cookies }) => {
   if (!(await isLoggedIn(cookies))) {
     redirect(303, "/");
@@ -68,6 +76,15 @@ export const actions = {
 
     const charSheetFields = await getCharacterSheetFields(request);
     await updateCharInDb(charSheetFields);
+  },
+  levelUp: async ({ cookies, request }) => {
+    if (!(await isLoggedIn(cookies))) {
+      redirect(303, "/");
+    }
+
+    const levelUpFormFields = await getLevelUpFormFields(request);
+    //const newStats = await getClassStatsByLevel(levelUpFormFields.classId, levelUpFormFields.nextLvl);
+
   }
 } satisfies Actions;
 
@@ -156,4 +173,30 @@ async function updateCharInDb(charSheetFields: CharacterSheetFields): Promise<vo
   if (!resp.ok) {
     error(503, { message: "Server offline" });
   }
+}
+
+async function getLevelUpFormFields(request: Request): Promise<LevelUpFormFields> {
+  const data = await request.formData();
+  const charId = data.get("char-id");
+  const nextLvl = data.get("next-lvl");
+  const classId = data.get("class-id");
+  const abilitiesToUpgradeInput = data.get("ability-scores");
+  const numAbilitiesToUpgrade = data.get("num-ability-scores");
+
+  let abilitiesToUpgrade = "";
+  if (abilitiesToUpgradeInput) {
+    abilitiesToUpgrade = abilitiesToUpgradeInput.toString();
+  }
+
+  return {
+    charId: Number(charId?.toString()),
+    nextLvl: Number(nextLvl?.toString()),
+    classId: Number(classId?.toString()),
+    abilitiesToUpgrade: abilitiesToUpgrade,
+    numAbilitiesToUpgrade: Number(numAbilitiesToUpgrade?.toString())
+  };
+}
+
+async function levelUpInDb(): Promise<void> {
+
 }
