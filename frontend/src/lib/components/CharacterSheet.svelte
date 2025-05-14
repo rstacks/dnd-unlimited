@@ -16,9 +16,17 @@
     show: boolean;
     hideDash: boolean;
     skills: Skill[];
+    showLoading: boolean;
   }
 
-  let { character, xpGoal, show=$bindable(), hideDash=$bindable(), skills }: Props = $props();
+  let {
+    character,
+    xpGoal,
+    show=$bindable(),
+    hideDash=$bindable(),
+    skills,
+    showLoading=$bindable()
+  }: Props = $props();
   let sheetTab: "overview" | "weapons" | "skillsAndSaves" | "spells" | "stats"  = $state("overview");
   let abilitiesToUpgrade = $state("");
   let numAbilitiesToUpgrade = $state(0);
@@ -281,10 +289,16 @@
         {#if isAbilityScoreIncreaseTime(Number(character.lvl) + 1)
             && (numAbilitiesToUpgrade >= 1 && numAbilitiesToUpgrade <= 2)}
           <input type="submit" class="button success" value="Level Up"
-            onclick="{() => {closeModal("level-up-modal")}}">
+            onclick="{() => {
+              closeModal("level-up-modal");
+              showLoading = true;
+            }}">
         {:else if !isAbilityScoreIncreaseTime(Number(character.lvl) + 1)}
           <input type="submit" class="button success" value="Level Up"
-            onclick="{() => {closeModal("level-up-modal")}}">
+            onclick="{() => {
+              closeModal("level-up-modal");
+              showLoading = true;
+            }}">
         {/if}
       </footer>
     </form>

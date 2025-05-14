@@ -7,9 +7,10 @@
     character: Character;
     hideDashboard: boolean;
     skills: Skill[];
+    showLoading: boolean;
   }
 
-  let { character, hideDashboard=$bindable(), skills }: Props = $props();
+  let { character, hideDashboard=$bindable(), skills, showLoading=$bindable() }: Props = $props();
   let nextLevel = Number(character.lvl) + 1;
   let nextLevelKey = $state(nextLevel as keyof typeof LEVEL_TO_XP_MIN);
   let showCharacterSheet = $state(false);
@@ -38,7 +39,8 @@
     xpGoal={LEVEL_TO_XP_MIN[nextLevelKey]}
     bind:show={showCharacterSheet}
     bind:hideDash={hideDashboard}
-    skills={skills} />
+    skills={skills}
+    bind:showLoading={showLoading} />
 {/if}
 
 <style>

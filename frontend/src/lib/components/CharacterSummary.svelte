@@ -21,7 +21,7 @@
     className,
     classId,
     abilityScores,
-    showLoading = $bindable()
+    showLoading=$bindable()
   }: Props = $props();
 
   function isValidAbilityScores(): boolean {
