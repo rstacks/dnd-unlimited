@@ -22,7 +22,9 @@
   <Loading />
 {/if}
 
-<TitleBar account_modal_class="my-modal" />
+{#if showDashboard}
+  <TitleBar account_modal_class="my-modal" />
+{/if}
 
 <div class="scrollable-area" style={showDashboard ? "" : "height: 0; overflow: hidden;"}>
   <div class="spacer"></div>
@@ -162,6 +164,6 @@
   }
 
   .new-character-button {
-    padding-bottom: 1em;
+    padding-bottom: 3em;
   }
 </style>

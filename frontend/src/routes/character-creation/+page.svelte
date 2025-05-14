@@ -6,7 +6,7 @@
   import ClassCard from "$lib/components/ClassCard.svelte";
   import CharacterSummary from "$lib/components/CharacterSummary.svelte";
   import Loading from "$lib/components/Loading.svelte";
-  import { beforeNavigate } from "$app/navigation";
+  import { afterNavigate, beforeNavigate } from "$app/navigation";
   import { closeModal } from "$lib/util/util";
   import type { PageProps } from "./$types";
   import type { ClassData } from "$lib/util/class";
@@ -108,7 +108,22 @@
     };
   }
 
-  beforeNavigate(() => { showLoading = true });
+  function setPageBackgroundColor(color: string): void {
+    const body = document.querySelector("body");
+    if (!body) {
+      return;
+    }
+    body.style.backgroundColor = color;
+  }
+
+  beforeNavigate(() => {
+    showLoading = true;
+    setPageBackgroundColor("rgb(175, 196, 255)");
+  });
+
+  afterNavigate(() => {
+    setPageBackgroundColor("white");
+  });
 </script>
 
 {#if showLoading}
@@ -447,6 +462,7 @@
     grid-template-columns: auto auto auto;
     column-gap: 3em;
     margin: auto;
+    margin-bottom: 2em;
   }
 
   @media (max-width: 1200px) {

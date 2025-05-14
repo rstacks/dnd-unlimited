@@ -390,7 +390,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 2.5em;
+    padding-bottom: 3.5em;
   }
 
   .character-sheet-tab-buttons img {
