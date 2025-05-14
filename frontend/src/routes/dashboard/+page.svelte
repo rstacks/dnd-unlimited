@@ -5,12 +5,21 @@
 <script lang="ts">
   import TitleBar from "$lib/components/TitleBar.svelte";
   import CharacterCard from "$lib/components/CharacterCard.svelte";
+  import Loading from "$lib/components/Loading.svelte";
+  import { beforeNavigate } from "$app/navigation";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
   let showCharacterSheetStates: boolean[] = $state(data.charSheetStates);
   let showDashboard: boolean = $derived(showCharacterSheetStates.findIndex((elem) => elem) === -1);
+  let showLoading = $state(false);
+
+  beforeNavigate(() => { showLoading = true });
 </script>
+
+{#if showLoading}
+  <Loading />
+{/if}
 
 <TitleBar account_modal_class="my-modal" />
 
@@ -36,7 +45,8 @@
   {/if}
   
   <div class="new-character-button">
-    <a class="add button" href="/character-creation">
+    <a class="add button" href="/character-creation"
+      onclick="{() => { showLoading = true }}">
       <img src="add-icon.svg" alt="Add Character Button">
       <span>New Character</span>
     </a>

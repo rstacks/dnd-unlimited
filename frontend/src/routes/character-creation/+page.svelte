@@ -5,6 +5,8 @@
 <script lang="ts">
   import ClassCard from "$lib/components/ClassCard.svelte";
   import CharacterSummary from "$lib/components/CharacterSummary.svelte";
+  import Loading from "$lib/components/Loading.svelte";
+  import { beforeNavigate } from "$app/navigation";
   import type { PageProps } from "./$types";
   import type { ClassData } from "$lib/util/class";
   import type { AbilityScores } from "$lib/util/character";
@@ -29,6 +31,7 @@
     classData: undefined,
     abilityScores: { str: 0, dex: 0, con: 0, intl: 0, wis: 0, cha: 0 }
   });
+  let showLoading = $state(false);
 
   function deselectOtherClasses(): void {
     const otherButtons = <HTMLCollectionOf<HTMLInputElement>>document.getElementsByClassName("class-button");
@@ -103,7 +106,13 @@
       abilityScores: abilityScores
     };
   }
+
+  beforeNavigate(() => { showLoading = true });
 </script>
+
+{#if showLoading}
+  <Loading />
+{/if}
 
 <article class="card char-creation-screen" id="char-creation-screen">
   <header class="char-creation-header">

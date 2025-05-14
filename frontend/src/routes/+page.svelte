@@ -4,6 +4,8 @@
 
 <script lang="ts">
   import Title from "$lib/components/Title.svelte";
+  import Loading from "$lib/components/Loading.svelte";
+  import { beforeNavigate } from "$app/navigation";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -37,7 +39,14 @@
 
   let showInvalidPhoneStyle = $state(true);
   let showInvalidNameStyle = $state(true);
+  let showLoading = $state(false);
+
+  beforeNavigate(() => { showLoading = true });
 </script>
+
+{#if showLoading}
+  <Loading />
+{/if}
 
 <Title />
 
