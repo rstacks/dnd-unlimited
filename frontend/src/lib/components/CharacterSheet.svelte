@@ -214,9 +214,12 @@
 
 <form style:display="none" method="POST" action="/dashboard?/updateCharacter"
   id="char-sheet-form" use:enhance={() => {
+    showLoading = true;
+    
     return async ({ result }) => {
       await applyAction(result);
       await invalidateAll();
+      showLoading = false;
     };
   }}>
   <input type="hidden" name="char-id" value={character.id}>
