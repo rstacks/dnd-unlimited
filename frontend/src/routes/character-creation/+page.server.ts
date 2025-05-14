@@ -28,7 +28,7 @@ interface CharacterInfo {
 
 export const load = (async ({ cookies }) => {
   if (!(await isBackendRunning())) {
-    error(503, { message: "Server offline" });
+    error(503, { message: "Service Unavailable" });
   }
 
   if (!(await isLoggedIn(cookies))) {
