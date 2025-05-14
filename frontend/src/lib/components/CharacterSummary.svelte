@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { AbilityScores } from "$lib/util/character";
+  import { closeModal } from "$lib/util/util";
 
   interface Props {
     name: string;
@@ -164,7 +165,8 @@
           <label for="confirm-modal" class="button">Go Back</label>
         </div>
         <div class="create-button">
-          <input type="submit" class="button success" value="Create">
+          <input type="submit" class="button success" value="Create"
+            onclick="{() => {closeModal("confirm-modal")}}">
         </div>
       </footer>
     </form>

@@ -93,8 +93,6 @@
   </div>
 {/each}
 
-
-
 <style>
   .class-card {
     width: 15em;

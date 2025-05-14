@@ -7,6 +7,7 @@
   import CharacterSummary from "$lib/components/CharacterSummary.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import { beforeNavigate } from "$app/navigation";
+  import { closeModal } from "$lib/util/util";
   import type { PageProps } from "./$types";
   import type { ClassData } from "$lib/util/class";
   import type { AbilityScores } from "$lib/util/character";
@@ -307,7 +308,12 @@
       <strong>All of your progress will be lost!</strong>
     </section>
     <footer class="leave-modal-foot">
-      <a class="button dangerous exit-button" href="/dashboard">Leave Character Creation</a>
+      <a class="button dangerous exit-button" href="/dashboard" onclick="{() => {
+          closeModal("leave-modal");
+          showLoading = true;
+        }}">
+        Leave Character Creation
+      </a>
     </footer>
   </article>
 </div>

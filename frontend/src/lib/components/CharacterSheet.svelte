@@ -8,6 +8,7 @@
   import { LEVEL_TO_XP_MIN } from "$lib/util/character-functions";
   import { applyAction, enhance } from "$app/forms";
   import { invalidateAll } from "$app/navigation";
+  import { closeModal } from "$lib/util/util";
 
   interface Props {
     character: Character;
@@ -279,9 +280,11 @@
       <footer class="level-up">
         {#if isAbilityScoreIncreaseTime(Number(character.lvl) + 1)
             && (numAbilitiesToUpgrade >= 1 && numAbilitiesToUpgrade <= 2)}
-          <input type="submit" class="button success" value="Level Up">
+          <input type="submit" class="button success" value="Level Up"
+            onclick="{() => {closeModal("level-up-modal")}}">
         {:else if !isAbilityScoreIncreaseTime(Number(character.lvl) + 1)}
-          <input type="submit" class="button success" value="Level Up">
+          <input type="submit" class="button success" value="Level Up"
+            onclick="{() => {closeModal("level-up-modal")}}">
         {/if}
       </footer>
     </form>

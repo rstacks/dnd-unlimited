@@ -7,6 +7,7 @@
   import CharacterCard from "$lib/components/CharacterCard.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import { beforeNavigate } from "$app/navigation";
+  import { closeModal } from "$lib/util/util";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -69,10 +70,11 @@
       </section>
       <footer class="flex">
         <div class="save-button">
-          <input type="submit" value="Save">
+          <input type="submit" value="Save" onclick="{() => {closeModal("my-modal")}}">
         </div>
         <div class="logout-button">
-          <input type="submit" value="Log Out" class="error" formaction="?/logout">
+          <input type="submit" value="Log Out" class="error"
+            formaction="?/logout" onclick="{() => {closeModal("my-modal")}}">
         </div>
       </footer>
     </form>
