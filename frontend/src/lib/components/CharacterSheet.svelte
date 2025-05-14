@@ -300,6 +300,7 @@
     width: 100%;
     height: fit-content;
     background-color: rgb(175, 196, 255);
+    touch-action: none;
   }
 
   article {
@@ -372,6 +373,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-bottom: 2.5em;
   }
 
   .character-sheet-tab-buttons img {
