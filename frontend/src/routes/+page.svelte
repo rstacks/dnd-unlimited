@@ -87,9 +87,11 @@
     {/if}
     
     {#if formtype === "login"}
-      <input type="submit" class="login" value="Log In">
+      <input type="submit" class="login" value="Log In"
+        onclick="{() => { showLoading = true }}">
     {:else if formtype === "register"}
-      <input type="submit" class="login" value="Register" formaction="?/register">
+      <input type="submit" class="login" value="Register" formaction="?/register"
+        onclick="{() => { showLoading = true }}">
     {/if}
   </form>
   

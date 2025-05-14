@@ -289,7 +289,8 @@
           rangedWep={characterFormInputs.basicInfo.rangedWep}
           className={characterFormInputs.classData?.class_name}
           classId={characterFormInputs.classData?.id}
-          abilityScores={characterFormInputs.abilityScores} />
+          abilityScores={characterFormInputs.abilityScores}
+          bind:showLoading={showLoading} />
       </div>
     </div>
   </div>

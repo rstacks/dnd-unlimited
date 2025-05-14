@@ -10,9 +10,19 @@
     className: string | undefined;
     classId: number | undefined;
     abilityScores: AbilityScores;
+    showLoading: boolean;
   }
 
-  let { name, notes, meleeWep, rangedWep, className, classId, abilityScores }: Props = $props();
+  let {
+    name,
+    notes,
+    meleeWep,
+    rangedWep,
+    className,
+    classId,
+    abilityScores,
+    showLoading = $bindable()
+  }: Props = $props();
 
   function isValidAbilityScores(): boolean {
     return (abilityScores.str >= 3 && abilityScores.str <= 18)
@@ -166,7 +176,10 @@
         </div>
         <div class="create-button">
           <input type="submit" class="button success" value="Create"
-            onclick="{() => {closeModal("confirm-modal")}}">
+            onclick="{() => {
+              closeModal("confirm-modal");
+              showLoading = true;
+            }}">
         </div>
       </footer>
     </form>

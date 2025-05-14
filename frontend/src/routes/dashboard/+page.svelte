@@ -70,11 +70,17 @@
       </section>
       <footer class="flex">
         <div class="save-button">
-          <input type="submit" value="Save" onclick="{() => {closeModal("my-modal")}}">
+          <input type="submit" value="Save" onclick="{() => {
+              closeModal("my-modal");
+              showLoading = true;
+            }}">
         </div>
         <div class="logout-button">
           <input type="submit" value="Log Out" class="error"
-            formaction="?/logout" onclick="{() => {closeModal("my-modal")}}">
+            formaction="?/logout" onclick="{() => {
+              closeModal("my-modal");
+              showLoading = true;
+            }}">
         </div>
       </footer>
     </form>
