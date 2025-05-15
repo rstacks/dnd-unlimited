@@ -6,6 +6,8 @@
   import Title from "$lib/components/Title.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import { beforeNavigate } from "$app/navigation";
+  import { onMount } from "svelte";
+  import { isIosBrowser } from "$lib/util/util";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
@@ -41,6 +43,12 @@
   let showInvalidNameStyle = $state(true);
   let showLoading = $state(false);
 
+  onMount(() => {
+    if (isIosBrowser()) {
+      window.location.replace("/install");
+    }
+  });
+  
   beforeNavigate(() => { showLoading = true });
 </script>
 

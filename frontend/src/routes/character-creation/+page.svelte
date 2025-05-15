@@ -7,7 +7,8 @@
   import CharacterSummary from "$lib/components/CharacterSummary.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import { afterNavigate, beforeNavigate } from "$app/navigation";
-  import { closeModal } from "$lib/util/util";
+  import { onMount } from "svelte";
+  import { closeModal, isIosBrowser } from "$lib/util/util";
   import type { PageProps } from "./$types";
   import type { ClassData } from "$lib/util/class";
   import type { AbilityScores } from "$lib/util/character";
@@ -115,6 +116,12 @@
     }
     body.style.backgroundColor = color;
   }
+
+  onMount(() => {
+    if (isIosBrowser()) {
+      window.location.replace("/install");
+    }
+  });
 
   beforeNavigate(() => {
     showLoading = true;

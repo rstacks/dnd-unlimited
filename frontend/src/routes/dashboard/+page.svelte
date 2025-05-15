@@ -7,13 +7,20 @@
   import CharacterCard from "$lib/components/CharacterCard.svelte";
   import Loading from "$lib/components/Loading.svelte";
   import { beforeNavigate } from "$app/navigation";
-  import { closeModal } from "$lib/util/util";
+  import { onMount } from "svelte";
+  import { closeModal, isIosBrowser } from "$lib/util/util";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
   let showCharacterSheetStates: boolean[] = $state(data.charSheetStates);
   let showDashboard: boolean = $derived(showCharacterSheetStates.findIndex((elem) => elem) === -1);
   let showLoading = $state(false);
+
+  onMount(() => {
+    if (isIosBrowser()) {
+      window.location.replace("/install");
+    }
+  });
 
   beforeNavigate(() => { showLoading = true });
 </script>
