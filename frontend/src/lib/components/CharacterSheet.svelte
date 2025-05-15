@@ -92,13 +92,13 @@
     form.requestSubmit();
   }
 
-  function isIosStandalone(): boolean {
+  function isIosBrowser(): boolean {
     /**
      * Type "any" because standalone property only exists on Safari iOS.
      * TS does not recognize it as a standard property.
      */
     const navigator: any = window.navigator;
-    if (navigator.standalone !== undefined && navigator.standalone) {
+    if (navigator.standalone !== undefined && !(navigator.standalone)) {
       return true;
     }
     return false;
@@ -106,7 +106,7 @@
 </script>
 
 <div class="character-sheet">
-  <article class="card {isIosStandalone() ? "ios-standalone" : ""}">
+  <article class="card {isIosBrowser() ? "ios-browser" : ""}">
     <header>
       <div class="close-button">
         <button class="pseudo" onclick="{() => {
@@ -336,19 +336,13 @@
     max-width: 30em;
     width: 100%;
     margin: auto;
-    height: 90vh;
+    height: 100vh;
     display: grid;
     grid-template-rows: 2fr 70fr 1fr;
   }
 
-  @media (display-mode: standalone) {
-    article {
-      height: 100vh;
-    }
-  }
-
-  article.ios-standalone {
-    height: 100vh;
+  article.ios-browser {
+    height: 95vh;
   }
 
   header {
