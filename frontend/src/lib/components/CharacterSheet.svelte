@@ -91,22 +91,10 @@
 
     form.requestSubmit();
   }
-
-  function isIosBrowser(): boolean {
-    /**
-     * Type "any" because standalone property only exists on Safari iOS.
-     * TS does not recognize it as a standard property.
-     */
-    const navigator: any = window.navigator;
-    if (navigator.standalone !== undefined && !(navigator.standalone)) {
-      return true;
-    }
-    return false;
-  }
 </script>
 
 <div class="character-sheet">
-  <article class="card {isIosBrowser() ? "ios-browser" : ""}">
+  <article class="card">
     <header>
       <div class="close-button">
         <button class="pseudo" onclick="{() => {
@@ -339,10 +327,6 @@
     height: 100vh;
     display: grid;
     grid-template-rows: 2fr 70fr 1fr;
-  }
-
-  article.ios-browser {
-    height: 95vh;
   }
 
   header {
