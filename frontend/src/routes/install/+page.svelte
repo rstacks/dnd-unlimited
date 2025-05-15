@@ -4,6 +4,14 @@
 
 <script lang="ts">
   import Title from "$lib/components/Title.svelte";
+  import { onMount } from "svelte";
+  import { isIosBrowser } from "$lib/util/util";
+
+  onMount(() => {
+    if (!isIosBrowser()) {
+      window.location.replace("/dashboard");
+    }
+  });
 </script>
 
 <Title />
