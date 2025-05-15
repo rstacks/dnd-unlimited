@@ -16,7 +16,10 @@
     </p>
 
     <ol>
-      <li class="share-step">
+      <li>
+        Navigate to <a href="https://dnd-unlimited.vercel.app" target="_blank">dnd-unlimited.vercel.app</a>.
+      </li>
+      <li>
         Tap the Share buttom at the bottom of your screen. It looks something 
         like this:
       </li>
@@ -24,7 +27,7 @@
     <figure class="share-icon">
       <img src="ios-share-icon.svg" alt="Share button">
     </figure>
-    <ol start="2">
+    <ol start="3">
       <li>
         Tap on the "Add to Home Screen" option.
       </li>
@@ -56,6 +59,10 @@
     width: 80%;
     margin: auto;
     padding: 1em;
+  }
+
+  a {
+    text-decoration: underline;
   }
 
   figure.share-icon {
