@@ -390,7 +390,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 3.5em;
+    padding-bottom: 5em;
   }
 
   .character-sheet-tab-buttons img {
@@ -399,6 +399,7 @@
 
   .xp-input {
     width: 6em;
+    margin-right: 0.25em;
   }
 
   .refresh-button {
@@ -438,5 +439,7 @@
 
   div.xp-progress {
     font-size: 0.9em;
+    display: flex;
+    align-items: center;
   }
 </style>

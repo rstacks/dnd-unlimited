@@ -83,7 +83,7 @@
 
   <div class="hp-info">
     <strong>Hit Points</strong>
-    <fieldset>
+    <fieldset class="hp-display">
       <input class="numeric-input" type="number" autocomplete="off"
         value={getHp()} id="hp-input" onchange="{() => {updateHp()}}">
       <span>
@@ -122,6 +122,7 @@
 
   .numeric-input {
     width: 6em;
+    margin-right: 0.25em;
   }
 
   .bkg-info {
@@ -209,5 +210,10 @@
   .status {
     margin-top: 1em;
     margin-bottom: 1em;
+  }
+
+  fieldset.hp-display {
+    display: flex;
+    align-items: center;
   }
 </style>
