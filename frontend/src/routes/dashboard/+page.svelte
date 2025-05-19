@@ -47,7 +47,8 @@
   {:else}
     <div class="character-cards">
       {#each data.characters as character, i}
-        <CharacterCard character={character}
+        <CharacterCard characterList={data.characters}
+          character={character}
           bind:hideDashboard={showCharacterSheetStates[i]}
           skills={data.skills}
           bind:showLoading={showLoading} />

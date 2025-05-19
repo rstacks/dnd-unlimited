@@ -84,6 +84,14 @@ export const actions = {
     const charSheetFields = await getCharacterSheetFields(request);
     await updateCharInDb(charSheetFields);
   },
+  deleteCharacter: async ({ cookies, request }) => {
+    if (!(await isLoggedIn(cookies))) {
+      redirect(303, "/");
+    }
+
+    const charId = await getCharacterId(request);
+    console.log(charId);
+  },
   levelUp: async ({ cookies, request }) => {
     if (!(await isLoggedIn(cookies))) {
       redirect(303, "/");
@@ -232,4 +240,16 @@ async function levelUpInDb(formFields: LevelUpFormFields): Promise<void> {
   if (!resp.ok) {
     error(503, { message: "Server offline" });
   }
+}
+
+async function getCharacterId(request: Request): Promise<number> {
+  const data = await request.formData();
+  const charIdInput = data.get("char-id");
+
+  let charId = -1;
+  if (charIdInput) {
+    charId = Number(charIdInput.toString());
+  }
+
+  return charId;
 }
