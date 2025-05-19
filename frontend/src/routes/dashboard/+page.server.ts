@@ -90,7 +90,7 @@ export const actions = {
     }
 
     const charId = await getCharacterId(request);
-    console.log(charId);
+    await unlinkCharInDb(charId);
   },
   levelUp: async ({ cookies, request }) => {
     if (!(await isLoggedIn(cookies))) {
@@ -252,4 +252,15 @@ async function getCharacterId(request: Request): Promise<number> {
   }
 
   return charId;
+}
+
+async function unlinkCharInDb(charId: number): Promise<void> {
+  const resp = await fetch(BACKEND_URL + "/characters/" + charId, {
+    method: "DELETE",
+    headers: { "Authorization": "Bearer " + API_KEY }
+  });
+
+  if (!resp.ok) {
+    error(503, { message: "Server offline" });
+  }
 }

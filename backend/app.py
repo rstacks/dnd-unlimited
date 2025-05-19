@@ -175,6 +175,12 @@ def level_up_character():
     con_score
   )
 
+@app.delete("/characters/<int:char_id>")
+def unlink_character_from_user(char_id: int):
+  if not is_authorized_request(request):
+    abort(401)
+  return db_functions.unlink_character_from_user(char_id)
+
 @app.get("/skills")
 def get_skills():
   if not is_authorized_request(request):

@@ -391,6 +391,17 @@ def update_character(id: int, xp: int, notes: str, hp: int):
 
   return { "updated_character_id": id }
 
+def unlink_character_from_user(char_id: int):
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute("UPDATE characters SET user_id = 'null' WHERE id = ?", (char_id,))
+  con.commit()
+
+  con.close()
+
+  return { "unlinked_character_id": char_id }
+
 def get_skills():
   con = _get_db_connection()
 
