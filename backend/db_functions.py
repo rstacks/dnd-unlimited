@@ -378,6 +378,70 @@ def get_user_characters(user_id: int):
 
   return { "characters": formatted_records }
 
+def get_all_characters():
+  char_table_joined_query = "SELECT ch.id, ch.class_id, cl.class_name, cl.hit_dice, f.feat_name, f.feat_desc, ch.character_name, ch.lvl, ch.xp, ch.str, ch.dex, ch.con, ch.intl, ch.wis, ch.cha, ch.armor_class, ch.hp, ch.max_hp, ch.notes, ch.status_effects, ch.lvl_1_spell_slots, ch.lvl_2_spell_slots, ch.lvl_3_spell_slots, ch.lvl_4_spell_slots, ch.proficiency_bonus, ch.speed, ch.rages, ch.rage_damage, ch.second_wind, ch.martial_arts, ch.sneak_attack FROM characters AS ch INNER JOIN classes AS cl ON ch.class_id = cl.id INNER JOIN feats AS f ON cl.feat_id = f.id"
+
+  con = _get_db_connection()
+
+  cur = con.cursor()
+  cur.execute(char_table_joined_query, (user_id,))
+  raw_char_records: list[list] = cur.fetchall()
+
+  formatted_records = []
+  for raw_char_record in raw_char_records:
+    char_record = {
+      "id": raw_char_record[0],
+      "class_id": raw_char_record[1],
+      "class_name": raw_char_record[2],
+      "hit_dice": raw_char_record[3],
+      "feat_name": raw_char_record[4],
+      "feat_desc": raw_char_record[5],
+      "character_name": raw_char_record[6],
+      "lvl": raw_char_record[7],
+      "xp": raw_char_record[8],
+      "str": raw_char_record[9],
+      "dex": raw_char_record[10],
+      "con": raw_char_record[11],
+      "intl": raw_char_record[12],
+      "wis": raw_char_record[13],
+      "cha": raw_char_record[14],
+      "armor_class": raw_char_record[15],
+      "hp": raw_char_record[16],
+      "max_hp": raw_char_record[17],
+      "notes": raw_char_record[18],
+      "status_effects": raw_char_record[19],
+      "lvl_1_spell_slots": raw_char_record[20],
+      "lvl_2_spell_slots": raw_char_record[21],
+      "lvl_3_spell_slots": raw_char_record[22],
+      "lvl_4_spell_slots": raw_char_record[23],
+      "proficiency_bonus": raw_char_record[24],
+      "speed": raw_char_record[25],
+      "rages": raw_char_record[26],
+      "rage_damage": raw_char_record[27],
+      "second_wind": raw_char_record[28],
+      "martial_arts": raw_char_record[29],
+      "sneak_attack": raw_char_record[30],
+      "saves": [],
+      "skills": [],
+      "spells": [],
+      "weapons": [],
+      "items": []
+    }
+
+    char_id = raw_char_record[0]
+    class_id = raw_char_record[1]
+    _assign_class_saves(cur, class_id, char_record)
+    _assign_class_skills(cur, class_id, char_record)
+    char_record["spells"] = get_spells_by_class(class_id)["spells"]
+    char_record["weapons"] = get_character_weapons(char_id)["weapons"]
+    char_record["items"] = get_character_items(char_id)["items"]
+
+    formatted_records.append(char_record)
+
+  con.close()
+
+  return { "characters": formatted_records }
+
 def update_character(id: int, xp: int, notes: str, hp: int):
   update_query = "UPDATE characters SET xp = ?, notes = ?, hp = ? WHERE id = ?"
 
