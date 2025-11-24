@@ -139,7 +139,7 @@ def get_user_characters(user_id: int):
   return character_records
 
 @app.get("/characters")
-def get_all_characters(user_id: int):
+def get_all_characters():
   if not is_authorized_request(request):
     abort(401)
   return db_functions.get_all_characters()
