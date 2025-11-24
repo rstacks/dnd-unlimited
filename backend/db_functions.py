@@ -384,7 +384,7 @@ def get_all_characters():
   con = _get_db_connection()
 
   cur = con.cursor()
-  cur.execute(char_table_joined_query, (user_id,))
+  cur.execute(char_table_joined_query)
   raw_char_records: list[list] = cur.fetchall()
 
   formatted_records = []
